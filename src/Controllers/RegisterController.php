@@ -10,4 +10,13 @@ class RegisterController extends Controller
     {
         $this->view('register');
     }
+
+    public function register(): void
+    {
+        var_dump(
+            $this->request()->input('name'),
+            $this->request()->input('email'),
+            $this->request()->input('password')
+        );
+    }
 }
