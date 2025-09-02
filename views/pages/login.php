@@ -7,5 +7,12 @@
 </head>
 <body>
     <b>Login page</b>
+    <div>
+        <form action="/signin" method="post">
+            <input type="text" name="name" placeholder="Имя*">
+            <input type="password" name="password" placeholder="Пароль*">
+            <button>Войти</button>
+        </form>
+    </div>
 </body>
 </html>
