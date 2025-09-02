@@ -10,4 +10,12 @@ class LoginController extends Controller
     {
         $this->view('login');
     }
+
+    public function login(): void
+    {
+        var_dump(
+            $this->request()->input('name'),
+            $this->request()->input('password')
+        );
+    }
 }

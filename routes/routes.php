@@ -11,5 +11,6 @@ return [
     Route::get(uri: '/settings', action: [SettingsController::class, 'index']),
     Route::get(uri: '/signup', action: [RegisterController::class, 'index']),
     Route::post(uri: '/signup', action: [RegisterController::class, 'register']),
-    Route::get(uri: '/signin', action: [LoginController::class, 'index'])
+    Route::get(uri: '/signin', action: [LoginController::class, 'index']),
+    Route::post(uri: '/signin', action: [LoginController::class, 'login'])
 ];
