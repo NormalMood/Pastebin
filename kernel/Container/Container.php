@@ -2,6 +2,10 @@
 
 namespace Pastebin\Kernel\Container;
 
+use Pastebin\Kernel\Config\Config;
+use Pastebin\Kernel\Config\ConfigInterface;
+use Pastebin\Kernel\Database\Database;
+use Pastebin\Kernel\Database\DatabaseInterface;
 use Pastebin\Kernel\Http\Request;
 use Pastebin\Kernel\Http\RequestInterface;
 use Pastebin\Kernel\Router\Router;
@@ -17,6 +21,10 @@ class Container
 
     public readonly RouterInterface $router;
 
+    public readonly ConfigInterface $config;
+
+    public readonly DatabaseInterface $database;
+
     public function __construct()
     {
         $this->registerServices();
@@ -27,5 +35,7 @@ class Container
         $this->request = Request::createFromGlobals();
         $this->view = new View();
         $this->router = new Router($this->view, $this->request);
+        $this->config = new Config();
+        $this->database = new Database($this->config);
     }
 }
