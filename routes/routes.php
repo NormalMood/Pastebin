@@ -9,6 +9,6 @@ use App\Kernel\Router\Route;
 return [
     Route::get(uri: '/', action: [PostController::class, 'index']),
     Route::get(uri: '/settings', action: [SettingsController::class, 'index']),
-    Route::get('/signup', [RegisterController::class, 'index']),
+    Route::get(uri: '/signup', action: [RegisterController::class, 'index']),
     Route::get(uri: '/signin', action: [LoginController::class, 'index'])
 ];
