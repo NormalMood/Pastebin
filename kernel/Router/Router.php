@@ -2,6 +2,8 @@
 
 namespace App\Kernel\Router;
 
+use App\Kernel\View\ViewInterface;
+
 class Router implements RouterInterface
 {
     private array $routes = [
@@ -9,8 +11,9 @@ class Router implements RouterInterface
         POST => []
     ];
 
-    public function __construct()
-    {
+    public function __construct(
+        private ViewInterface $view
+    ) {
         $this->initRoutes();
     }
 
@@ -26,6 +29,7 @@ class Router implements RouterInterface
              * @var \App\Kernel\Controller\Controller $controller
              */
             $controller = new $controller();
+            call_user_func([$controller, 'setView'], $this->view);
             call_user_func(callback: [$controller, $action]);
         } else {
             call_user_func(callback: $route->getAction());

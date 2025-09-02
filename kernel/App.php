@@ -3,7 +3,6 @@
 namespace App\Kernel;
 
 use App\Kernel\Container\Container;
-use App\Kernel\Router\Router;
 
 class App
 {
@@ -14,10 +13,11 @@ class App
     }
     public function run(): void
     {
-        $router = new Router();
-        $router->dispatch(
-            uri: $this->container->request->uri(),
-            method: $this->container->request->method()
-        );
+        $this->container
+            ->router
+            ->dispatch(
+                uri: $this->container->request->uri(),
+                method: $this->container->request->method()
+            );
     }
 }
