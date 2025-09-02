@@ -2,11 +2,14 @@
 
 namespace App\Kernel\Controller;
 
+use App\Kernel\Http\RequestInterface;
 use App\Kernel\View\ViewInterface;
 
 abstract class Controller
 {
     private ViewInterface $view;
+
+    private RequestInterface $request;
 
     public function view(string $name): void
     {
@@ -16,5 +19,15 @@ abstract class Controller
     public function setView(ViewInterface $view): void
     {
         $this->view = $view;
+    }
+
+    public function request(): RequestInterface
+    {
+        return $this->request;
+    }
+
+    public function setRequest(RequestInterface $request): void
+    {
+        $this->request = $request;
     }
 }

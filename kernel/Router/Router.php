@@ -2,6 +2,7 @@
 
 namespace App\Kernel\Router;
 
+use App\Kernel\Http\RequestInterface;
 use App\Kernel\View\ViewInterface;
 
 class Router implements RouterInterface
@@ -12,7 +13,8 @@ class Router implements RouterInterface
     ];
 
     public function __construct(
-        private ViewInterface $view
+        private ViewInterface $view,
+        private RequestInterface $request
     ) {
         $this->initRoutes();
     }
@@ -30,6 +32,7 @@ class Router implements RouterInterface
              */
             $controller = new $controller();
             call_user_func([$controller, 'setView'], $this->view);
+            call_user_func([$controller, 'setRequest'], $this->request);
             call_user_func(callback: [$controller, $action]);
         } else {
             call_user_func(callback: $route->getAction());
