@@ -7,5 +7,13 @@
 </head>
 <body>
     <b>Registration page</b>
+    <div>
+        <form action="/signup" method="post">
+            <input type="text" name="name" placeholder="Имя*">
+            <input type="email" name="email" placeholder="E-mail*">
+            <input type="password" name="password" placeholder="Пароль*">
+            <button>Создать аккаунт</button>
+        </form>
+    </div>
 </body>
 </html>
