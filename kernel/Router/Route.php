@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Kernel\Router;
+namespace Pastebin\Kernel\Router;
 
 class Route
 {

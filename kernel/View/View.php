@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Kernel\View;
+namespace Pastebin\Kernel\View;
 
-use App\Kernel\Exceptions\ViewNotFoundException;
+use Pastebin\Kernel\Exceptions\ViewNotFoundException;
 
 class View implements ViewInterface
 {

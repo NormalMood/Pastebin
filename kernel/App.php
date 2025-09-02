@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Kernel;
+namespace Pastebin\Kernel;
 
-use App\Kernel\Container\Container;
+use Pastebin\Kernel\Container\Container;
 
 class App
 {

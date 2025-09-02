@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Kernel\Router;
+namespace Pastebin\Kernel\Router;
 
-use App\Kernel\Http\RequestInterface;
-use App\Kernel\View\ViewInterface;
+use Pastebin\Kernel\Http\RequestInterface;
+use Pastebin\Kernel\View\ViewInterface;
 
 class Router implements RouterInterface
 {
@@ -28,7 +28,7 @@ class Router implements RouterInterface
         if (is_array($route->getAction())) {
             [$controller, $action] = $route->getAction();
             /**
-             * @var \App\Kernel\Controller\Controller $controller
+             * @var \Pastebin\Kernel\Controller\Controller $controller
              */
             $controller = new $controller();
             call_user_func([$controller, 'setView'], $this->view);

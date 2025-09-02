@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Kernel\Http;
+namespace Pastebin\Kernel\Http;
 
 interface RequestInterface
 {

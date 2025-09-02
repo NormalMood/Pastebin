@@ -5,7 +5,7 @@ require_once APP_PATH . '/kernel/constants/constants.php';
 
 require_once APP_PATH . '/vendor/autoload.php';
 
-use App\Kernel\App;
+use Pastebin\Kernel\App;
 
 $app = new App();
 $app->run();

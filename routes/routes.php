@@ -1,10 +1,10 @@
 <?php
 
-use App\Controllers\LoginController;
-use App\Controllers\PostController;
-use App\Controllers\RegisterController;
-use App\Controllers\SettingsController;
-use App\Kernel\Router\Route;
+use Pastebin\Controllers\LoginController;
+use Pastebin\Controllers\PostController;
+use Pastebin\Controllers\RegisterController;
+use Pastebin\Controllers\SettingsController;
+use Pastebin\Kernel\Router\Route;
 
 return [
     Route::get(uri: '/', action: [PostController::class, 'index']),

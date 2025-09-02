@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Kernel\Container;
+namespace Pastebin\Kernel\Container;
 
-use App\Kernel\Http\Request;
-use App\Kernel\Http\RequestInterface;
-use App\Kernel\Router\Router;
-use App\Kernel\Router\RouterInterface;
-use App\Kernel\View\View;
-use App\Kernel\View\ViewInterface;
+use Pastebin\Kernel\Http\Request;
+use Pastebin\Kernel\Http\RequestInterface;
+use Pastebin\Kernel\Router\Router;
+use Pastebin\Kernel\Router\RouterInterface;
+use Pastebin\Kernel\View\View;
+use Pastebin\Kernel\View\ViewInterface;
 
 class Container
 {

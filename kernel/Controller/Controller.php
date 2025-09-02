@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Kernel\Controller;
+namespace Pastebin\Kernel\Controller;
 
-use App\Kernel\Http\RequestInterface;
-use App\Kernel\View\ViewInterface;
+use Pastebin\Kernel\Http\RequestInterface;
+use Pastebin\Kernel\View\ViewInterface;
 
 abstract class Controller
 {

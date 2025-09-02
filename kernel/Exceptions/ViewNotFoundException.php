@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Kernel\Exceptions;
+namespace Pastebin\Kernel\Exceptions;
 
 class ViewNotFoundException extends \Exception
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controllers;
+namespace Pastebin\Controllers;
 
-use App\Kernel\Controller\Controller;
+use Pastebin\Kernel\Controller\Controller;
 
 class LoginController extends Controller
 {
