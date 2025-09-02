@@ -2,16 +2,22 @@
 
 namespace App\Kernel;
 
+use App\Kernel\Container\Container;
 use App\Kernel\Router\Router;
 
 class App
 {
+    private Container $container;
+    public function __construct()
+    {
+        $this->container = new Container();
+    }
     public function run(): void
     {
         $router = new Router();
         $router->dispatch(
-            uri: $_SERVER['REQUEST_URI'],
-            method: $_SERVER['REQUEST_METHOD']
+            uri: $this->container->request->uri(),
+            method: $this->container->request->method()
         );
     }
 }
