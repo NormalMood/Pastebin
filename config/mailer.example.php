@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'SMTP_HOST' => 'smtp.gmail.com',
-    'SMTP_PORT' => 587,
-    'SMTP_USER' => 'your-email@gmail.com',
-    'SMTP_PASS' => 'aaaa bbbb cccc dddd'
+    'SMTP_HOST' => 'smtp.yandex.ru',
+    'SMTP_PORT' => 465,
+    'SMTP_USER' => 'your-email@yandex.ru',
+    'SMTP_PASS' => 'aaaaaaaaaaaaaaaa'
 ];
