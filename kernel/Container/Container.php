@@ -11,6 +11,8 @@ use Pastebin\Kernel\Http\RequestInterface;
 use Pastebin\Kernel\MailSender\MailSender;
 use Pastebin\Kernel\Router\Router;
 use Pastebin\Kernel\Router\RouterInterface;
+use Pastebin\Kernel\Session\Session;
+use Pastebin\Kernel\Session\SessionInterface;
 use Pastebin\Kernel\View\View;
 use Pastebin\Kernel\View\ViewInterface;
 
@@ -28,6 +30,8 @@ class Container
 
     public readonly MailSender $mailSender;
 
+    public readonly SessionInterface $session;
+
     public function __construct()
     {
         $this->registerServices();
@@ -41,5 +45,6 @@ class Container
         $this->config = new Config();
         $this->database = new Database($this->config);
         $this->mailSender = new MailSender($this->config);
+        $this->session = new Session();
     }
 }
