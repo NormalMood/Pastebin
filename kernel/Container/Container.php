@@ -14,6 +14,8 @@ use Pastebin\Kernel\MailSender\MailSender;
 use Pastebin\Kernel\Router\Router;
 use Pastebin\Kernel\Router\RouterInterface;
 use Pastebin\Kernel\Session\Session;
+use Pastebin\Kernel\Session\SessionCookie;
+use Pastebin\Kernel\Session\SessionCookieInterface;
 use Pastebin\Kernel\Session\SessionInterface;
 use Pastebin\Kernel\View\View;
 use Pastebin\Kernel\View\ViewInterface;
@@ -34,6 +36,8 @@ class Container
 
     public readonly SessionInterface $session;
 
+    public readonly SessionCookieInterface $sessionCookie;
+
     public readonly AuthInterface $auth;
 
     public function __construct()
@@ -50,6 +54,7 @@ class Container
         $this->database = new Database($this->config);
         $this->mailSender = new MailSender($this->config);
         $this->session = new Session();
+        $this->sessionCookie = new SessionCookie($this->config, $this->request);
         $this->auth = new Auth($this->config, $this->database, $this->session);
     }
 }
