@@ -2,6 +2,8 @@
 
 namespace Pastebin\Kernel\Container;
 
+use Pastebin\Kernel\Auth\Auth;
+use Pastebin\Kernel\Auth\AuthInterface;
 use Pastebin\Kernel\Config\Config;
 use Pastebin\Kernel\Config\ConfigInterface;
 use Pastebin\Kernel\Database\Database;
@@ -32,6 +34,8 @@ class Container
 
     public readonly SessionInterface $session;
 
+    public readonly AuthInterface $auth;
+
     public function __construct()
     {
         $this->registerServices();
@@ -46,5 +50,6 @@ class Container
         $this->database = new Database($this->config);
         $this->mailSender = new MailSender($this->config);
         $this->session = new Session();
+        $this->auth = new Auth($this->config, $this->database, $this->session);
     }
 }
