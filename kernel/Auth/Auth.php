@@ -5,6 +5,7 @@ namespace Pastebin\Kernel\Auth;
 use Pastebin\Kernel\Config\ConfigInterface;
 use Pastebin\Kernel\Database\DatabaseInterface;
 use Pastebin\Kernel\Session\SessionInterface;
+use Pastebin\Kernel\Utils\Token;
 
 class Auth implements AuthInterface
 {
@@ -15,7 +16,7 @@ class Auth implements AuthInterface
     ) {
     }
 
-    public function register(string $name, string $email, string $password): string
+    public function register(string $name, string $email, string $password): Token
     {
     }
 

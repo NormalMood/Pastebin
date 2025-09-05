@@ -2,9 +2,11 @@
 
 namespace Pastebin\Kernel\Auth;
 
+use Pastebin\Kernel\Utils\Token;
+
 interface AuthInterface
 {
-    public function register(string $name, string $email, string $password): string;
+    public function register(string $name, string $email, string $password): Token;
 
     public function attempt(string $username, string $password): bool;
 
