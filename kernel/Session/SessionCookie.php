@@ -23,13 +23,13 @@ class SessionCookie implements SessionCookieInterface
         );
     }
 
-    public function set(string $token, int $ttl): void
+    public function set(string $token, int $expiresAt): void
     {
         setcookie(
             $this->config->get('auth.cookie_field', 'SESSION_TOKEN'),
             $token,
             [
-                'expires' => time() + $ttl,
+                'expires' => $expiresAt,
                 'path' => '/',
                 'domain' => 'localhost',
                 'secure' => false,
@@ -47,6 +47,6 @@ class SessionCookie implements SessionCookieInterface
 
     public function remove(): void
     {
-        $this->set(token: '', ttl: -SESSION_COOKIE_TTL);
+        $this->set(token: '', expiresAt: time() - SESSION_COOKIE_TTL);
     }
 }
