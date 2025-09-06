@@ -67,7 +67,7 @@ class RegisterService
     {
         $this->mailSender->sendHtml(
             address: $email,
-            html: "<b>Здравствуйте, $name!</b>Для подтверждения аккаунта перейдите по ссылке: <a href=\"http://localhost/verify?token=$token\">http://localhost/verify?token=$token</a>",
+            html: "<b>Здравствуйте, $name!</b><br>Для подтверждения аккаунта перейдите по ссылке: <a href=\"http://localhost/verify?token=$token\">http://localhost/verify?token=$token</a>",
             altBody: "Здравствуйте, $name! Для подтверждения аккаунта перейдите по ссылке: http://localhost/verify?token=$token",
             subject: 'Подтверждение аккаунта на Pastebin'
         );
