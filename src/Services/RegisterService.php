@@ -22,7 +22,7 @@ class RegisterService
     ) {
     }
 
-    public function register(string $name, string $email, string $password)
+    public function register(string $name, string $email, string $password): void
     {
         if (!empty($this->database->get('names_taken', ['name' => $name]))) {
             //to-do: set error session
@@ -46,13 +46,30 @@ class RegisterService
             'verification_token' => $verificationToken
         ]);
         $this->database->insert('names_taken', ['name' => $name]);
-        $this->mailSender->sendHtml(
-            address: $email,
-            html: "<b>Здравствуйте, $name!</b>Для подтверждения аккаунта перейдите по ссылке: <a href=\"http://localhost/verify?token=$verificationToken\">http://localhost/verify?token=$verificationToken</a>",
-            altBody: "Здравствуйте, $name! Для подтверждения аккаунта перейдите по ссылке: http://localhost/verify?token=$verificationToken",
-            subject: 'Подтверждение аккаунта на Pastebin'
-        );
+        $this->sendVerificationLink($email, $name, $verificationToken);
         $this->session->set($this->config->get('auth.verification_link_field'), $email);
         $this->redirect->to('/resend-link');
+    }
+
+    public function resendLink(string $email): void
+    {
+        $user = $this->database->get('users', ['e_mail' => $email]);
+        if (empty($user)) {
+            //to-do: set error session
+            echo 'Нет пользователя с таким e-mail';
+            exit;
+        } else {
+            $this->sendVerificationLink($user['e_mail'], $user['name'], $user['verification_token']);
+        }
+    }
+
+    private function sendVerificationLink(string $email, string $name, string $token): void
+    {
+        $this->mailSender->sendHtml(
+            address: $email,
+            html: "<b>Здравствуйте, $name!</b>Для подтверждения аккаунта перейдите по ссылке: <a href=\"http://localhost/verify?token=$token\">http://localhost/verify?token=$token</a>",
+            altBody: "Здравствуйте, $name! Для подтверждения аккаунта перейдите по ссылке: http://localhost/verify?token=$token",
+            subject: 'Подтверждение аккаунта на Pastebin'
+        );
     }
 }

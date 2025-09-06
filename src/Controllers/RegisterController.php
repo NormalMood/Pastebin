@@ -34,4 +34,14 @@ class RegisterController extends Controller
             $this->request()->input('password')
         );
     }
+
+    public function showResend(): void
+    {
+        $this->view('resend-link');
+    }
+
+    public function resend(): void
+    {
+        $this->service->resendLink($this->request()->input('email'));
+    }
 }
