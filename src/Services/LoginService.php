@@ -71,6 +71,23 @@ class LoginService
         $this->redirect->to('/profile');
     }
 
+    public function forgotName(string $email): void
+    {
+        $user = $this->database->first('users', ['e_mail' => $email]);
+        if (empty($user)) {
+            //to-do: set error session
+            $this->redirect->to('/signin');
+        }
+        $this->mailSender->sendHtml(
+            $email,
+            "Здравствуйте! Вы запросили восстановление имени. Ваше имя: <b>{$user['name']}</b>",
+            "Здравствуйте! Вы запросили восстановление имени. Ваше имя: {$user['name']}",
+            'Восстановление имени на Pastebin'
+        );
+        //to-do: set success message session
+        $this->redirect->to('/signin');
+    }
+
     public function logout(): void
     {
         $userId = $this->session->get($this->config->get('auth.session_field'));

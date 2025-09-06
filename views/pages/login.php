@@ -14,5 +14,12 @@
             <button>Войти</button>
         </form>
     </div>
+    <br><br>
+    <div>
+        <form action="/forgot-name" method="post">
+            <input type="text" name="email" placeholder="E-mail*">
+            <button>Восстановить имя</button>
+        </form>
+    </div>
 </body>
 </html>

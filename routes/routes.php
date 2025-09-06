@@ -18,5 +18,6 @@ return [
     Route::get(uri: '/verify', action: [RegisterController::class, 'verify']),
     Route::get(uri: '/signin', action: [LoginController::class, 'index']),
     Route::post(uri: '/signin', action: [LoginController::class, 'login']),
+    Route::post(uri: '/forgot-name', action: [LoginController::class, 'forgotName']),
     Route::post(uri: '/logout', action: [LoginController::class, 'logout'])
 ];

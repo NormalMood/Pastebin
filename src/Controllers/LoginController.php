@@ -22,6 +22,11 @@ class LoginController extends Controller
         );
     }
 
+    public function forgotName(): void
+    {
+        $this->service()->forgotName($this->request()->input('email'));
+    }
+
     public function logout(): void
     {
         $this->service()->logout();
