@@ -2,6 +2,7 @@
 
 use Pastebin\Controllers\LoginController;
 use Pastebin\Controllers\PostController;
+use Pastebin\Controllers\ProfileController;
 use Pastebin\Controllers\RegisterController;
 use Pastebin\Controllers\SettingsController;
 use Pastebin\Kernel\Router\Route;
@@ -9,6 +10,7 @@ use Pastebin\Kernel\Router\Route;
 return [
     Route::get(uri: '/', action: [PostController::class, 'index']),
     Route::get(uri: '/settings', action: [SettingsController::class, 'index']),
+    Route::get(uri: '/profile', action: [ProfileController::class, 'index']),
     Route::get(uri: '/signup', action: [RegisterController::class, 'index']),
     Route::post(uri: '/signup', action: [RegisterController::class, 'register']),
     Route::get(uri: '/resend-link', action: [RegisterController::class, 'showResend']),
