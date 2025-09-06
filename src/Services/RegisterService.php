@@ -53,13 +53,14 @@ class RegisterService
 
     public function resendLink(string $email): void
     {
-        $user = $this->database->get('users', ['e_mail' => $email]);
+        $user = $this->database->first('users', ['e_mail' => $email]);
         if (empty($user)) {
             //to-do: set error session
             echo 'Нет пользователя с таким e-mail';
             exit;
         } else {
             $this->sendVerificationLink($user['e_mail'], $user['name'], $user['verification_token']);
+            $this->redirect->to('/resend-link');
         }
     }
 
