@@ -9,6 +9,7 @@ use Pastebin\Kernel\Database\DatabaseInterface;
 use Pastebin\Kernel\Http\RedirectInterface;
 use Pastebin\Kernel\MailSender\MailSenderInterface;
 use Pastebin\Kernel\Session\SessionInterface;
+use Pastebin\Kernel\Utils\Hash;
 use Pastebin\Kernel\Utils\Token;
 
 class RegisterService
@@ -41,7 +42,7 @@ class RegisterService
         $this->database->insert('users', [
             'name' => $name,
             'e_mail' => $email,
-            'password' => $password,
+            'password' => Hash::get($password),
             'created_at' => (new DateTime('now', new DateTimeZone('UTC')))->format('Y-m-d H:i:sP'),
             'verification_token' => $verificationToken
         ]);
