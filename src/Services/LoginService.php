@@ -88,6 +88,45 @@ class LoginService
         $this->redirect->to('/signin');
     }
 
+    public function forgotPassword(string $name): void
+    {
+        $user = $this->database->first('users', ['name' => $name]);
+        if (empty($user)) {
+            //to-do: set error session
+            $this->redirect->to('/signin');
+        }
+        $passwordResetToken = Token::random();
+        $this->database->update(
+            'users',
+            ['password_reset_token' => $passwordResetToken],
+            ['user_id' => $user['user_id']]
+        );
+        $this->mailSender->sendHtml(
+            $user['e_mail'],
+            "Здравствуйте, {$user['name']}!<br>Для сброса пароля перейдите по ссылке: <a href=\"http://localhost/reset-password?token=$passwordResetToken\">http://localhost/reset-password?token=$passwordResetToken</a>",
+            "Здравствуйте, {$user['name']}! Для сброса пароля перейдите по ссылке: http://localhost/reset-password?token=$passwordResetToken",
+            'Сброс пароля на Pastebin'
+        );
+        $this->redirect->to('/signin');
+    }
+
+    public function resetPassword(string $token, string $newPassword): void
+    {
+        $user = $this->database->first('users', ['password_reset_token' => $token]);
+        if (empty($user)) {
+            //to-do: set error session???
+            echo 'Токен недействителен';
+            exit;
+        }
+        $this->database->update(
+            'users',
+            ['password' => Hash::get($newPassword), 'password_reset_token' => null],
+            ['user_id' => $user['user_id']]
+        );
+        //to-do: set success message session
+        $this->redirect->to('/signin');
+    }
+
     public function logout(): void
     {
         $userId = $this->session->get($this->config->get('auth.session_field'));

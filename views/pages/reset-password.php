@@ -1,0 +1,23 @@
+<?php
+/**
+ * @var string $token
+ */
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <b>Reset password</b><br>
+    <div>
+        <form action="/reset-password" method="post">
+            <input type="hidden" name="token" value="<?php echo $token ?>">
+            <input type="password" name="new_password" placeholder="Новый пароль*">
+            <button>Сохранить</button>
+        </form>
+    </div>
+</body>
+</html>

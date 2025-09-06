@@ -21,5 +21,12 @@
             <button>Восстановить имя</button>
         </form>
     </div>
+    <br><br>
+    <div>
+        <form action="/forgot-password" method="post">
+            <input type="text" name="name" placeholder="Имя*">
+            <button>Восстановить пароль</button>
+        </form>
+    </div>
 </body>
 </html>

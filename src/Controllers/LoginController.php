@@ -27,6 +27,24 @@ class LoginController extends Controller
         $this->service()->forgotName($this->request()->input('email'));
     }
 
+    public function forgotPassword(): void
+    {
+        $this->service()->forgotPassword($this->request()->input('name'));
+    }
+
+    public function resetPasswordShow(): void
+    {
+        $this->view('reset-password', ['token' => $this->request()->input('token')]);
+    }
+
+    public function resetPassword(): void
+    {
+        $this->service()->resetPassword(
+            $this->request()->input('token'),
+            $this->request()->input('new_password')
+        );
+    }
+
     public function logout(): void
     {
         $this->service()->logout();

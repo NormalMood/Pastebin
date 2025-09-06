@@ -19,5 +19,8 @@ return [
     Route::get(uri: '/signin', action: [LoginController::class, 'index']),
     Route::post(uri: '/signin', action: [LoginController::class, 'login']),
     Route::post(uri: '/forgot-name', action: [LoginController::class, 'forgotName']),
+    Route::post(uri: '/forgot-password', action: [LoginController::class, 'forgotPassword']),
+    Route::get(uri: '/reset-password', action: [LoginController::class, 'resetPasswordShow']),
+    Route::post(uri: '/reset-password', action: [LoginController::class, 'resetPassword']),
     Route::post(uri: '/logout', action: [LoginController::class, 'logout'])
 ];
