@@ -7,6 +7,7 @@ use Pastebin\Kernel\Database\DatabaseInterface;
 use Pastebin\Kernel\Http\RedirectInterface;
 use Pastebin\Kernel\Http\RequestInterface;
 use Pastebin\Kernel\MailSender\MailSenderInterface;
+use Pastebin\Kernel\Session\SessionCookieInterface;
 use Pastebin\Kernel\Session\SessionInterface;
 use Pastebin\Kernel\View\ViewInterface;
 
@@ -24,7 +25,8 @@ class Router implements RouterInterface
         private RedirectInterface $redirect,
         private MailSenderInterface $mailSender,
         private SessionInterface $session,
-        private ConfigInterface $config
+        private ConfigInterface $config,
+        private SessionCookieInterface $sessionCookie
     ) {
         $this->initRoutes();
     }
@@ -48,6 +50,7 @@ class Router implements RouterInterface
             call_user_func([$controller, 'setMailSender'], $this->mailSender);
             call_user_func([$controller, 'setSession'], $this->session);
             call_user_func([$controller, 'setConfig'], $this->config);
+            call_user_func([$controller, 'setSessionCookie'], $this->sessionCookie);
             call_user_func(callback: [$controller, $action]);
         } else {
             call_user_func(callback: $route->getAction());

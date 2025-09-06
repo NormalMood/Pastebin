@@ -8,6 +8,7 @@ use Pastebin\Kernel\Config\ConfigInterface;
 use Pastebin\Kernel\Database\DatabaseInterface;
 use Pastebin\Kernel\Http\RedirectInterface;
 use Pastebin\Kernel\MailSender\MailSenderInterface;
+use Pastebin\Kernel\Session\SessionCookieInterface;
 use Pastebin\Kernel\Session\SessionInterface;
 use Pastebin\Kernel\Utils\Hash;
 use Pastebin\Kernel\Utils\Token;
@@ -19,7 +20,8 @@ class RegisterService
         private RedirectInterface $redirect,
         private MailSenderInterface $mailSender,
         private SessionInterface $session,
-        private ConfigInterface $config
+        private ConfigInterface $config,
+        private SessionCookieInterface $sessionCookie
     ) {
     }
 
@@ -62,6 +64,51 @@ class RegisterService
         } else {
             $this->sendVerificationLink($user['e_mail'], $user['name'], $user['verification_token']);
             $this->redirect->to('/resend-link');
+        }
+    }
+
+    public function verify(string $token): void
+    {
+        $user = $this->database->first('users', ['verification_token' => $token]);
+        if (empty($user)) {
+            //to-do: set error session???
+            echo 'Ссылка недействительна';
+            exit;
+        } else {
+            //remove email for account verification from session
+            $this->session->remove($this->config->get('auth.verification_link_field'));
+            //remove verification token from db
+            $this->database->update('users', ['verification_token' => null], ['user_id' => $user['user_id']]);
+
+            //create session:
+            $this->session->set($this->config->get('auth.session_field'), $user['user_id']);
+
+
+            $sessionToken = Token::random();
+
+            $nowTimestamp = time();
+
+            $cookieExpiresAt = $nowTimestamp + SESSION_COOKIE_TTL;
+
+            $sessionTokenCreatedAt = new DateTime();
+            $sessionTokenCreatedAt->setTimestamp($nowTimestamp);
+            $sessionTokenCreatedAt->setTimezone(new DateTimeZone('UTC'));
+
+
+            $sessionTokenExpiresAt = new DateTime();
+            $sessionTokenExpiresAt->setTimestamp($cookieExpiresAt);
+            $sessionTokenExpiresAt->setTimezone(new DateTimeZone('UTC'));
+            //set session cookie:
+            $this->sessionCookie->set($sessionToken, $cookieExpiresAt);
+
+            //save session token in db
+            $this->database->insert('sessions_tokens', [
+                'session_token' => Hash::get($sessionToken),
+                'user_id' => $user['user_id'],
+                'created_at' => $sessionTokenCreatedAt->format('Y-m-d H:i:sP'),
+                'expires_at' => $sessionTokenExpiresAt->format('Y-m-d H:i:sP')
+            ]);
+            $this->redirect->to('/settings');
         }
     }
 

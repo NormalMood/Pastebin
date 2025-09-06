@@ -59,6 +59,7 @@ class Container
         $this->database = new Database($this->config);
         $this->redirect = new Redirect();
         $this->mailSender = new MailSender($this->config);
+        $this->sessionCookie = new SessionCookie($this->config, $this->request);
         $this->router = new Router(
             $this->view,
             $this->request,
@@ -66,9 +67,9 @@ class Container
             $this->redirect,
             $this->mailSender,
             $this->session,
-            $this->config
+            $this->config,
+            $this->sessionCookie
         );
-        $this->sessionCookie = new SessionCookie($this->config, $this->request);
         $this->auth = new Auth($this->config, $this->database, $this->session);
         Hash::setConfig($this->config);
     }

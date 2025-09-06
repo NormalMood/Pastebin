@@ -34,6 +34,11 @@ class RegisterController extends Controller
         $this->service()->resendLink($this->request()->input('email'));
     }
 
+    public function verify(): void
+    {
+        $this->service()->verify($this->request()->input('token'));
+    }
+
     private function service(): RegisterService
     {
         if (!isset($this->service)) {
@@ -42,7 +47,8 @@ class RegisterController extends Controller
                 $this->redirect(),
                 $this->mailSender(),
                 $this->session(),
-                $this->config()
+                $this->config(),
+                $this->sessionCookie()
             );
         }
         return $this->service;

@@ -7,6 +7,7 @@ use Pastebin\Kernel\Database\DatabaseInterface;
 use Pastebin\Kernel\Http\RedirectInterface;
 use Pastebin\Kernel\Http\RequestInterface;
 use Pastebin\Kernel\MailSender\MailSenderInterface;
+use Pastebin\Kernel\Session\SessionCookieInterface;
 use Pastebin\Kernel\Session\SessionInterface;
 use Pastebin\Kernel\View\ViewInterface;
 
@@ -23,6 +24,8 @@ abstract class Controller
     private MailSenderInterface $mailSender;
 
     private SessionInterface $session;
+
+    private SessionCookieInterface $sessionCookie;
 
     private ConfigInterface $config;
 
@@ -84,6 +87,16 @@ abstract class Controller
     public function setSession(SessionInterface $session): void
     {
         $this->session = $session;
+    }
+
+    public function sessionCookie(): SessionCookieInterface
+    {
+        return $this->sessionCookie;
+    }
+
+    public function setSessionCookie(SessionCookieInterface $sessionCookie): void
+    {
+        $this->sessionCookie = $sessionCookie;
     }
 
     public function config(): ConfigInterface
