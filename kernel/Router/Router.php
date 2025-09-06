@@ -2,7 +2,12 @@
 
 namespace Pastebin\Kernel\Router;
 
+use Pastebin\Kernel\Config\ConfigInterface;
+use Pastebin\Kernel\Database\DatabaseInterface;
+use Pastebin\Kernel\Http\RedirectInterface;
 use Pastebin\Kernel\Http\RequestInterface;
+use Pastebin\Kernel\MailSender\MailSenderInterface;
+use Pastebin\Kernel\Session\SessionInterface;
 use Pastebin\Kernel\View\ViewInterface;
 
 class Router implements RouterInterface
@@ -14,7 +19,12 @@ class Router implements RouterInterface
 
     public function __construct(
         private ViewInterface $view,
-        private RequestInterface $request
+        private RequestInterface $request,
+        private DatabaseInterface $database,
+        private RedirectInterface $redirect,
+        private MailSenderInterface $mailSender,
+        private SessionInterface $session,
+        private ConfigInterface $config
     ) {
         $this->initRoutes();
     }
@@ -33,6 +43,11 @@ class Router implements RouterInterface
             $controller = new $controller();
             call_user_func([$controller, 'setView'], $this->view);
             call_user_func([$controller, 'setRequest'], $this->request);
+            call_user_func([$controller, 'setDatabase'], $this->database);
+            call_user_func([$controller, 'setRedirect'], $this->redirect);
+            call_user_func([$controller, 'setMailSender'], $this->mailSender);
+            call_user_func([$controller, 'setSession'], $this->session);
+            call_user_func([$controller, 'setConfig'], $this->config);
             call_user_func(callback: [$controller, $action]);
         } else {
             call_user_func(callback: $route->getAction());

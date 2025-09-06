@@ -8,6 +8,8 @@ use Pastebin\Kernel\Config\Config;
 use Pastebin\Kernel\Config\ConfigInterface;
 use Pastebin\Kernel\Database\Database;
 use Pastebin\Kernel\Database\DatabaseInterface;
+use Pastebin\Kernel\Http\Redirect;
+use Pastebin\Kernel\Http\RedirectInterface;
 use Pastebin\Kernel\Http\Request;
 use Pastebin\Kernel\Http\RequestInterface;
 use Pastebin\Kernel\MailSender\MailSender;
@@ -40,6 +42,8 @@ class Container
 
     public readonly AuthInterface $auth;
 
+    public readonly RedirectInterface $redirect;
+
     public function __construct()
     {
         $this->registerServices();
@@ -49,11 +53,20 @@ class Container
     {
         $this->request = Request::createFromGlobals();
         $this->view = new View();
-        $this->router = new Router($this->view, $this->request);
         $this->config = new Config();
         $this->database = new Database($this->config);
+        $this->redirect = new Redirect();
         $this->mailSender = new MailSender($this->config);
         $this->session = new Session();
+        $this->router = new Router(
+            $this->view,
+            $this->request,
+            $this->database,
+            $this->redirect,
+            $this->mailSender,
+            $this->session,
+            $this->config
+        );
         $this->sessionCookie = new SessionCookie($this->config, $this->request);
         $this->auth = new Auth($this->config, $this->database, $this->session);
     }
