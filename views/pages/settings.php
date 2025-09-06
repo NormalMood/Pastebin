@@ -6,6 +6,9 @@
     <title>Settings</title>
 </head>
 <body>
-    <b>Settings page</b>
+    <b>Settings page</b><br>
+    <form action="/logout" method="post">
+        <button>Выйти</button>
+    </form>
 </body>
 </html>

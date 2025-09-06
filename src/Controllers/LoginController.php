@@ -22,6 +22,11 @@ class LoginController extends Controller
         );
     }
 
+    public function logout(): void
+    {
+        $this->service()->logout();
+    }
+
     private function service(): LoginService
     {
         if (!isset($this->service)) {

@@ -17,5 +17,6 @@ return [
     Route::post(uri: '/resend-link', action: [RegisterController::class, 'resend']),
     Route::get(uri: '/verify', action: [RegisterController::class, 'verify']),
     Route::get(uri: '/signin', action: [LoginController::class, 'index']),
-    Route::post(uri: '/signin', action: [LoginController::class, 'login'])
+    Route::post(uri: '/signin', action: [LoginController::class, 'login']),
+    Route::post(uri: '/logout', action: [LoginController::class, 'logout'])
 ];

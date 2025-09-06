@@ -6,6 +6,9 @@
     <title>Document</title>
 </head>
 <body>
-    <p>Profile page</p>
+    <p>Profile page</p><br>
+    <form action="/logout" method="post">
+        <button>Выйти</button>
+    </form>
 </body>
 </html>

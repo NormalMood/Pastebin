@@ -70,4 +70,13 @@ class LoginService
             ]);
         $this->redirect->to('/profile');
     }
+
+    public function logout(): void
+    {
+        $userId = $this->session->get($this->config->get('auth.session_field'));
+        $this->session->destroy();
+        $this->sessionCookie->remove();
+        $this->database->delete('sessions_tokens', ['user_id' => $userId]);
+        $this->redirect->to('/signin');
+    }
 }
