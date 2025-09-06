@@ -19,6 +19,7 @@ use Pastebin\Kernel\Session\Session;
 use Pastebin\Kernel\Session\SessionCookie;
 use Pastebin\Kernel\Session\SessionCookieInterface;
 use Pastebin\Kernel\Session\SessionInterface;
+use Pastebin\Kernel\Utils\Hash;
 use Pastebin\Kernel\View\View;
 use Pastebin\Kernel\View\ViewInterface;
 
@@ -69,5 +70,6 @@ class Container
         );
         $this->sessionCookie = new SessionCookie($this->config, $this->request);
         $this->auth = new Auth($this->config, $this->database, $this->session);
+        Hash::setConfig($this->config);
     }
 }
