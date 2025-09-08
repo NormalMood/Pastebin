@@ -2,13 +2,12 @@
 
 namespace Pastebin\Kernel\Auth;
 
-use DateTime;
-use DateTimeZone;
 use Pastebin\Kernel\Config\ConfigInterface;
 use Pastebin\Kernel\Database\DatabaseInterface;
 use Pastebin\Kernel\Session\SessionCookieInterface;
 use Pastebin\Kernel\Session\SessionInterface;
 use Pastebin\Kernel\Utils\Hash;
+use Pastebin\Kernel\Utils\TimestampTZ;
 use Pastebin\Kernel\Utils\Token;
 
 class Auth implements AuthInterface
@@ -33,7 +32,7 @@ class Auth implements AuthInterface
             'name' => $name,
             'e_mail' => $email,
             'password' => Hash::get($password),
-            'created_at' => (new DateTime('now', new DateTimeZone('UTC')))->format('Y-m-d H:i:sP'),
+            'created_at' => TimestampTZ::convert(timestamp: time()),
             'verification_token' => $verificationToken
         ]);
         $this->database->insert('names_taken', ['name' => $name]);
@@ -80,14 +79,6 @@ class Auth implements AuthInterface
 
         $cookieExpiresAt = $nowTimestamp + SESSION_COOKIE_TTL;
 
-        $sessionTokenCreatedAt = new DateTime();
-        $sessionTokenCreatedAt->setTimestamp($nowTimestamp);
-        $sessionTokenCreatedAt->setTimezone(new DateTimeZone('UTC'));
-
-
-        $sessionTokenExpiresAt = new DateTime();
-        $sessionTokenExpiresAt->setTimestamp($cookieExpiresAt);
-        $sessionTokenExpiresAt->setTimezone(new DateTimeZone('UTC'));
         //set session cookie:
         $this->sessionCookie->set($sessionToken, $cookieExpiresAt);
 
@@ -98,8 +89,8 @@ class Auth implements AuthInterface
                 table: 'sessions_tokens',
                 data: [
                     'session_token' => Hash::get($sessionToken),
-                    'created_at' => $sessionTokenCreatedAt->format('Y-m-d H:i:sP'),
-                    'expires_at' => $sessionTokenExpiresAt->format('Y-m-d H:i:sP')
+                    'created_at' => TimestampTZ::convert(timestamp: $nowTimestamp),
+                    'expires_at' => TimestampTZ::convert(timestamp: $cookieExpiresAt)
                 ],
                 conditions: [
                     'user_id' => $userId
@@ -112,8 +103,8 @@ class Auth implements AuthInterface
                 [
                     'session_token' => Hash::get($sessionToken),
                     'user_id' => $userId,
-                    'created_at' => $sessionTokenCreatedAt->format('Y-m-d H:i:sP'),
-                    'expires_at' => $sessionTokenExpiresAt->format('Y-m-d H:i:sP')
+                    'created_at' => TimestampTZ::convert(timestamp: $nowTimestamp),
+                    'expires_at' => TimestampTZ::convert(timestamp: $cookieExpiresAt)
                 ]
             );
         }

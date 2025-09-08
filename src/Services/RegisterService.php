@@ -8,7 +8,6 @@ use Pastebin\Kernel\Database\DatabaseInterface;
 use Pastebin\Kernel\Http\RedirectInterface;
 use Pastebin\Kernel\MailSender\MailSenderInterface;
 use Pastebin\Kernel\Session\SessionInterface;
-use Pastebin\Kernel\Utils\Token;
 
 class RegisterService
 {
