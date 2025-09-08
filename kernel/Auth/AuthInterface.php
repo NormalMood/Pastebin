@@ -8,9 +8,11 @@ interface AuthInterface
 {
     public function register(string $name, string $email, string $password): Token;
 
-    public function attempt(string $username, string $password): bool;
+    public function attempt(string $username, string $password): true|array;
 
     public function logout(): void;
+
+    public function createSession(int $userId, bool $restoreSession = false): void;
 
     public function table(): string;
 

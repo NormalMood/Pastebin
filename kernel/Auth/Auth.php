@@ -2,9 +2,13 @@
 
 namespace Pastebin\Kernel\Auth;
 
+use DateTime;
+use DateTimeZone;
 use Pastebin\Kernel\Config\ConfigInterface;
 use Pastebin\Kernel\Database\DatabaseInterface;
+use Pastebin\Kernel\Session\SessionCookieInterface;
 use Pastebin\Kernel\Session\SessionInterface;
+use Pastebin\Kernel\Utils\Hash;
 use Pastebin\Kernel\Utils\Token;
 
 class Auth implements AuthInterface
@@ -12,35 +16,126 @@ class Auth implements AuthInterface
     public function __construct(
         private ConfigInterface $config,
         private DatabaseInterface $database,
-        private SessionInterface $session
+        private SessionInterface $session,
+        private SessionCookieInterface $sessionCookie
     ) {
     }
 
     public function register(string $name, string $email, string $password): Token
     {
+        {
+            $verificationToken = Token::random();
+        }
+        while (!empty(
+            $this->database->get($this->table(), ['verification_token' => $verificationToken])
+        ));
+        $this->database->insert($this->table(), [
+            'name' => $name,
+            'e_mail' => $email,
+            'password' => Hash::get($password),
+            'created_at' => (new DateTime('now', new DateTimeZone('UTC')))->format('Y-m-d H:i:sP'),
+            'verification_token' => $verificationToken
+        ]);
+        $this->database->insert('names_taken', ['name' => $name]);
+        return new Token($verificationToken);
     }
 
-    public function attempt(string $username, string $password): bool
+    public function attempt(string $username, string $password): true|array
     {
+        $user = $this->database->first($this->table(), [$this->username() => $username]);
+        if (empty($user)) {
+            return ['message' => 'User not found'];
+        }
+        if (isset($user['verification_token'])) {
+            return ['message' => 'User not verified'];
+        }
+        if (Hash::get($password) != $user[$this->password()]) {
+            return ['message' => 'Wrong password'];
+        }
+        $this->createSession($user['user_id']);
+        return true;
     }
 
     public function logout(): void
     {
+        $userId = $this->session->get($this->sessionField());
+        $this->session->destroy();
+        $this->sessionCookie->remove();
+        $this->database->delete('sessions_tokens', ['user_id' => $userId]);
+    }
+
+    public function createSession(int $userId, bool $restoreSession = false): void
+    {
+        //create session:
+        $this->session->set($this->sessionField(), $userId);
+
+        {
+            $sessionToken = Token::random();
+        }
+        while (!empty(
+            $this->database->get('sessions_tokens', ['session_token' => $sessionToken])
+        ));
+
+        $nowTimestamp = time();
+
+        $cookieExpiresAt = $nowTimestamp + SESSION_COOKIE_TTL;
+
+        $sessionTokenCreatedAt = new DateTime();
+        $sessionTokenCreatedAt->setTimestamp($nowTimestamp);
+        $sessionTokenCreatedAt->setTimezone(new DateTimeZone('UTC'));
+
+
+        $sessionTokenExpiresAt = new DateTime();
+        $sessionTokenExpiresAt->setTimestamp($cookieExpiresAt);
+        $sessionTokenExpiresAt->setTimezone(new DateTimeZone('UTC'));
+        //set session cookie:
+        $this->sessionCookie->set($sessionToken, $cookieExpiresAt);
+
+
+        if ($restoreSession) {
+            //update session token in db
+            $this->database->update(
+                table: 'sessions_tokens',
+                data: [
+                    'session_token' => Hash::get($sessionToken),
+                    'created_at' => $sessionTokenCreatedAt->format('Y-m-d H:i:sP'),
+                    'expires_at' => $sessionTokenExpiresAt->format('Y-m-d H:i:sP')
+                ],
+                conditions: [
+                    'user_id' => $userId
+                ]
+            );
+        } else {
+            //save session token in db
+            $this->database->insert(
+                'sessions_tokens',
+                [
+                    'session_token' => Hash::get($sessionToken),
+                    'user_id' => $userId,
+                    'created_at' => $sessionTokenCreatedAt->format('Y-m-d H:i:sP'),
+                    'expires_at' => $sessionTokenExpiresAt->format('Y-m-d H:i:sP')
+                ]
+            );
+        }
     }
 
     public function table(): string
     {
+        return $this->config->get('auth.table', 'users');
     }
 
     public function username(): string
     {
+        return $this->config->get('auth.username', 'name');
     }
 
     public function password(): string
     {
+        return $this->config->get('auth.password', 'password');
     }
 
     public function sessionField(): string
     {
+        return $this->config->get('auth.session_field', 'user_id');
     }
 }

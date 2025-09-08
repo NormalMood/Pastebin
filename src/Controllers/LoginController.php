@@ -58,8 +58,7 @@ class LoginController extends Controller
                 $this->redirect(),
                 $this->mailSender(),
                 $this->session(),
-                $this->config(),
-                $this->sessionCookie()
+                $this->auth()
             );
         }
         return $this->service;

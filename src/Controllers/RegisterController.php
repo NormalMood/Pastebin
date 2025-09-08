@@ -48,7 +48,7 @@ class RegisterController extends Controller
                 $this->mailSender(),
                 $this->session(),
                 $this->config(),
-                $this->sessionCookie()
+                $this->auth()
             );
         }
         return $this->service;

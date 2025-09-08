@@ -2,12 +2,12 @@
 
 namespace Pastebin\Kernel\Controller;
 
+use Pastebin\Kernel\Auth\AuthInterface;
 use Pastebin\Kernel\Config\ConfigInterface;
 use Pastebin\Kernel\Database\DatabaseInterface;
 use Pastebin\Kernel\Http\RedirectInterface;
 use Pastebin\Kernel\Http\RequestInterface;
 use Pastebin\Kernel\MailSender\MailSenderInterface;
-use Pastebin\Kernel\Session\SessionCookieInterface;
 use Pastebin\Kernel\Session\SessionInterface;
 use Pastebin\Kernel\View\ViewInterface;
 
@@ -25,9 +25,9 @@ abstract class Controller
 
     private SessionInterface $session;
 
-    private SessionCookieInterface $sessionCookie;
-
     private ConfigInterface $config;
+
+    private AuthInterface $auth;
 
     public function view(string $name, array $data = []): void
     {
@@ -89,16 +89,6 @@ abstract class Controller
         $this->session = $session;
     }
 
-    public function sessionCookie(): SessionCookieInterface
-    {
-        return $this->sessionCookie;
-    }
-
-    public function setSessionCookie(SessionCookieInterface $sessionCookie): void
-    {
-        $this->sessionCookie = $sessionCookie;
-    }
-
     public function config(): ConfigInterface
     {
         return $this->config;
@@ -107,5 +97,15 @@ abstract class Controller
     public function setConfig(ConfigInterface $config): void
     {
         $this->config = $config;
+    }
+
+    public function auth(): AuthInterface
+    {
+        return $this->auth;
+    }
+
+    public function setAuth(AuthInterface $auth): void
+    {
+        $this->auth = $auth;
     }
 }
