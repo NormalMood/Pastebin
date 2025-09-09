@@ -72,6 +72,10 @@ class LoginService
 
     public function resetPassword(string $token, string $newPassword): void
     {
+        if (empty($token)) {
+            echo 'Токен недействителен';
+            exit;
+        }
         $user = $this->database->first('users', ['password_reset_token' => $token]);
         if (empty($user)) {
             //to-do: set error session???
