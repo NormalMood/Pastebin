@@ -5,11 +5,11 @@ namespace Pastebin\Kernel\Utils;
 class Token
 {
     public function __construct(
-        private string $token
+        private ?string $token
     ) {
     }
 
-    public function get(): string
+    public function get(): ?string
     {
         return $this->token;
     }

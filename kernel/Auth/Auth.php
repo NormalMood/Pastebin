@@ -72,7 +72,7 @@ class Auth implements AuthInterface
             $sessionToken = Token::random();
         }
         while (!empty(
-            $this->database->get('sessions_tokens', ['session_token' => $sessionToken])
+            $this->database->get('sessions_tokens', ['session_token' => Hash::get($sessionToken)])
         ));
 
         $nowTimestamp = time();

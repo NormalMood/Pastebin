@@ -17,9 +17,9 @@ class SessionCookie implements SessionCookieInterface
     public function get(): Token
     {
         return new Token(
-            $this->request->cookie()[
+            token: $this->request->cookie()[
                 $this->config->get(key: 'auth.cookie_field', default: 'SESSION_TOKEN')
-            ]
+            ] ?? null
         );
     }
 
