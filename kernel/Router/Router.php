@@ -8,6 +8,7 @@ use Pastebin\Kernel\Database\DatabaseInterface;
 use Pastebin\Kernel\Http\RedirectInterface;
 use Pastebin\Kernel\Http\RequestInterface;
 use Pastebin\Kernel\MailSender\MailSenderInterface;
+use Pastebin\Kernel\Session\SessionCookieInterface;
 use Pastebin\Kernel\Session\SessionInterface;
 use Pastebin\Kernel\View\ViewInterface;
 
@@ -25,6 +26,7 @@ class Router implements RouterInterface
         private RedirectInterface $redirect,
         private MailSenderInterface $mailSender,
         private SessionInterface $session,
+        private SessionCookieInterface $sessionCookie,
         private ConfigInterface $config,
         private AuthInterface $auth
     ) {
@@ -36,6 +38,13 @@ class Router implements RouterInterface
         $route = $this->findRoute($uri, $method);
         if (!$route) {
             $this->notFound();
+        }
+        if ($route->hasMiddlewares()) {
+            foreach ($route->getMiddlewares() as $middleware) {
+                /** @var \Pastebin\Kernel\Middleware\AbstractMiddleware $middleware */
+                $middleware = new $middleware($this->redirect, $this->auth, $this->sessionCookie);
+                $middleware->handle();
+            }
         }
         if (is_array($route->getAction())) {
             [$controller, $action] = $route->getAction();

@@ -73,6 +73,7 @@ class Container
             $this->redirect,
             $this->mailSender,
             $this->session,
+            $this->sessionCookie,
             $this->config,
             $this->auth
         );
