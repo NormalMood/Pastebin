@@ -6,12 +6,13 @@ use Pastebin\Controllers\ProfileController;
 use Pastebin\Controllers\RegisterController;
 use Pastebin\Controllers\SettingsController;
 use Pastebin\Kernel\Router\Route;
+use Pastebin\Middlewares\AuthMiddleware;
 use Pastebin\Middlewares\SessionMiddleware;
 
 return [
     Route::get(uri: '/', action: [PostController::class, 'index'], middlewares: [SessionMiddleware::class]),
-    Route::get(uri: '/settings', action: [SettingsController::class, 'index'], middlewares: [SessionMiddleware::class]),
-    Route::get(uri: '/profile', action: [ProfileController::class, 'index'], middlewares: [SessionMiddleware::class]),
+    Route::get(uri: '/settings', action: [SettingsController::class, 'index'], middlewares: [SessionMiddleware::class, AuthMiddleware::class]),
+    Route::get(uri: '/profile', action: [ProfileController::class, 'index'], middlewares: [SessionMiddleware::class, AuthMiddleware::class]),
     Route::get(uri: '/signup', action: [RegisterController::class, 'index'], middlewares: [SessionMiddleware::class]),
     Route::post(uri: '/signup', action: [RegisterController::class, 'register']),
     Route::get(uri: '/resend-link', action: [RegisterController::class, 'showResend'], middlewares: [SessionMiddleware::class]),
