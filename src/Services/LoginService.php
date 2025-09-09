@@ -70,7 +70,7 @@ class LoginService
         $this->redirect->to('/signin');
     }
 
-    public function resetPassword(string $token, string $newPassword): void
+    public function resetPassword(?string $token, string $newPassword): void
     {
         if (empty($token)) {
             echo 'Токен недействителен';
