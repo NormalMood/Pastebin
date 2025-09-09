@@ -50,7 +50,7 @@ class RegisterService
         }
     }
 
-    public function verify(string $token): void
+    public function verify(?string $token): void
     {
         if (empty($token)) {
             echo 'Ссылка недействительна' ;
