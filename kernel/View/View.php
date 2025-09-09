@@ -22,6 +22,7 @@ class View implements ViewInterface
         if (!file_exists($pagePath)) {
             throw new ViewNotFoundException("View $name not found");
         }
+        $this->setCSP();
         extract(array_merge($this->defaultData(), $data));
         include_once $pagePath;
     }
@@ -33,5 +34,11 @@ class View implements ViewInterface
             'config' => $this->config,
             'auth' => $this->auth
         ];
+    }
+
+    //set Content-Security-Policy
+    private function setCSP(): void
+    {
+        header("Content-Security-Policy: default-src 'self'; script-src 'self';");
     }
 }
