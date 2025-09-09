@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \Pastebin\Kernel\Auth\AuthInterface $auth
+ */
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,27 +11,31 @@
     <title>Document</title>
 </head>
 <body>
-    <b>Login page</b>
-    <div>
-        <form action="/signin" method="post">
-            <input type="text" name="name" placeholder="Имя*">
-            <input type="password" name="password" placeholder="Пароль*">
-            <button>Войти</button>
-        </form>
-    </div>
-    <br><br>
-    <div>
-        <form action="/forgot-name" method="post">
-            <input type="text" name="email" placeholder="E-mail*">
-            <button>Восстановить имя</button>
-        </form>
-    </div>
-    <br><br>
-    <div>
-        <form action="/forgot-password" method="post">
-            <input type="text" name="name" placeholder="Имя*">
-            <button>Восстановить пароль</button>
-        </form>
-    </div>
+    <?php if ($auth->check()) { ?>
+        <p>Нет доступа</p>
+    <?php } else { ?>
+        <b>Login page</b>
+        <div>
+            <form action="/signin" method="post">
+                <input type="text" name="name" placeholder="Имя*">
+                <input type="password" name="password" placeholder="Пароль*">
+                <button>Войти</button>
+            </form>
+        </div>
+        <br><br>
+        <div>
+            <form action="/forgot-name" method="post">
+                <input type="text" name="email" placeholder="E-mail*">
+                <button>Восстановить имя</button>
+            </form>
+        </div>
+        <br><br>
+        <div>
+            <form action="/forgot-password" method="post">
+                <input type="text" name="name" placeholder="Имя*">
+                <button>Восстановить пароль</button>
+            </form>
+        </div>
+    <?php } ?>
 </body>
 </html>

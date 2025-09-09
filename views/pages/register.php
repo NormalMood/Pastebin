@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \Pastebin\Kernel\Auth\AuthInterface $auth
+ */
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,14 +11,18 @@
     <title>Registration</title>
 </head>
 <body>
-    <b>Registration page</b>
-    <div>
-        <form action="/signup" method="post">
-            <input type="text" name="name" placeholder="Имя*">
-            <input type="email" name="email" placeholder="E-mail*">
-            <input type="password" name="password" placeholder="Пароль*">
-            <button>Создать аккаунт</button>
-        </form>
-    </div>
+    <?php if ($auth->check()) { ?>
+        <p>Нет доступа</p>
+    <?php } else { ?>
+        <b>Registration page</b>
+        <div>
+            <form action="/signup" method="post">
+                <input type="text" name="name" placeholder="Имя*">
+                <input type="email" name="email" placeholder="E-mail*">
+                <input type="password" name="password" placeholder="Пароль*">
+                <button>Создать аккаунт</button>
+            </form>
+        </div>
+    <?php } ?>
 </body>
 </html>
