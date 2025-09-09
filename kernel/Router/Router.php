@@ -42,7 +42,14 @@ class Router implements RouterInterface
         if ($route->hasMiddlewares()) {
             foreach ($route->getMiddlewares() as $middleware) {
                 /** @var \Pastebin\Kernel\Middleware\AbstractMiddleware $middleware */
-                $middleware = new $middleware($this->database, $this->redirect, $this->auth, $this->sessionCookie);
+                $middleware = new $middleware(
+                    $this->database,
+                    $this->redirect,
+                    $this->auth,
+                    $this->session,
+                    $this->sessionCookie,
+                    $this->request
+                );
                 $middleware->handle();
             }
         }
