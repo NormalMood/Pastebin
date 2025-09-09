@@ -17,7 +17,7 @@ return [
     Route::get(uri: '/signup', action: [RegisterController::class, 'index'], middlewares: [SessionMiddleware::class]),
     Route::post(uri: '/signup', action: [RegisterController::class, 'register'], middlewares: [GuestMiddleware::class]),
     Route::get(uri: '/resend-link', action: [RegisterController::class, 'showResend'], middlewares: [SessionMiddleware::class]),
-    Route::post(uri: '/resend-link', action: [RegisterController::class, 'resend']),
+    Route::post(uri: '/resend-link', action: [RegisterController::class, 'resend'], middlewares: [GuestMiddleware::class]),
     Route::get(uri: '/verify', action: [RegisterController::class, 'verify']),
     Route::get(uri: '/signin', action: [LoginController::class, 'index'], middlewares: [SessionMiddleware::class]),
     Route::post(uri: '/signin', action: [LoginController::class, 'login'], middlewares: [GuestMiddleware::class]),
