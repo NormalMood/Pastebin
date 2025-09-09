@@ -88,6 +88,9 @@ class LoginService
             ['user_id' => $user['user_id']]
         );
         //to-do: set success message session
+        if ($this->auth->check()) {
+            $this->auth->logout();
+        }
         $this->redirect->to('/signin');
     }
 

@@ -55,7 +55,6 @@ class Container
         $this->request = Request::createFromGlobals();
         $this->session = new Session();
         $this->config = new Config();
-        $this->view = new View($this->session, $this->config);
         $this->database = new Database($this->config);
         $this->redirect = new Redirect();
         $this->mailSender = new MailSender($this->config);
@@ -66,6 +65,7 @@ class Container
             $this->session,
             $this->sessionCookie
         );
+        $this->view = new View($this->session, $this->config, $this->auth);
         $this->router = new Router(
             $this->view,
             $this->request,
