@@ -110,6 +110,11 @@ class Auth implements AuthInterface
         }
     }
 
+    public function check(): bool
+    {
+        return $this->session->has($this->sessionField());
+    }
+
     public function table(): string
     {
         return $this->config->get('auth.table', 'users');

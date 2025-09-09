@@ -14,6 +14,8 @@ interface AuthInterface
 
     public function createSession(int $userId, bool $restoreSession = false): void;
 
+    public function check(): bool;
+
     public function table(): string;
 
     public function username(): string;
