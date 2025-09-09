@@ -1,6 +1,7 @@
 <?php
 /**
  * @var string $token
+ * @var string $csrfToken
  */
 ?>
 <!DOCTYPE html>
@@ -14,6 +15,7 @@
     <b>Reset password</b><br>
     <div>
         <form action="/reset-password" method="post">
+            <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
             <input type="hidden" name="token" value="<?php echo $token ?>">
             <input type="password" name="new_password" placeholder="Новый пароль*">
             <button>Сохранить</button>

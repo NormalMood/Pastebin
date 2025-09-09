@@ -6,6 +6,7 @@ use Pastebin\Kernel\Auth\AuthInterface;
 use Pastebin\Kernel\Config\ConfigInterface;
 use Pastebin\Kernel\Exceptions\ViewNotFoundException;
 use Pastebin\Kernel\Session\SessionInterface;
+use Pastebin\Kernel\Utils\Token;
 
 class View implements ViewInterface
 {
@@ -22,6 +23,7 @@ class View implements ViewInterface
         if (!file_exists($pagePath)) {
             throw new ViewNotFoundException("View $name not found");
         }
+        $this->setCSRFToken();
         $this->setCSP();
         extract(array_merge($this->defaultData(), $data));
         include_once $pagePath;
@@ -32,7 +34,8 @@ class View implements ViewInterface
         return [
             'session' => $this->session,
             'config' => $this->config,
-            'auth' => $this->auth
+            'auth' => $this->auth,
+            'csrfToken' => $this->session->get('csrf_token')
         ];
     }
 
@@ -40,5 +43,10 @@ class View implements ViewInterface
     private function setCSP(): void
     {
         header("Content-Security-Policy: default-src 'self'; script-src 'self';");
+    }
+
+    private function setCSRFToken(): void
+    {
+        $this->session->set('csrf_token', Token::random());
     }
 }

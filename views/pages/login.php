@@ -1,6 +1,7 @@
 <?php
 /**
  * @var \Pastebin\Kernel\Auth\AuthInterface $auth
+ * @var string $csrfToken
  */
 ?>
 <!DOCTYPE html>
@@ -17,6 +18,7 @@
         <b>Login page</b>
         <div>
             <form action="/signin" method="post">
+                <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <input type="text" name="name" placeholder="Имя*">
                 <input type="password" name="password" placeholder="Пароль*">
                 <button>Войти</button>
@@ -25,6 +27,7 @@
         <br><br>
         <div>
             <form action="/forgot-name" method="post">
+                <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <input type="text" name="email" placeholder="E-mail*">
                 <button>Восстановить имя</button>
             </form>
@@ -32,6 +35,7 @@
         <br><br>
         <div>
             <form action="/forgot-password" method="post">
+                <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <input type="text" name="name" placeholder="Имя*">
                 <button>Восстановить пароль</button>
             </form>

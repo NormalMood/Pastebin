@@ -1,6 +1,7 @@
 <?php
 /**
  * @var \Pastebin\Kernel\Auth\AuthInterface $auth
+ * @var string $csrfToken
  */
 ?>
 <!DOCTYPE html>
@@ -17,6 +18,7 @@
         <b>Registration page</b>
         <div>
             <form action="/signup" method="post">
+                <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <input type="text" name="name" placeholder="Имя*">
                 <input type="email" name="email" placeholder="E-mail*">
                 <input type="password" name="password" placeholder="Пароль*">
