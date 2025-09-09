@@ -52,6 +52,10 @@ class RegisterService
 
     public function verify(string $token): void
     {
+        if (empty($token)) {
+            echo 'Ссылка недействительна' ;
+            exit;
+        }
         $user = $this->database->first('users', ['verification_token' => $token]);
         if (empty($user)) {
             //to-do: set error session???
