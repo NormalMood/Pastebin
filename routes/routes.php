@@ -25,5 +25,5 @@ return [
     Route::post(uri: '/forgot-password', action: [LoginController::class, 'forgotPassword'], middlewares: [GuestMiddleware::class]),
     Route::get(uri: '/reset-password', action: [LoginController::class, 'resetPasswordShow']),
     Route::post(uri: '/reset-password', action: [LoginController::class, 'resetPassword']),
-    Route::post(uri: '/logout', action: [LoginController::class, 'logout'])
+    Route::post(uri: '/logout', action: [LoginController::class, 'logout'], middlewares: [AuthMiddleware::class])
 ];
