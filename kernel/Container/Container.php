@@ -20,6 +20,8 @@ use Pastebin\Kernel\Session\SessionCookie;
 use Pastebin\Kernel\Session\SessionCookieInterface;
 use Pastebin\Kernel\Session\SessionInterface;
 use Pastebin\Kernel\Utils\Hash;
+use Pastebin\Kernel\Validator\Validator;
+use Pastebin\Kernel\Validator\ValidatorInterface;
 use Pastebin\Kernel\View\View;
 use Pastebin\Kernel\View\ViewInterface;
 
@@ -45,6 +47,8 @@ class Container
 
     public readonly RedirectInterface $redirect;
 
+    public readonly ValidatorInterface $validator;
+
     public function __construct()
     {
         $this->registerServices();
@@ -53,6 +57,8 @@ class Container
     private function registerServices(): void
     {
         $this->request = Request::createFromGlobals();
+        $this->validator = new Validator();
+        $this->request->setValidator($this->validator);
         $this->session = new Session();
         $this->config = new Config();
         $this->database = new Database($this->config);

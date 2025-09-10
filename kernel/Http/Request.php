@@ -2,8 +2,12 @@
 
 namespace Pastebin\Kernel\Http;
 
+use Pastebin\Kernel\Validator\ValidatorInterface;
+
 class Request implements RequestInterface
 {
+    private ValidatorInterface $validator;
+
     public function __construct(
         public readonly array $get,
         public readonly array $post,
@@ -39,5 +43,24 @@ class Request implements RequestInterface
     public function cookie(): array
     {
         return $this->cookie;
+    }
+
+    public function validate(array $validationRules): bool
+    {
+        $data = [];
+        foreach ($validationRules as $field => $rules) {
+            $data[$field] = $this->input($field);
+        }
+        return $this->validator->validate($data, $validationRules);
+    }
+
+    public function setValidator(ValidatorInterface $validator): void
+    {
+        $this->validator = $validator;
+    }
+
+    public function errors(): array
+    {
+        return $this->validator->errors();
     }
 }

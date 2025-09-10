@@ -2,6 +2,8 @@
 
 namespace Pastebin\Kernel\Http;
 
+use Pastebin\Kernel\Validator\ValidatorInterface;
+
 interface RequestInterface
 {
     public static function createFromGlobals(): static;
@@ -13,4 +15,10 @@ interface RequestInterface
     public function input(string $key, $default = null): mixed;
 
     public function cookie(): array;
+
+    public function validate(array $validationRules): bool;
+
+    public function setValidator(ValidatorInterface $validator): void;
+
+    public function errors(): array;
 }
