@@ -4,10 +4,13 @@ namespace Pastebin\Controllers;
 
 use Pastebin\Kernel\Controller\Controller;
 use Pastebin\Services\LoginService;
+use Pastebin\Services\ValidationService;
 
 class LoginController extends Controller
 {
-    private LoginService $service;
+    private LoginService $loginService;
+
+    private ValidationService $validationService;
 
     public function index(): void
     {
@@ -16,7 +19,7 @@ class LoginController extends Controller
 
     public function login(): void
     {
-        $this->service()->login(
+        $this->loginService()->login(
             $this->request()->input('name'),
             $this->request()->input('password')
         );
@@ -24,12 +27,12 @@ class LoginController extends Controller
 
     public function forgotName(): void
     {
-        $this->service()->forgotName($this->request()->input('email'));
+        $this->loginService()->forgotName($this->request()->input('email'));
     }
 
     public function forgotPassword(): void
     {
-        $this->service()->forgotPassword($this->request()->input('name'));
+        $this->loginService()->forgotPassword($this->request()->input('name'));
     }
 
     public function resetPasswordShow(): void
@@ -39,7 +42,7 @@ class LoginController extends Controller
 
     public function resetPassword(): void
     {
-        $this->service()->resetPassword(
+        $this->loginService()->resetPassword(
             $this->request()->input('token'),
             $this->request()->input('new_password')
         );
@@ -47,13 +50,13 @@ class LoginController extends Controller
 
     public function logout(): void
     {
-        $this->service()->logout();
+        $this->loginService()->logout();
     }
 
-    private function service(): LoginService
+    private function loginService(): LoginService
     {
-        if (!isset($this->service)) {
-            $this->service = new LoginService(
+        if (!isset($this->loginService)) {
+            $this->loginService = new LoginService(
                 $this->database(),
                 $this->redirect(),
                 $this->mailSender(),
@@ -61,6 +64,18 @@ class LoginController extends Controller
                 $this->auth()
             );
         }
-        return $this->service;
+        return $this->loginService;
+    }
+
+    private function validationService(): ValidationService
+    {
+        if (!isset($this->validationService)) {
+            $this->validationService = new ValidationService(
+                $this->request(),
+                $this->session(),
+                $this->redirect()
+            );
+        }
+        return $this->validationService;
     }
 }
