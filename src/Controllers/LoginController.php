@@ -19,6 +19,13 @@ class LoginController extends Controller
 
     public function login(): void
     {
+        $this->validationService()->validate(
+            validationRules: [
+                'name' => 'required|max:100',
+                'password' => 'required|min:12|max:50'
+            ],
+            redirectUrl: '/signin'
+        );
         $this->loginService()->login(
             $this->request()->input('name'),
             $this->request()->input('password')
@@ -27,11 +34,23 @@ class LoginController extends Controller
 
     public function forgotName(): void
     {
+        $this->validationService()->validate(
+            validationRules: [
+                'email' => 'required|email'
+            ],
+            redirectUrl: '/signin'
+        );
         $this->loginService()->forgotName($this->request()->input('email'));
     }
 
     public function forgotPassword(): void
     {
+        $this->validationService()->validate(
+            validationRules: [
+                'name' => 'required|max:100'
+            ],
+            redirectUrl: '/signin'
+        );
         $this->loginService()->forgotPassword($this->request()->input('name'));
     }
 
@@ -42,6 +61,13 @@ class LoginController extends Controller
 
     public function resetPassword(): void
     {
+        $this->validationService()->validate(
+            validationRules: [
+                'token' => 'required',
+                'new_password' => 'required|min:12|max:50'
+            ],
+            redirectUrl: '/reset-password'
+        );
         $this->loginService()->resetPassword(
             $this->request()->input('token'),
             $this->request()->input('new_password')

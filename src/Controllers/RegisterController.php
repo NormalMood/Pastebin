@@ -19,7 +19,14 @@ class RegisterController extends Controller
 
     public function register(): void
     {
-        //to-do: validation
+        $this->validationService()->validate(
+            validationRules: [
+                'name' => 'required|max:100',
+                'email' => 'required|email',
+                'password' => 'required|min:12|max:50'
+            ],
+            redirectUrl: '/signup'
+        );
         $this->registerService()->register(
             $this->request()->input('name'),
             $this->request()->input('email'),
@@ -34,11 +41,23 @@ class RegisterController extends Controller
 
     public function resend(): void
     {
+        $this->validationService()->validate(
+            validationRules: [
+                'email' => 'required|email'
+            ],
+            redirectUrl: '/resend-link'
+        );
         $this->registerService()->resendLink($this->request()->input('email'));
     }
 
     public function verify(): void
     {
+        $this->validationService()->validate(
+            validationRules: [
+                'token' => 'required'
+            ],
+            redirectUrl: '/verify'
+        );
         $this->registerService()->verify($this->request()->input('token'));
     }
 
