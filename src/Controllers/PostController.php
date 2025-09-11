@@ -29,6 +29,17 @@ class PostController extends Controller
         $this->view('post/create', $data);
     }
 
+    public function store(): void
+    {
+        $text = $this->request()->input('text');
+        $title = $this->request()->input('title');
+        $category = $this->request()->input('category_id');
+        $syntax = $this->request()->input('syntax_id');
+        $interval = $this->request()->input('interval_id');
+        $postVisibility = $this->request()->input('post_visibility_id');
+        exit;
+    }
+
     private function categoryService(): CategoryService
     {
         if (!isset($this->categoryService)) {
