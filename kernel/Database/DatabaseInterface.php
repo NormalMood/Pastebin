@@ -8,6 +8,8 @@ interface DatabaseInterface
 
     public function get(string $table, array $conditions = [], array $order = [], int $limit = -1): array;
 
+    public function postLinkExists(string $postLink): bool;
+
     public function insert(string $table, array $data): int;
 
     public function execSQL(string $sql): int|bool;

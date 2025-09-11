@@ -3,6 +3,7 @@
 namespace Pastebin\Services;
 
 use Pastebin\Kernel\Database\DatabaseInterface;
+use Pastebin\Kernel\Utils\PostLink;
 use Pastebin\Kernel\Utils\Token;
 
 class PostService
@@ -16,7 +17,7 @@ class PostService
     {
         $intervals = $this->database->get(table: 'intervals');
         $interval = current(array_filter($intervals, fn ($interval) => $interval['interval_id'] == $intervalId));
-        $postLink = bin2hex(random_bytes(4));
+        $postLink = PostLink::get();
         $postBlobLink = APP_PATH . '/storage/' . Token::random() . '.txt';
         file_put_contents($postBlobLink, $text);
         $this->database->execSQL(

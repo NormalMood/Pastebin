@@ -63,6 +63,14 @@ class Database implements DatabaseInterface
         return $statement->fetchAll(mode: \PDO::FETCH_ASSOC);
     }
 
+    public function postLinkExists(string $postLink): bool
+    {
+        $sql = 'SELECT 1 FROM posts WHERE post_link = :post_link LIMIT 1';
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute([':post_link' => $postLink]);
+        return $statement->fetchColumn();
+    }
+
     public function insert(string $table, array $data): int
     {
         $fields = array_keys($data);

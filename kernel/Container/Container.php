@@ -20,6 +20,7 @@ use Pastebin\Kernel\Session\SessionCookie;
 use Pastebin\Kernel\Session\SessionCookieInterface;
 use Pastebin\Kernel\Session\SessionInterface;
 use Pastebin\Kernel\Utils\Hash;
+use Pastebin\Kernel\Utils\PostLink;
 use Pastebin\Kernel\Validator\Validator;
 use Pastebin\Kernel\Validator\ValidatorInterface;
 use Pastebin\Kernel\View\View;
@@ -84,5 +85,6 @@ class Container
             $this->auth
         );
         Hash::setConfig($this->config);
+        PostLink::setDatabase($this->database);
     }
 }
