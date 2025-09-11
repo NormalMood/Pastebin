@@ -12,9 +12,9 @@ class LoginController extends Controller
 
     private ValidationService $validationService;
 
-    public function index(): void
+    public function showLoginForm(): void
     {
-        $this->view('login');
+        $this->view('auth/login');
     }
 
     public function login(): void
@@ -54,9 +54,9 @@ class LoginController extends Controller
         $this->loginService()->forgotPassword($this->request()->input('name'));
     }
 
-    public function resetPasswordShow(): void
+    public function showResetPasswordForm(): void
     {
-        $this->view('reset-password', ['token' => $this->request()->input('token')]);
+        $this->view('auth/reset-password', ['token' => $this->request()->input('token')]);
     }
 
     public function resetPassword(): void

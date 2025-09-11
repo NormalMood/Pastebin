@@ -6,7 +6,7 @@ use Pastebin\Kernel\Controller\Controller;
 
 class SettingsController extends Controller
 {
-    public function index(): void
+    public function edit(): void
     {
         $this->view('settings');
     }

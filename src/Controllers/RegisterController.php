@@ -12,9 +12,9 @@ class RegisterController extends Controller
 
     private ValidationService $validationService;
 
-    public function index(): void
+    public function showRegistrationForm(): void
     {
-        $this->view('register');
+        $this->view('auth/register');
     }
 
     public function register(): void
@@ -34,12 +34,12 @@ class RegisterController extends Controller
         );
     }
 
-    public function showResend(): void
+    public function showResendLinkForm(): void
     {
-        $this->view('resend-link');
+        $this->view('auth/resend-link');
     }
 
-    public function resend(): void
+    public function resendLink(): void
     {
         $this->validationService()->validate(
             validationRules: [

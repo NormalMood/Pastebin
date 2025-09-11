@@ -6,7 +6,7 @@ use Pastebin\Kernel\Controller\Controller;
 
 class ProfileController extends Controller
 {
-    public function index(): void
+    public function show(): void
     {
         $this->view('profile');
     }

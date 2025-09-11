@@ -18,7 +18,7 @@ class PostController extends Controller
 
     private PostVisibilityService $postVisibilityService;
 
-    public function index()
+    public function create()
     {
         $data = [
             'categories' => $this->categoryService()->all(),
@@ -26,7 +26,7 @@ class PostController extends Controller
             'intervals' => $this->intervalService()->all(),
             'postVisibilities' => $this->postVisibilityService()->all()
         ];
-        $this->view('post', $data);
+        $this->view('post/create', $data);
     }
 
     private function categoryService(): CategoryService
