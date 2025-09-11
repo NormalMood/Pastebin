@@ -5,11 +5,15 @@ namespace Pastebin\Controllers;
 use Pastebin\Kernel\Controller\Controller;
 use Pastebin\Services\CategoryService;
 use Pastebin\Services\IntervalService;
+use Pastebin\Services\PostService;
 use Pastebin\Services\PostVisibilityService;
 use Pastebin\Services\SyntaxService;
+use Pastebin\Services\ValidationService;
 
 class PostController extends Controller
 {
+    private PostService $postService;
+
     private CategoryService $categoryService;
 
     private SyntaxService $syntaxService;
@@ -17,6 +21,8 @@ class PostController extends Controller
     private IntervalService $intervalService;
 
     private PostVisibilityService $postVisibilityService;
+
+    private ValidationService $validationService;
 
     public function create()
     {
@@ -31,13 +37,35 @@ class PostController extends Controller
 
     public function store(): void
     {
-        $text = $this->request()->input('text');
-        $title = $this->request()->input('title');
-        $category = $this->request()->input('category_id');
-        $syntax = $this->request()->input('syntax_id');
-        $interval = $this->request()->input('interval_id');
-        $postVisibility = $this->request()->input('post_visibility_id');
-        exit;
+        $this->validationService()->validate(
+            validationRules: [
+                'text' => 'required',
+                'title' => 'max:255',
+                'category_id' => 'required',
+                'syntax_id' => 'required',
+                'interval_id' => 'required',
+                'post_visibility_id' => 'required'
+            ],
+            redirectUrl: '/'
+        );
+        //to-do: if guest then INFINITY is forbidden validation
+        $this->postService()->save(
+            text: $this->request()->input('text'),
+            categoryId: $this->request()->input('category_id'),
+            syntaxId: $this->request()->input('syntax_id'),
+            intervalId: $this->request()->input('interval_id'),
+            postVisibilityId: $this->request()->input('post_visibility_id'),
+            title: $this->request()->input('title'),
+            userId: $this->session()->get($this->auth()->sessionField())
+        );
+    }
+
+    private function postService(): PostService
+    {
+        if (!isset($this->postService)) {
+            $this->postService = new PostService($this->database());
+        }
+        return $this->postService;
     }
 
     private function categoryService(): CategoryService
@@ -70,5 +98,17 @@ class PostController extends Controller
             $this->postVisibilityService = new PostVisibilityService($this->database());
         }
         return $this->postVisibilityService;
+    }
+
+    private function validationService(): ValidationService
+    {
+        if (!isset($this->validationService)) {
+            $this->validationService = new ValidationService(
+                $this->request(),
+                $this->session(),
+                $this->redirect()
+            );
+        }
+        return $this->validationService;
     }
 }

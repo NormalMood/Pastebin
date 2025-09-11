@@ -74,6 +74,11 @@ class Database implements DatabaseInterface
         return (int) $this->pdo->lastInsertId();
     }
 
+    public function execSQL(string $sql): int|bool
+    {
+        return $this->pdo->exec($sql);
+    }
+
     public function update(string $table, array $data, array $conditions = []): void
     {
         $fields = array_keys($data);
