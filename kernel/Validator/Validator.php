@@ -42,12 +42,12 @@ class Validator implements ValidatorInterface
                 }
                 break;
             case 'min':
-                if (strlen($value) < $ruleValue) {
+                if (strlen($value ?? '') < $ruleValue) {
                     return "$ruleName:$ruleValue";
                 }
                 break;
             case 'max':
-                if (strlen($value) > $ruleValue) {
+                if (strlen($value ?? '') > $ruleValue) {
                     return "$ruleName:$ruleValue";
                 }
                 break;
