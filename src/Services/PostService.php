@@ -25,8 +25,8 @@ class PostService
         $postBlobLink = APP_PATH . '/storage/' . Token::random() . '.txt';
         file_put_contents($postBlobLink, $text);
         $this->database->execSQL(
-            sql: "INSERT INTO posts (title, category_id, syntax_id, post_visibility_id, created_at, expires_at, post_link, post_blob_link, user_id) " .
-            "VALUES ('$title', $categoryId, $syntaxId, $postVisibilityId, now(), now() + interval '{$interval['name']}', '$postLink', '$postBlobLink', $userId)"
+            sql: "INSERT INTO posts (title, category_id, syntax_id, interval_id, post_visibility_id, created_at, expires_at, post_link, post_blob_link, user_id) " .
+            "VALUES ('$title', $categoryId, $syntaxId, $intervalId, $postVisibilityId, now(), now() + interval '{$interval['name']}', '$postLink', '$postBlobLink', $userId)"
         );
         return $postLink;
     }
