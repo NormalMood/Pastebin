@@ -35,6 +35,7 @@ class PostService
         $post = $this->database->first('posts', ['post_link' => $postLink]);
         $expiresAt = new DateTime($post['expires_at'])->getTimestamp();
         if (time() > $expiresAt) {
+            $this->removePost($postLink);
             return null;
         }
         $category = $this->database->first('categories', ['category_id' => $post['category_id']]);
@@ -57,5 +58,12 @@ class PostService
             expiresAt: $post['expires_at'],
             author: $user['name']
         );
+    }
+
+    public function removePost(string $postLink): void
+    {
+        $post = $this->database->first('posts', ['post_link' => $postLink]);
+        $this->database->delete('posts', ['post_id' => $post['post_id']]);
+        unlink($post['post_blob_link']);
     }
 }
