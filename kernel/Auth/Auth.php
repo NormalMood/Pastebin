@@ -22,10 +22,9 @@ class Auth implements AuthInterface
 
     public function register(string $name, string $email, string $password): Token
     {
-        {
+        do {
             $verificationToken = Token::random();
-        }
-        while (!empty(
+        } while (!empty(
             $this->database->get($this->table(), ['verification_token' => $verificationToken])
         ));
         $this->database->insert($this->table(), [
@@ -68,10 +67,9 @@ class Auth implements AuthInterface
         //create session:
         $this->session->set($this->sessionField(), $userId);
 
-        {
+        do {
             $sessionToken = Token::random();
-        }
-        while (!empty(
+        } while (!empty(
             $this->database->get('sessions_tokens', ['session_token' => Hash::get($sessionToken)])
         ));
 
