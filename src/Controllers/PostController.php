@@ -76,6 +76,12 @@ class PostController extends Controller
         $this->view('post/show', ['post' => $post ?? null]);
     }
 
+    public function destroy(): void
+    {
+        $this->postService()->removePost($this->request()->input('link'));
+        $this->redirect()->to('/');
+    }
+
     private function postService(): PostService
     {
         if (!isset($this->postService)) {

@@ -23,6 +23,9 @@
             <div><?php echo $post->createdAt(); ?></div>
             <div><?php echo $post->expiresAt(); ?></div>
         </div>
+        <form action="/post/delete?link=<?php echo $post->postLink(); ?>" method="post">
+            <button>Удалить пост</button>
+        </form>
     <?php } ?>
 </body>
 </html>
