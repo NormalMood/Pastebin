@@ -7,6 +7,7 @@ use Pastebin\Controllers\RegisterController;
 use Pastebin\Controllers\SettingsController;
 use Pastebin\Kernel\Router\Route;
 use Pastebin\Middlewares\AuthMiddleware;
+use Pastebin\Middlewares\AuthorMiddleware;
 use Pastebin\Middlewares\CSRFTokenMiddleware;
 use Pastebin\Middlewares\GuestMiddleware;
 use Pastebin\Middlewares\SessionMiddleware;
@@ -15,7 +16,7 @@ return [
     Route::get(uri: '/', action: [PostController::class, 'create'], middlewares: [SessionMiddleware::class]),
     Route::post(uri: '/', action: [PostController::class, 'store'], middlewares: [CSRFTokenMiddleware::class, SessionMiddleware::class]),
     Route::get(uri: '/post', action: [PostController::class, 'show'], middlewares: [SessionMiddleware::class]),
-    Route::post(uri: '/post/delete', action: [PostController::class, 'destroy'], middlewares: [SessionMiddleware::class, AuthMiddleware::class]),
+    Route::post(uri: '/post/delete', action: [PostController::class, 'destroy'], middlewares: [SessionMiddleware::class, AuthMiddleware::class, AuthorMiddleware::class]),
     Route::get(uri: '/settings', action: [SettingsController::class, 'edit'], middlewares: [SessionMiddleware::class, AuthMiddleware::class]),
     Route::get(uri: '/profile', action: [ProfileController::class, 'show'], middlewares: [SessionMiddleware::class]),
     Route::get(uri: '/signup', action: [RegisterController::class, 'showRegistrationForm'], middlewares: [SessionMiddleware::class]),

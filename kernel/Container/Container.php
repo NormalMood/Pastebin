@@ -82,7 +82,8 @@ class Container
             $this->session,
             $this->sessionCookie,
             $this->config,
-            $this->auth
+            $this->auth,
+            $this->validator
         );
         Hash::setConfig($this->config);
         PostLink::setDatabase($this->database);

@@ -10,6 +10,7 @@ use Pastebin\Kernel\Http\RequestInterface;
 use Pastebin\Kernel\MailSender\MailSenderInterface;
 use Pastebin\Kernel\Session\SessionCookieInterface;
 use Pastebin\Kernel\Session\SessionInterface;
+use Pastebin\Kernel\Validator\ValidatorInterface;
 use Pastebin\Kernel\View\ViewInterface;
 
 class Router implements RouterInterface
@@ -28,7 +29,8 @@ class Router implements RouterInterface
         private SessionInterface $session,
         private SessionCookieInterface $sessionCookie,
         private ConfigInterface $config,
-        private AuthInterface $auth
+        private AuthInterface $auth,
+        private ValidatorInterface $validator
     ) {
         $this->initRoutes();
     }
@@ -48,7 +50,8 @@ class Router implements RouterInterface
                     $this->auth,
                     $this->session,
                     $this->sessionCookie,
-                    $this->request
+                    $this->request,
+                    $this->validator
                 );
                 $middleware->handle();
             }

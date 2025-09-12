@@ -8,6 +8,7 @@ use Pastebin\Kernel\Http\RedirectInterface;
 use Pastebin\Kernel\Http\RequestInterface;
 use Pastebin\Kernel\Session\SessionCookieInterface;
 use Pastebin\Kernel\Session\SessionInterface;
+use Pastebin\Kernel\Validator\ValidatorInterface;
 
 abstract class AbstractMiddleware
 {
@@ -17,7 +18,8 @@ abstract class AbstractMiddleware
         protected AuthInterface $auth,
         protected SessionInterface $session,
         protected SessionCookieInterface $sessionCookie,
-        protected RequestInterface $request
+        protected RequestInterface $request,
+        protected ValidatorInterface $validator
     ) {
     }
 
