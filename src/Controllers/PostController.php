@@ -60,6 +60,21 @@ class PostController extends Controller
         );
     }
 
+    public function show(): void
+    {
+        $validation = $this->validationService()->validate(
+            validationRules: [
+                'link' => 'required|min:8|max:8' //to-do: exists in db
+            ],
+            redirectUrl: "/post?link={$this->request()->input('link')}",
+            redirect: false
+        );
+        if ($validation) {
+            $post = $this->postService()->getPost($this->request()->input('link'));
+        }
+        $this->view('post/show', ['post' => $post ?? null]);
+    }
+
     private function postService(): PostService
     {
         if (!isset($this->postService)) {

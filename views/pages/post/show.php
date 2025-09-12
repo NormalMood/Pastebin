@@ -1,0 +1,28 @@
+<?php
+/**
+ * @var \Pastebin\Models\Post $post
+ */
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <?php if (!isset($post)) { ?>
+        <p>Поста не существует или он был удален</p>
+    <?php } else { ?>
+        <div>
+            <a href="#"><?php echo $post->author(); ?></a><br>
+            <b><?php echo $post->title(); ?></b><br>
+            <div><?php echo $post->syntax()->name(); ?></div>
+            <div><?php echo $post->category()->name(); ?></div>
+            <div><?php echo $post->text(); ?></div>
+            <div><?php echo $post->createdAt(); ?></div>
+            <div><?php echo $post->expiresAt(); ?></div>
+        </div>
+    <?php } ?>
+</body>
+</html>

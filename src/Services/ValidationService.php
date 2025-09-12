@@ -15,14 +15,17 @@ class ValidationService
     ) {
     }
 
-    public function validate(array $validationRules, string $redirectUrl): void
+    public function validate(array $validationRules, string $redirectUrl, bool $redirect = true): bool
     {
         $validation = $this->request->validate($validationRules);
         if (!$validation) {
             foreach ($this->request->errors() as $field => $errors) {
                 $this->session->set($field, $errors);
             }
-            $this->redirect->to($redirectUrl);
+            if ($redirect) {
+                $this->redirect->to($redirectUrl);
+            }
         }
+        return $validation;
     }
 }
