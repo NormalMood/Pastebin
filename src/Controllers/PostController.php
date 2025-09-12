@@ -49,7 +49,7 @@ class PostController extends Controller
             redirectUrl: '/'
         );
         //to-do: if guest then INFINITY is forbidden validation
-        $this->postService()->save(
+        $postLink = $this->postService()->save(
             text: $this->request()->input('text'),
             categoryId: $this->request()->input('category_id'),
             syntaxId: $this->request()->input('syntax_id'),
@@ -58,6 +58,7 @@ class PostController extends Controller
             title: $this->request()->input('title'),
             userId: $this->session()->get($this->auth()->sessionField())
         );
+        $this->redirect()->to("/post?link=$postLink");
     }
 
     public function show(): void

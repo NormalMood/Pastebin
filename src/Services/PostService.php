@@ -17,7 +17,7 @@ class PostService
     ) {
     }
 
-    public function save(string $text, int $categoryId, int $syntaxId, int $intervalId, int $postVisibilityId, ?string $title = null, ?int $userId = null): void
+    public function save(string $text, int $categoryId, int $syntaxId, int $intervalId, int $postVisibilityId, ?string $title = null, ?int $userId = null): string
     {
         $intervals = $this->database->get(table: 'intervals');
         $interval = current(array_filter($intervals, fn ($interval) => $interval['interval_id'] == $intervalId));
@@ -28,6 +28,7 @@ class PostService
             sql: "INSERT INTO posts (title, category_id, syntax_id, post_visibility_id, created_at, expires_at, post_link, post_blob_link, user_id) " .
             "VALUES ('$title', $categoryId, $syntaxId, $postVisibilityId, now(), now() + interval '{$interval['name']}', '$postLink', '$postBlobLink', $userId)"
         );
+        return $postLink;
     }
 
     public function getPost(string $postLink): Post|null
