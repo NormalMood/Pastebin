@@ -82,6 +82,19 @@ class PostController extends Controller
         $this->redirect()->to('/');
     }
 
+    public function edit(): void
+    {
+        $post = $this->postService()->getPost($this->request()->input('link'));
+        $data = [
+            'categories' => $this->categoryService()->all(),
+            'syntaxes' => $this->syntaxService()->all(),
+            'intervals' => $this->intervalService()->all(),
+            'postVisibilities' => $this->postVisibilityService()->all(),
+            'post' => $post
+        ];
+        $this->view('post/edit', $data);
+    }
+
     private function postService(): PostService
     {
         if (!isset($this->postService)) {

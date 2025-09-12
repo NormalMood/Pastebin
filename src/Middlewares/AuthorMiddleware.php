@@ -11,7 +11,7 @@ class AuthorMiddleware extends AbstractMiddleware
         $validation = $this->validator->validate(
             data: ['link' => $this->request->input('link')],
             validationRules: [
-                'link' => 'required|min:8|max:8' //to-do: exists in db
+                'link' => 'required|min:8|max:8' //to-do: exists in db??????
             ]
         );
         $post = $this->database->first('posts', ['post_link' => $this->request->input('link')]);

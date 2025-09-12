@@ -10,6 +10,8 @@ class Post
         private string $title,
         private Category $category,
         private Syntax $syntax,
+        private Interval $interval,
+        private PostVisibility $postVisibility,
         private string $createdAt,
         private string $expiresAt,
         private string $author
@@ -39,6 +41,16 @@ class Post
     public function syntax(): Syntax
     {
         return $this->syntax;
+    }
+
+    public function interval(): Interval
+    {
+        return $this->interval;
+    }
+
+    public function postVisibility(): PostVisibility
+    {
+        return $this->postVisibility;
     }
 
     public function createdAt(): string

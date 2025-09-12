@@ -7,7 +7,9 @@ use Pastebin\Kernel\Database\DatabaseInterface;
 use Pastebin\Kernel\Utils\PostLink;
 use Pastebin\Kernel\Utils\Token;
 use Pastebin\Models\Category;
+use Pastebin\Models\Interval;
 use Pastebin\Models\Post;
+use Pastebin\Models\PostVisibility;
 use Pastebin\Models\Syntax;
 
 class PostService
@@ -41,6 +43,8 @@ class PostService
         }
         $category = $this->database->first('categories', ['category_id' => $post['category_id']]);
         $syntax = $this->database->first('syntaxes', ['syntax_id' => $post['syntax_id']]);
+        $interval = $this->database->first('intervals', ['interval_id' => $post['interval_id']]);
+        $postVisibility = $this->database->first('post_visibilities', ['post_visibility_id' => $post['post_visibility_id']]);
         $user = $this->database->first('users', ['user_id' => $post['user_id']]);
         return new Post(
             postLink: $post['post_link'],
@@ -54,6 +58,14 @@ class PostService
                 id: $syntax['syntax_id'],
                 name: $syntax['name'],
                 codemirror5Mode: $syntax['codemirror5_mode']
+            ),
+            interval: new Interval(
+                id: $interval['interval_id'],
+                name: $interval['name']
+            ),
+            postVisibility: new PostVisibility(
+                id: $postVisibility['post_visibility_id'],
+                name: $postVisibility['name']
             ),
             createdAt: $post['created_at'],
             expiresAt: $post['expires_at'],
