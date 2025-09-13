@@ -53,10 +53,12 @@ class PostService
     public function getPost(string $postLink): Post|null
     {
         $post = $this->database->first('posts', ['post_link' => $postLink]);
-        $expiresAt = new DateTime($post['expires_at'])->getTimestamp();
-        if (time() > $expiresAt) {
-            $this->removePost($postLink);
-            return null;
+        if ($post['expires_at'] !== POSTGRES_INFINITY_DATE) {
+            $expiresAt = new DateTime($post['expires_at'])->getTimestamp();
+            if (time() > $expiresAt) {
+                $this->removePost($postLink);
+                return null;
+            }
         }
         $category = $this->database->first('categories', ['category_id' => $post['category_id']]);
         $syntax = $this->database->first('syntaxes', ['syntax_id' => $post['syntax_id']]);
