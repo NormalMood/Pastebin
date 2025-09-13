@@ -76,12 +76,6 @@ class PostController extends Controller
         $this->view('post/show', ['post' => $post ?? null]);
     }
 
-    public function destroy(): void
-    {
-        $this->postService()->removePost($this->request()->input('link'));
-        $this->redirect()->to('/');
-    }
-
     public function edit(): void
     {
         $post = $this->postService()->getPost($this->request()->input('link'));
@@ -93,6 +87,27 @@ class PostController extends Controller
             'post' => $post
         ];
         $this->view('post/edit', $data);
+    }
+
+    public function update(): void
+    {
+        $postLink = $this->request()->input('link');
+        $this->postService()->updatePost(
+            postLink: $postLink,
+            text: $this->request()->input('text'),
+            categoryId: $this->request()->input('category_id'),
+            syntaxId: $this->request()->input('syntax_id'),
+            intervalId: $this->request()->input('interval_id'),
+            postVisibilityId: $this->request()->input('post_visibility_id'),
+            title: $this->request()->input('title')
+        );
+        $this->redirect()->to("/post?link=$postLink");
+    }
+
+    public function destroy(): void
+    {
+        $this->postService()->removePost($this->request()->input('link'));
+        $this->redirect()->to('/');
     }
 
     private function postService(): PostService

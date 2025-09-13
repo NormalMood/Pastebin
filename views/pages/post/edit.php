@@ -21,7 +21,7 @@
             <span>Поста не существует или он был удален</span>
         </div>
     <?php } else { ?>
-        <form action="/post/update" method="post">
+        <form action="/post/update?link=<?php echo $post->postLink(); ?>" method="post">
             <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
             <div>
                 <textarea name="text" placeholder="Содержимое поста*" required><?php echo $post->text(); ?></textarea>

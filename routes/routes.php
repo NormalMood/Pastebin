@@ -18,6 +18,7 @@ return [
     Route::get(uri: '/post', action: [PostController::class, 'show'], middlewares: [SessionMiddleware::class]),
     Route::post(uri: '/post/delete', action: [PostController::class, 'destroy'], middlewares: [SessionMiddleware::class, AuthMiddleware::class, AuthorMiddleware::class]),
     Route::get(uri: '/post/edit', action: [PostController::class, 'edit'], middlewares: [SessionMiddleware::class, AuthMiddleware::class, AuthorMiddleware::class]),
+    Route::post(uri: '/post/update', action: [PostController::class, 'update'], middlewares: [CSRFTokenMiddleware::class, SessionMiddleware::class, AuthMiddleware::class, AuthorMiddleware::class]),
     Route::get(uri: '/settings', action: [SettingsController::class, 'edit'], middlewares: [SessionMiddleware::class, AuthMiddleware::class]),
     Route::get(uri: '/profile', action: [ProfileController::class, 'show'], middlewares: [SessionMiddleware::class]),
     Route::get(uri: '/signup', action: [RegisterController::class, 'showRegistrationForm'], middlewares: [SessionMiddleware::class]),

@@ -19,17 +19,34 @@ class PostService
     ) {
     }
 
-    public function save(string $text, int $categoryId, int $syntaxId, int $intervalId, int $postVisibilityId, ?string $title = null, ?int $userId = null): string
-    {
+    public function save(
+        string $text,
+        int $categoryId,
+        int $syntaxId,
+        int $intervalId,
+        int $postVisibilityId,
+        ?string $title = null,
+        ?int $userId = null,
+        ?string $postLink = null,
+        ?string $postBlobLink = null,
+        bool $update = false
+    ): string {
         $intervals = $this->database->get(table: 'intervals');
         $interval = current(array_filter($intervals, fn ($interval) => $interval['interval_id'] == $intervalId));
-        $postLink = PostLink::get();
-        $postBlobLink = APP_PATH . '/storage/' . Token::random() . '.txt';
+        $postLink ??= PostLink::get();
+        $postBlobLink ??= APP_PATH . '/storage/' . Token::random() . '.txt';
         file_put_contents($postBlobLink, $text);
-        $this->database->execSQL(
-            sql: "INSERT INTO posts (title, category_id, syntax_id, interval_id, post_visibility_id, created_at, expires_at, post_link, post_blob_link, user_id) " .
+        if ($update) {
+            $this->database->execSQL(
+                sql: "UPDATE posts SET title = '$title', category_id = $categoryId, syntax_id = $syntaxId, " .
+                "interval_id = $intervalId, post_visibility_id = $postVisibilityId, created_at = now(), expires_at = now() + interval '{$interval['name']}' WHERE post_link = '$postLink'"
+            );
+        } else {
+            $this->database->execSQL(
+                sql: "INSERT INTO posts (title, category_id, syntax_id, interval_id, post_visibility_id, created_at, expires_at, post_link, post_blob_link, user_id) " .
             "VALUES ('$title', $categoryId, $syntaxId, $intervalId, $postVisibilityId, now(), now() + interval '{$interval['name']}', '$postLink', '$postBlobLink', $userId)"
-        );
+            );
+        }
         return $postLink;
     }
 
@@ -71,6 +88,35 @@ class PostService
             expiresAt: $post['expires_at'],
             author: $user['name']
         );
+    }
+
+    public function updatePost(string $postLink, string $text, int $categoryId, int $syntaxId, int $intervalId, int $postVisibilityId, ?string $title = null, ?int $userId = null): void
+    {
+        $post = $this->database->first('posts', ['post_link' => $postLink]);
+        if (empty($post)) {
+            $this->save(
+                text: $text,
+                categoryId: $categoryId,
+                syntaxId: $syntaxId,
+                intervalId: $intervalId,
+                postVisibilityId: $postVisibilityId,
+                title: $title,
+                userId: $userId,
+                postLink: $postLink
+            );
+        } else {
+            $this->save(
+                text: $text,
+                categoryId: $categoryId,
+                syntaxId: $syntaxId,
+                intervalId: $intervalId,
+                postVisibilityId: $postVisibilityId,
+                title: $title,
+                postLink: $postLink,
+                postBlobLink: $post['post_blob_link'],
+                update: true
+            );
+        }
     }
 
     public function removePost(string $postLink): void
