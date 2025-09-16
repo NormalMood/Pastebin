@@ -8,7 +8,7 @@ class Post
         private string $postLink,
         private string $text,
         private string $title,
-        private Category $category,
+        private ?Category $category,
         private Syntax $syntax,
         private Interval $interval,
         private PostVisibility $postVisibility,
@@ -33,7 +33,7 @@ class Post
         return $this->title;
     }
 
-    public function category(): Category
+    public function category(): ?Category
     {
         return $this->category;
     }

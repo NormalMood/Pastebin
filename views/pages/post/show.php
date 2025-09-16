@@ -16,7 +16,7 @@
         <p>Поста не существует или он был удален</p>
     <?php } else { ?>
         <div>
-            <a href="#"><?php echo $post->author(); ?></a><br>
+            <a href="/profile?u=<?php echo $post->author(); ?>"><?php echo $post->author(); ?></a><br>
             <b><?php echo $post->title(); ?></b><br>
             <div><?php echo $post->syntax()->name(); ?></div>
             <div><?php echo $post->category()->name(); ?></div>
@@ -25,7 +25,7 @@
             <div><?php echo $post->expiresAt(); ?></div>
         </div>
         <div>
-            <a href="/post/edit?link=<?php echo $post->postLink(); ?>">Редактировать</ф>
+            <a href="/post/edit?link=<?php echo $post->postLink(); ?>">Редактировать</a>
         </div>
         <form action="/post/delete?link=<?php echo $post->postLink(); ?>" method="post">
             <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
