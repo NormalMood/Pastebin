@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var \Pastebin\Kernel\View\ViewInterface $view
  * @var \Pastebin\Kernel\Session\SessionInterface $session
  * @var \Pastebin\Kernel\Config\ConfigInterface $config
  * @var string $csrfToken
@@ -10,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><?php echo $view->title(); ?></title>
 </head>
 <body>
     <?php if ($session->has($config->get('auth.verification_link_field'))) {?>

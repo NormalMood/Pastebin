@@ -32,7 +32,7 @@ class PostController extends Controller
             'intervals' => $this->intervalService()->all(),
             'postVisibilities' => $this->postVisibilityService()->all()
         ];
-        $this->view('post/create', $data);
+        $this->view('post/create', $data, title: 'Создание поста');
     }
 
     public function store(): void
@@ -73,7 +73,7 @@ class PostController extends Controller
         if ($validation) {
             $post = $this->postService()->getPost($this->request()->input('link'));
         }
-        $this->view('post/show', ['post' => $post ?? null]);
+        $this->view('post/show', ['post' => $post ?? null], title: 'Пост');
     }
 
     public function edit(): void
@@ -86,7 +86,7 @@ class PostController extends Controller
             'postVisibilities' => $this->postVisibilityService()->all(),
             'post' => $post
         ];
-        $this->view('post/edit', $data);
+        $this->view('post/edit', $data, 'Редактирование поста');
     }
 
     public function update(): void

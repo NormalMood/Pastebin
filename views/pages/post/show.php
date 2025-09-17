@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var \Pastebin\Kernel\View\ViewInterface $view
  * @var \Pastebin\Models\Post $post
  * @var string $csrfToken
  */
@@ -9,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><?php echo $view->title(); ?></title>
 </head>
 <body>
     <?php if (!isset($post)) { ?>

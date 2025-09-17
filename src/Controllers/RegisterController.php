@@ -14,7 +14,7 @@ class RegisterController extends Controller
 
     public function showRegistrationForm(): void
     {
-        $this->view('auth/register');
+        $this->view(name: 'auth/register', title: 'Регистрация');
     }
 
     public function register(): void
@@ -36,7 +36,7 @@ class RegisterController extends Controller
 
     public function showResendLinkForm(): void
     {
-        $this->view('auth/resend-link');
+        $this->view(name: 'auth/resend-link', title: 'Ссылка активации');
     }
 
     public function resendLink(): void

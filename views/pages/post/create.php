@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var \Pastebin\Kernel\View\ViewInterface $view
  * @var array<\Pastebin\Models\Category> $categories
  * @var array<\Pastebin\Models\Syntax> $syntaxes
  * @var array<\Pastebin\Models\Interval> $intervals
@@ -12,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post</title>
+    <title><?php echo $view->title(); ?></title>
 </head>
     <b>Post page</b>
     <form action="/" method="post">

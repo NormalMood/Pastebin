@@ -10,6 +10,8 @@ use Pastebin\Kernel\Utils\Token;
 
 class View implements ViewInterface
 {
+    private string $title;
+
     public function __construct(
         private SessionInterface $session,
         private ConfigInterface $config,
@@ -17,8 +19,9 @@ class View implements ViewInterface
     ) {
     }
 
-    public function page(string $name, array $data = []): void
+    public function page(string $name, array $data = [], string $title = ''): void
     {
+        $this->title = $title;
         $pagePath = APP_PATH . "/views/pages/$name.php";
         if (!file_exists($pagePath)) {
             throw new ViewNotFoundException("View $name not found");
@@ -32,11 +35,17 @@ class View implements ViewInterface
     private function defaultData(): array
     {
         return [
+            'view' => $this,
             'session' => $this->session,
             'config' => $this->config,
             'auth' => $this->auth,
             'csrfToken' => $this->session->get('csrf_token')
         ];
+    }
+
+    public function title(): string
+    {
+        return $this->title;
     }
 
     //set Content-Security-Policy

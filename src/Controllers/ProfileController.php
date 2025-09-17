@@ -24,7 +24,7 @@ class ProfileController extends Controller
         if ($validation) {
             $data = $this->profileService()->getPosts(userName: $this->request()->input('u'));
         }
-        $this->view('profile', $data);
+        $this->view('profile', $data, title: 'Профиль');
     }
 
     private function profileService(): ProfileService

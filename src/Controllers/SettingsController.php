@@ -24,7 +24,7 @@ class SettingsController extends Controller
         if ($validation) {
             $data = $this->settingsService()->getAccountData($this->request()->input('u'));
         }
-        $this->view('settings', $data ?? []);
+        $this->view('settings', $data ?? [], title: 'Настройки');
     }
 
     public function savePicture(): void

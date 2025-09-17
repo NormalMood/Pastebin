@@ -14,7 +14,7 @@ class LoginController extends Controller
 
     public function showLoginForm(): void
     {
-        $this->view('auth/login');
+        $this->view(name: 'auth/login', title: 'Вход');
     }
 
     public function login(): void
@@ -56,7 +56,11 @@ class LoginController extends Controller
 
     public function showResetPasswordForm(): void
     {
-        $this->view('auth/reset-password', ['token' => $this->request()->input('token')]);
+        $this->view(
+            name: 'auth/reset-password',
+            data: ['token' => $this->request()->input('token')],
+            title: 'Сброс пароля'
+        );
     }
 
     public function resetPassword(): void
