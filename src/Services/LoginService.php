@@ -28,7 +28,7 @@ class LoginService
             //to-do: set error session
             $this->redirect->to('/signin');
         }
-        $this->redirect->to('/profile');
+        $this->redirect->to("/profile?u=$name");
     }
 
     public function forgotName(string $email): void
