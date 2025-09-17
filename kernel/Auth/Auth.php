@@ -58,7 +58,7 @@ class Auth implements AuthInterface
     {
         $userId = $this->session->get($this->sessionField());
         $this->session->destroy();
-        $this->sessionCookie->remove();
+        $this->sessionCookie->delete();
         $this->database->delete('sessions_tokens', ['user_id' => $userId]);
     }
 

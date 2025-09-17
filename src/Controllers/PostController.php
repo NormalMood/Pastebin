@@ -106,7 +106,7 @@ class PostController extends Controller
 
     public function destroy(): void
     {
-        $this->postService()->removePost($this->request()->input('link'));
+        $this->postService()->deletePost($this->request()->input('link'));
         $userName = $this->request()->input('u');
         if (isset($userName)) {
             $this->redirect()->to("/profile?u=$userName");

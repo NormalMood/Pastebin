@@ -12,7 +12,7 @@ interface SessionInterface
 
     public function has(string $key): bool;
 
-    public function remove(string $key): void;
+    public function delete(string $key): void;
 
     public function destroy(): void;
 }

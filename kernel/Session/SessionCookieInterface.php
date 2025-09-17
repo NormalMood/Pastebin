@@ -12,5 +12,5 @@ interface SessionCookieInterface
 
     public function has(): bool;
 
-    public function remove(): void;
+    public function delete(): void;
 }

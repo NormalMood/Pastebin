@@ -56,7 +56,7 @@ class PostService
         if ($post['expires_at'] !== POSTGRES_INFINITY_DATE) {
             $expiresAt = new DateTime($post['expires_at'])->getTimestamp();
             if (time() > $expiresAt) {
-                $this->removePost($postLink);
+                $this->deletePost($postLink);
                 return null;
             }
         }
@@ -121,7 +121,7 @@ class PostService
         }
     }
 
-    public function removePost(string $postLink): void
+    public function deletePost(string $postLink): void
     {
         $post = $this->database->first('posts', ['post_link' => $postLink]);
         $this->database->delete('posts', ['post_id' => $post['post_id']]);

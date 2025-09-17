@@ -45,7 +45,7 @@ class SessionCookie implements SessionCookieInterface
         return isset($token);
     }
 
-    public function remove(): void
+    public function delete(): void
     {
         $this->set(token: '', expiresAt: time() - SESSION_COOKIE_TTL);
     }

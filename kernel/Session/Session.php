@@ -17,7 +17,7 @@ class Session implements SessionInterface
     public function getFlush(string $key, $default = null): mixed
     {
         $value = $this->get($key, $default);
-        $this->remove($key);
+        $this->delete($key);
         return $value;
     }
 
@@ -31,7 +31,7 @@ class Session implements SessionInterface
         return isset($_SESSION[$key]);
     }
 
-    public function remove(string $key): void
+    public function delete(string $key): void
     {
         unset($_SESSION[$key]);
     }

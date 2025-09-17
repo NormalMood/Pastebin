@@ -62,9 +62,9 @@ class RegisterService
             echo 'Ссылка недействительна';
             exit;
         } else {
-            //remove email for account verification from session
-            $this->session->remove($this->config->get('auth.verification_link_field'));
-            //remove verification token from db
+            //delete email for account verification from session
+            $this->session->delete($this->config->get('auth.verification_link_field'));
+            //delete verification token from db
             $this->database->update('users', ['verification_token' => null], ['user_id' => $user['user_id']]);
 
             $this->auth->createSession($user['user_id']);

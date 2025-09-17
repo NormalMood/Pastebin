@@ -34,7 +34,7 @@ class ProfileService
         foreach ($posts as $post) {
             if (($post['expires_at'] !== POSTGRES_INFINITY_DATE) &&
                 (time() > new DateTime($post['expires_at'])->getTimestamp())) {
-                $this->postService()->removePost($post['post_link']);
+                $this->postService()->deletePost($post['post_link']);
             } else {
                 $interval = $this->database->first('intervals', ['interval_id' => $post['interval_id']]);
                 $postVisibility = $this->database->first('post_visibilities', ['post_visibility_id' => $post['post_visibility_id']]);
