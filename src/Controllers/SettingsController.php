@@ -27,6 +27,15 @@ class SettingsController extends Controller
         $this->view('settings', $data ?? []);
     }
 
+    public function savePicture(): void
+    {
+        $this->settingsService()->savePicture(
+            $this->session()->get($this->auth()->sessionField()),
+            $this->request()->file('picture')
+        );
+        $this->redirect()->to("/settings?u={$this->request()->input('u')}");
+    }
+
     private function validationService(): ValidationService
     {
         if (!isset($this->validationService)) {

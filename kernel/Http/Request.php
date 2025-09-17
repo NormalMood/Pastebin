@@ -2,6 +2,8 @@
 
 namespace Pastebin\Kernel\Http;
 
+use Pastebin\Kernel\Upload\UploadedFile;
+use Pastebin\Kernel\Upload\UploadedFileInterface;
 use Pastebin\Kernel\Validator\ValidatorInterface;
 
 class Request implements RequestInterface
@@ -12,7 +14,8 @@ class Request implements RequestInterface
         public readonly array $get,
         public readonly array $post,
         public readonly array $server,
-        public readonly array $cookie
+        public readonly array $cookie,
+        public readonly array $files
     ) {
     }
 
@@ -22,7 +25,9 @@ class Request implements RequestInterface
             $_GET,
             $_POST,
             $_SERVER,
-            $_COOKIE);
+            $_COOKIE,
+            $_FILES
+        );
     }
 
     public function uri(): string
@@ -43,6 +48,20 @@ class Request implements RequestInterface
     public function cookie(): array
     {
         return $this->cookie;
+    }
+
+    public function file(string $key): ?UploadedFileInterface
+    {
+        if (!isset($this->files[$key])) {
+            return null;
+        }
+        return new UploadedFile(
+            $this->files[$key]['name'],
+            $this->files[$key]['type'],
+            $this->files[$key]['tmp_name'],
+            $this->files[$key]['error'],
+            $this->files[$key]['size']
+        );
     }
 
     public function validate(array $validationRules): bool
