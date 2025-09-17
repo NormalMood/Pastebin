@@ -69,7 +69,7 @@ class RegisterService
 
             $this->auth->createSession($user['user_id']);
 
-            $this->redirect->to('/settings');
+            $this->redirect->to("/settings?u={$user['name']}");
         }
     }
 
