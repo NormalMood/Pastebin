@@ -38,7 +38,7 @@ class SettingsController extends Controller
 
     public function changePassword(): void
     {
-        //to-do: exists in db
+        //to-do: hash exists in db
         $this->validationService()->validate(
             validationRules: [
                 'password' => 'required|min:12|max:50',
@@ -52,6 +52,21 @@ class SettingsController extends Controller
             newPassword: $this->request()->input('new_password')
         );
         $this->redirect()->to("/settings?u={$this->request()->input('u')}");
+    }
+
+    public function deleteAccount(): void
+    {
+        //to-do: hash exists in db
+        $this->validationService()->validate(
+            validationRules: [
+                'password' => 'required|min:12|max:50'
+            ],
+            redirectUrl: "/settings?u={$this->request()->input('u')}"
+        );
+        $this->settingsService()->deleteAccount(
+            userId: $this->session()->get($this->auth()->sessionField())
+        );
+        $this->redirect()->to('/');
     }
 
     private function validationService(): ValidationService
@@ -69,7 +84,10 @@ class SettingsController extends Controller
     private function settingsService(): SettingsService
     {
         if (!isset($this->settingsService)) {
-            $this->settingsService = new SettingsService($this->database());
+            $this->settingsService = new SettingsService(
+                $this->database(),
+                $this->auth()
+            );
         }
         return $this->settingsService;
     }

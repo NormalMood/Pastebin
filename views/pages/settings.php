@@ -31,6 +31,15 @@
         </div>
         <hr>
         <div>
+            <form action="/delete-account" method="post">
+                <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
+                <input type="hidden" name="u" value="<?php echo $userName; ?>">
+                <input type="password" name="password" placeholder="Пароль*">
+                <button>Удалить аккаунт</button>
+            </form>
+        </div>
+        <hr>
+        <div>
             <form action="/change-password" method="post">
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <input type="hidden" name="u" value="<?php echo $userName; ?>">
