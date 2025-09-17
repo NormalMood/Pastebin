@@ -56,6 +56,11 @@ class Validator implements ValidatorInterface
                     return $ruleName;
                 }
                 break;
+            case 'confirmed':
+                if (!hash_equals(known_string: $value, user_string: $this->data["{$field}_confirmation"])) {
+                    return $ruleName;
+                }
+                break;
         }
         return false;
     }

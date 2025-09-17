@@ -21,6 +21,7 @@ return [
     Route::post(uri: '/post/update', action: [PostController::class, 'update'], middlewares: [CSRFTokenMiddleware::class, SessionMiddleware::class, AuthMiddleware::class, AuthorMiddleware::class]),
     Route::get(uri: '/settings', action: [SettingsController::class, 'edit'], middlewares: [SessionMiddleware::class, AuthMiddleware::class]),
     Route::post(uri: '/picture', action: [SettingsController::class, 'savePicture'], middlewares: [CSRFTokenMiddleware::class, SessionMiddleware::class, AuthMiddleware::class]),
+    Route::post(uri: '/change-password', action: [SettingsController::class, 'changePassword'], middlewares: [CSRFTokenMiddleware::class, SessionMiddleware::class, AuthMiddleware::class]),
     Route::get(uri: '/profile', action: [ProfileController::class, 'show'], middlewares: [SessionMiddleware::class]),
     Route::get(uri: '/signup', action: [RegisterController::class, 'showRegistrationForm'], middlewares: [SessionMiddleware::class]),
     Route::post(uri: '/signup', action: [RegisterController::class, 'register'], middlewares: [CSRFTokenMiddleware::class, GuestMiddleware::class]),

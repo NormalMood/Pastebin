@@ -29,6 +29,17 @@
                 <button>Сохранить</button>
             </form>
         </div>
+        <hr>
+        <div>
+            <form action="/change-password" method="post">
+                <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
+                <input type="hidden" name="u" value="<?php echo $userName; ?>">
+                <input type="password" name="password" placeholder="Старый пароль*">
+                <input type="password" name="new_password" placeholder="Новый пароль*">
+                <input type="password" name="new_password_confirmation" placeholder="Еще раз новый пароль*">
+                <button>Изменить пароль</button>
+            </form>
+        </div>
     <?php } ?>
     <form action="/logout" method="post">
         <button>Выйти</button>

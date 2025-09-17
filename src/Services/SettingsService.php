@@ -4,6 +4,7 @@ namespace Pastebin\Services;
 
 use Pastebin\Kernel\Database\DatabaseInterface;
 use Pastebin\Kernel\Upload\UploadedFileInterface;
+use Pastebin\Kernel\Utils\Hash;
 
 class SettingsService
 {
@@ -27,6 +28,15 @@ class SettingsService
         $this->database->update(
             table: 'users',
             data: ['picture_blob_link' => $picturePath],
+            conditions: ['user_id' => $userId]
+        );
+    }
+
+    public function changePassword(int $userId, string $newPassword): void
+    {
+        $this->database->update(
+            table: 'users',
+            data: ['password' => Hash::get($newPassword)],
             conditions: ['user_id' => $userId]
         );
     }

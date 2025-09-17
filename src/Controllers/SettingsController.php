@@ -36,6 +36,24 @@ class SettingsController extends Controller
         $this->redirect()->to("/settings?u={$this->request()->input('u')}");
     }
 
+    public function changePassword(): void
+    {
+        //to-do: exists in db
+        $this->validationService()->validate(
+            validationRules: [
+                'password' => 'required|min:12|max:50',
+                'new_password' => 'required|min:12|max:50|confirmed',
+                'new_password_confirmation' => 'required|min:12|max:50'
+            ],
+            redirectUrl: "/settings?u={$this->request()->input('u')}"
+        );
+        $this->settingsService()->changePassword(
+            userId: $this->session()->get($this->auth()->sessionField()),
+            newPassword: $this->request()->input('new_password')
+        );
+        $this->redirect()->to("/settings?u={$this->request()->input('u')}");
+    }
+
     private function validationService(): ValidationService
     {
         if (!isset($this->validationService)) {
