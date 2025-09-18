@@ -47,7 +47,7 @@ class Auth implements AuthInterface
         if (isset($user['verification_token'])) {
             return ['message' => 'User not verified'];
         }
-        if (Hash::get($password) != $user[$this->password()]) {
+        if (!hash_equals(known_string: $user[$this->password()], user_string: Hash::get($password))) {
             return ['message' => 'Wrong password'];
         }
         $this->createSession($user['user_id']);
