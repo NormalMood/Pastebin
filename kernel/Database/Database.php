@@ -82,9 +82,11 @@ class Database implements DatabaseInterface
         return (int) $this->pdo->lastInsertId();
     }
 
-    public function execSQL(string $sql): int|bool
+    public function execSQL(string $sql, array $params): int|bool
     {
-        return $this->pdo->exec($sql);
+        $statement = $this->pdo->prepare($sql);
+        $result = $statement->execute($params);
+        return $result ? $statement->rowCount() : false;
     }
 
     public function update(string $table, array $data, array $conditions = []): void

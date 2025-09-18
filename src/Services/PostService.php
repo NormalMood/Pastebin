@@ -37,14 +37,36 @@ class PostService
         $postBlobLink ??= APP_PATH . '/storage/' . Token::random() . '.txt';
         file_put_contents($postBlobLink, $text);
         if ($update) {
+            $sql = "UPDATE posts SET title = :title, category_id = :category_id, syntax_id = :syntax_id, " .
+                "interval_id = :interval_id, post_visibility_id = :post_visibility_id, created_at = now(), expires_at = now() + interval '{$interval['name']}' WHERE post_link = :post_link";
+            $params = [
+                ':title' => $title,
+                ':category_id' => $categoryId,
+                ':syntax_id' => $syntaxId,
+                ':interval_id' => $intervalId,
+                ':post_visibility_id' => $postVisibilityId,
+                ':post_link' => $postLink
+            ];
             $this->database->execSQL(
-                sql: "UPDATE posts SET title = '$title', category_id = $categoryId, syntax_id = $syntaxId, " .
-                "interval_id = $intervalId, post_visibility_id = $postVisibilityId, created_at = now(), expires_at = now() + interval '{$interval['name']}' WHERE post_link = '$postLink'"
+                $sql,
+                $params
             );
         } else {
+            $sql = "INSERT INTO posts (title, category_id, syntax_id, interval_id, post_visibility_id, created_at, expires_at, post_link, post_blob_link, user_id) " .
+            "VALUES (:title, :category_id, :syntax_id, :interval_id, :post_visibility_id, now(), now() + interval '{$interval['name']}', :post_link, :post_blob_link, :user_id)";
+            $params = [
+                ':title' => $title,
+                ':category_id' => $categoryId,
+                ':syntax_id' => $syntaxId,
+                ':interval_id' => $intervalId,
+                ':post_visibility_id' => $postVisibilityId,
+                ':post_link' => $postLink,
+                ':post_blob_link' => $postBlobLink,
+                ':user_id' => $userId
+            ];
             $this->database->execSQL(
-                sql: "INSERT INTO posts (title, category_id, syntax_id, interval_id, post_visibility_id, created_at, expires_at, post_link, post_blob_link, user_id) " .
-            "VALUES ('$title', $categoryId, $syntaxId, $intervalId, $postVisibilityId, now(), now() + interval '{$interval['name']}', '$postLink', '$postBlobLink', $userId)"
+                $sql,
+                $params
             );
         }
         return $postLink;

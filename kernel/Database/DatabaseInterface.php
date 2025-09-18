@@ -12,7 +12,7 @@ interface DatabaseInterface
 
     public function insert(string $table, array $data): int;
 
-    public function execSQL(string $sql): int|bool;
+    public function execSQL(string $sql, array $params): int|bool;
 
     public function update(string $table, array $data, array $conditions = []): void;
 
