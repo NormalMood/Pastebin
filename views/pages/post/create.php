@@ -1,6 +1,7 @@
 <?php
 /**
  * @var \Pastebin\Kernel\View\ViewInterface $view
+ * @var \Pastebin\Kernel\Session\SessionInterface $session
  * @var array<\Pastebin\Models\Category> $categories
  * @var array<\Pastebin\Models\Syntax> $syntaxes
  * @var array<\Pastebin\Models\Interval> $intervals
@@ -16,6 +17,18 @@
     <title><?php echo $view->title(); ?></title>
 </head>
     <b>Post page</b>
+    <?php if ($session->has('errorMessages')) { ?>
+        <ul>
+            <?php foreach ($session->getFlush('errorMessages') as $errorMessage) { ?>
+                <li><?php echo $errorMessage; ?></li>
+            <?php } ?>
+        </ul>
+    <?php } ?>
+    <?php if ($session->has('accountDeleted')) { ?>
+        <ul>
+            <li><?php echo $session->getFlush('accountDeleted'); ?></li>
+        </ul>
+    <?php } ?>
     <form action="/" method="post">
         <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
         <div>

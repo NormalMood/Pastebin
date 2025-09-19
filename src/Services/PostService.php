@@ -75,6 +75,9 @@ class PostService
     public function getPost(string $postLink): Post|null
     {
         $post = $this->database->first('posts', ['post_link' => $postLink]);
+        if (empty($post)) {
+            return null;
+        }
         if ($post['expires_at'] !== POSTGRES_INFINITY_DATE) {
             $expiresAt = new DateTime($post['expires_at'])->getTimestamp();
             if (time() > $expiresAt) {
@@ -110,7 +113,8 @@ class PostService
             ),
             createdAt: $post['created_at'],
             expiresAt: $post['expires_at'],
-            author: $user['name']
+            author: $user['name'],
+            authorId: $post['user_id']
         );
     }
 

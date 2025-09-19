@@ -21,8 +21,8 @@ class RegisterController extends Controller
     {
         $this->validationService()->validate(
             validationRules: [
-                'name' => 'required|max:100',
-                'email' => 'required|email',
+                'name' => 'required|name|max:100|unique:names_taken,name',
+                'email' => 'required|email|unique:users,e_mail',
                 'password' => 'required|min:12|max:50'
             ],
             redirectUrl: '/signup'
@@ -43,7 +43,7 @@ class RegisterController extends Controller
     {
         $this->validationService()->validate(
             validationRules: [
-                'email' => 'required|email'
+                'email' => 'required|exists:users,e_mail|email'
             ],
             redirectUrl: '/resend-link'
         );
@@ -52,12 +52,6 @@ class RegisterController extends Controller
 
     public function verify(): void
     {
-        $this->validationService()->validate(
-            validationRules: [
-                'token' => 'required'
-            ],
-            redirectUrl: '/verify'
-        );
         $this->registerService()->verify($this->request()->input('token'));
     }
 

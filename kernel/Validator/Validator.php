@@ -2,11 +2,18 @@
 
 namespace Pastebin\Kernel\Validator;
 
+use Pastebin\Kernel\Database\DatabaseInterface;
+
 class Validator implements ValidatorInterface
 {
     private array $data = [];
 
     private array $errors = [];
+
+    public function __construct(
+        private DatabaseInterface $database
+    ) {
+    }
 
     public function validate(array $data, array $validationRules): bool
     {
@@ -43,12 +50,12 @@ class Validator implements ValidatorInterface
                 break;
             case 'min':
                 if (strlen($value ?? '') < $ruleValue) {
-                    return "$ruleName:$ruleValue";
+                    return $ruleName;
                 }
                 break;
             case 'max':
                 if (strlen($value ?? '') > $ruleValue) {
-                    return "$ruleName:$ruleValue";
+                    return $ruleName;
                 }
                 break;
             case 'email':
@@ -58,6 +65,29 @@ class Validator implements ValidatorInterface
                 break;
             case 'confirmed':
                 if (!hash_equals(known_string: $value, user_string: $this->data["{$field}_confirmation"])) {
+                    return $ruleName;
+                }
+                break;
+            case 'name':
+                if (!preg_match(pattern: '/^[a-zA-Z0-9-_]+$/', subject: $value)) {
+                    return $ruleName;
+                }
+                break;
+            case 'unique':
+                $parts = explode(separator: ',', string: $ruleValue);
+                $table = $parts[0];
+                $column = $parts[1];
+                $entity = $this->database->first($table, [$column => $value]);
+                if (!empty($entity)) {
+                    return $ruleName;
+                }
+                break;
+            case 'exists':
+                $parts = explode(separator: ',', string: $ruleValue);
+                $table = $parts[0];
+                $column = $parts[1];
+                $entity = $this->database->first($table, [$column => $value]);
+                if (empty($entity)) {
                     return $ruleName;
                 }
                 break;

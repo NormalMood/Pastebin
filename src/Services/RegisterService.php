@@ -23,14 +23,6 @@ class RegisterService
 
     public function register(string $name, string $email, string $password): void
     {
-        if (!empty($this->database->get('names_taken', ['name' => $name]))) {
-            //to-do: set error session
-            $this->redirect->to('/signup');
-        }
-        if (!empty($this->database->get('users', ['e_mail' => $email]))) {
-            //to-do: set error session
-            $this->redirect->to('/signup');
-        }
         $verificationToken = $this->auth->register($name, $email, $password)->get();
         $this->sendVerificationLink($email, $name, $verificationToken);
         $this->session->set($this->config->get('auth.verification_link_field'), $email);
@@ -40,26 +32,19 @@ class RegisterService
     public function resendLink(string $email): void
     {
         $user = $this->database->first('users', ['e_mail' => $email]);
-        if (empty($user)) {
-            //to-do: set error session
-            echo 'Нет пользователя с таким e-mail';
-            exit;
-        } else {
-            $this->sendVerificationLink($user['e_mail'], $user['name'], $user['verification_token']);
-            $this->redirect->to('/resend-link');
-        }
+        $this->sendVerificationLink($user['e_mail'], $user['name'], $user['verification_token']);
+        $this->redirect->to('/resend-link');
     }
 
     public function verify(?string $token): void
     {
         if (empty($token)) {
-            echo 'Ссылка недействительна' ;
+            echo '<b>Ссылка недействительна</b>' ;
             exit;
         }
         $user = $this->database->first('users', ['verification_token' => $token]);
         if (empty($user)) {
-            //to-do: set error session???
-            echo 'Ссылка недействительна';
+            echo '<b>Ссылка недействительна</b>';
             exit;
         } else {
             //delete email for account verification from session
@@ -68,6 +53,8 @@ class RegisterService
             $this->database->update('users', ['verification_token' => null], ['user_id' => $user['user_id']]);
 
             $this->auth->createSession($user['user_id']);
+
+            $this->session->set('userVerified', 'Аккаунт активирован');
 
             $this->redirect->to("/settings?u={$user['name']}");
         }

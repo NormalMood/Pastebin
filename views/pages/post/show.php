@@ -1,6 +1,8 @@
 <?php
 /**
  * @var \Pastebin\Kernel\View\ViewInterface $view
+ * @var \Pastebin\Kernel\Session\SessionInterface $session
+ * @var \Pastebin\Kernel\Auth\AuthInterface $auth
  * @var \Pastebin\Models\Post $post
  * @var string $csrfToken
  */
@@ -11,6 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $view->title(); ?></title>
+    <script src="/scripts/confirm_post_deletion.js" defer></script>
 </head>
 <body>
     <?php if (!isset($post)) { ?>
@@ -25,13 +28,15 @@
             <div><?php echo $post->createdAt(); ?></div>
             <div><?php echo $post->expiresAt(); ?></div>
         </div>
-        <div>
-            <a href="/post/edit?link=<?php echo $post->postLink(); ?>">Редактировать</a>
-        </div>
-        <form action="/post/delete?link=<?php echo $post->postLink(); ?>" method="post">
-            <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
-            <button>Удалить пост</button>
-        </form>
+        <?php if ($post->authorId() === $session->get($auth->sessionField())) { ?>
+            <div>
+                <a href="/post/edit?link=<?php echo $post->postLink(); ?>">Редактировать</a>
+            </div>
+            <form id="deletePostForm" action="/post/delete?link=<?php echo $post->postLink(); ?>" method="post">
+                <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
+                <button>Удалить пост</button>
+            </form>
+        <?php } ?>
     <?php } ?>
 </body>
 </html>

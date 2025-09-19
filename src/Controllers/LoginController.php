@@ -21,7 +21,7 @@ class LoginController extends Controller
     {
         $this->validationService()->validate(
             validationRules: [
-                'name' => 'required|max:100',
+                'name' => 'required|name|exists:users,name|max:100',
                 'password' => 'required|min:12|max:50'
             ],
             redirectUrl: '/signin'
@@ -36,7 +36,7 @@ class LoginController extends Controller
     {
         $this->validationService()->validate(
             validationRules: [
-                'email' => 'required|email'
+                'email' => 'required|email|exists:users,e_mail'
             ],
             redirectUrl: '/signin'
         );
@@ -47,7 +47,7 @@ class LoginController extends Controller
     {
         $this->validationService()->validate(
             validationRules: [
-                'name' => 'required|max:100'
+                'name' => 'required|name|exists:users,name|max:100'
             ],
             redirectUrl: '/signin'
         );
@@ -67,7 +67,6 @@ class LoginController extends Controller
     {
         $this->validationService()->validate(
             validationRules: [
-                'token' => 'required',
                 'new_password' => 'required|min:12|max:50'
             ],
             redirectUrl: '/reset-password'

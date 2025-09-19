@@ -19,9 +19,15 @@ class ProfileService
     ) {
     }
 
-    public function getPosts(string $userName): array|null
+    public function getPosts(?string $userName): array|null
     {
+        if (empty($userName)) {
+            return [];
+        }
         $user = $this->database->first('users', ['name' => $userName]);
+        if (empty($user)) {
+            return [];
+        }
         $posts = $this->database->get('posts', ['user_id' => $user['user_id']]);
         $author = new Author(id: $user['user_id'], name: $userName, createdAt: $user['created_at']);
         if (empty($posts)) {
@@ -59,7 +65,8 @@ class ProfileService
                     ),
                     createdAt: $post['created_at'],
                     expiresAt: $post['expires_at'],
-                    author: ''
+                    author: '',
+                    authorId: null
                 );
             }
         }

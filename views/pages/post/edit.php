@@ -1,6 +1,7 @@
 <?php
 /**
  * @var \Pastebin\Kernel\View\ViewInterface $view
+ * @var \Pastebin\Kernel\Session\SessionInterface $session
  * @var array<\Pastebin\Models\Category> $categories
  * @var array<\Pastebin\Models\Syntax> $syntaxes
  * @var array<\Pastebin\Models\Interval> $intervals
@@ -22,6 +23,13 @@
             <span>Поста не существует или он был удален</span>
         </div>
     <?php } else { ?>
+        <?php if ($session->has('errorMessages')) { ?>
+            <ul>
+                <?php foreach ($session->getFlush('errorMessages') as $errorMessage) { ?>
+                    <li><?php echo $errorMessage; ?></li>
+                <?php } ?>
+            </ul>
+        <?php } ?>
         <form action="/post/update?link=<?php echo $post->postLink(); ?>" method="post">
             <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
             <div>

@@ -1,6 +1,7 @@
 <?php
 /**
  * @var \Pastebin\Kernel\View\ViewInterface $view
+ * @var \Pastebin\Kernel\Session\SessionInterface $session
  * @var \Pastebin\Kernel\Auth\AuthInterface $auth
  * @var string $csrfToken
  */
@@ -11,17 +12,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $view->title(); ?></title>
+    <link href="css/styles.css" rel="stylesheet" />
 </head>
 <body>
     <?php if ($auth->check()) { ?>
         <p>Нет доступа</p>
     <?php } else { ?>
         <b>Login page</b>
+        <?php if ($session->has('userNotVerified')) { ?>
+            <ul>
+                <li><?php echo $session->getFlush('userNotVerified'); ?></li>
+            </ul>
+        <?php } ?>
+        <?php if ($session->has('errorMessages')) { ?>
+            <ul>
+                <?php foreach ($session->getFlush('errorMessages') as $errorMessage) { ?>
+                    <li><?php echo $errorMessage; ?></li>
+                <?php } ?>
+            </ul>
+        <?php } ?>
+        <?php if ($session->has('incorrectPassword')) { ?>
+            <ul>
+                <li><?php echo $session->getFlush('incorrectPassword'); ?></li>
+            </ul>
+        <?php } ?>
+        <?php if ($session->has('resetPassword')) { ?>
+            <ul>
+                <li><?php echo $session->getFlush('resetPassword'); ?></li>
+            </ul>
+        <?php } ?>
+        <?php if ($session->has('forgotName')) { ?>
+            <ul>
+                <li><?php echo $session->getFlush('forgotName'); ?></li>
+            </ul>
+        <?php } ?>
+        <?php if ($session->has('forgotPassword')) { ?>
+            <ul>
+                <li><?php echo $session->getFlush('forgotPassword'); ?></li>
+            </ul>
+        <?php } ?>
         <div>
             <form action="/signin" method="post">
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
-                <input type="text" name="name" placeholder="Имя*">
-                <input type="password" name="password" placeholder="Пароль*">
+                <input type="text" name="name" placeholder="Имя*" <?php echo !empty($session->getFlush('name')) ? 'class="redInput"' : ''; ?>>
+                <input type="password" name="password" placeholder="Пароль*" <?php echo !empty($session->getFlush('password')) ? 'class="redInput"' : ''; ?>>
                 <button>Войти</button>
             </form>
         </div>

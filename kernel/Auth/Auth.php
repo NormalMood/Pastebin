@@ -38,17 +38,19 @@ class Auth implements AuthInterface
         return new Token($verificationToken);
     }
 
-    public function attempt(string $username, string $password): true|array
+    public function attempt(string $username, string $password): bool
     {
         $user = $this->database->first($this->table(), [$this->username() => $username]);
-        if (empty($user)) {
-            return ['message' => 'User not found'];
-        }
         if (isset($user['verification_token'])) {
-            return ['message' => 'User not verified'];
+            $this->session->set(
+                'userNotVerified',
+                'Аккаунт не активирован. Пожалуйста, перейдите по ссылке активации'
+            );
+            return false;
         }
         if (!hash_equals(known_string: $user[$this->password()], user_string: Hash::get($password))) {
-            return ['message' => 'Wrong password'];
+            $this->session->set('incorrectPassword', 'Неверный пароль');
+            return false;
         }
         $this->createSession($user['user_id']);
         return true;

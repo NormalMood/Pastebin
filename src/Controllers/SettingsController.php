@@ -14,31 +14,24 @@ class SettingsController extends Controller
 
     public function edit(): void
     {
-        $validation = $this->validationService()->validate(
-            validationRules: [
-                'u' => 'required' //to-do: exists in db
-            ],
-            redirectUrl: "/settings?u={$this->request()->input('u')}",
-            redirect: false
+        $data = $this->settingsService()->getAccountData(
+            userId: $this->session()->get($this->auth()->sessionField()),
+            userName: $this->request()->input('u')
         );
-        if ($validation) {
-            $data = $this->settingsService()->getAccountData($this->request()->input('u'));
-        }
-        $this->view('settings', $data ?? [], title: 'Настройки');
+        $this->view('settings', $data, title: 'Настройки');
     }
 
     public function savePicture(): void
     {
         $this->settingsService()->savePicture(
-            $this->session()->get($this->auth()->sessionField()),
-            $this->request()->file('picture')
+            userName: $this->request()->input('u'),
+            uploadedFile: $this->request()->file('picture')
         );
         $this->redirect()->to("/settings?u={$this->request()->input('u')}");
     }
 
     public function changePassword(): void
     {
-        //to-do: hash exists in db
         $this->validationService()->validate(
             validationRules: [
                 'password' => 'required|min:12|max:50',
@@ -49,6 +42,7 @@ class SettingsController extends Controller
         );
         $this->settingsService()->changePassword(
             userId: $this->session()->get($this->auth()->sessionField()),
+            password: $this->request()->input('password'),
             newPassword: $this->request()->input('new_password')
         );
         $this->redirect()->to("/settings?u={$this->request()->input('u')}");
@@ -56,17 +50,21 @@ class SettingsController extends Controller
 
     public function deleteAccount(): void
     {
-        //to-do: hash exists in db
         $this->validationService()->validate(
             validationRules: [
                 'password' => 'required|min:12|max:50'
             ],
             redirectUrl: "/settings?u={$this->request()->input('u')}"
         );
-        $this->settingsService()->deleteAccount(
-            userId: $this->session()->get($this->auth()->sessionField())
+        $accountDeleted = $this->settingsService()->deleteAccount(
+            userId: $this->session()->get($this->auth()->sessionField()),
+            password: $this->request()->input('password')
         );
-        $this->redirect()->to('/');
+        if ($accountDeleted) {
+            $this->redirect()->to('/');
+        } else {
+            $this->redirect()->to("/settings?u={$this->request()->input('u')}");
+        }
     }
 
     private function validationService(): ValidationService
@@ -86,7 +84,8 @@ class SettingsController extends Controller
         if (!isset($this->settingsService)) {
             $this->settingsService = new SettingsService(
                 $this->database(),
-                $this->auth()
+                $this->auth(),
+                $this->session()
             );
         }
         return $this->settingsService;

@@ -14,16 +14,7 @@ class ProfileController extends Controller
 
     public function show(): void
     {
-        $validation = $this->validationService()->validate(
-            validationRules: [
-                'u' => 'required'
-            ],
-            redirectUrl: "/profile?u={$this->request()->input('u')}",
-            redirect: false
-        );
-        if ($validation) {
-            $data = $this->profileService()->getPosts(userName: $this->request()->input('u'));
-        }
+        $data = $this->profileService()->getPosts(userName: $this->request()->input('u'));
         $this->view('profile', $data, title: 'Профиль');
     }
 

@@ -15,6 +15,16 @@ class UploadedFile implements UploadedFileInterface
     ) {
     }
 
+    public function tmpName(): string
+    {
+        return $this->tmpName;
+    }
+
+    public function size(): int
+    {
+        return $this->size;
+    }
+
     public function move(): string|false
     {
         $storagePath = APP_PATH . '/storage/picture';
