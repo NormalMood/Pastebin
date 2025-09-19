@@ -40,7 +40,7 @@
                     <tbody>
                         <?php foreach ($posts as $post) { ?>
                             <tr>
-                                <td><a href="/post?link=<?php echo $post->postLink(); ?>"><?php echo $post->title(); ?></a></td>
+                                <td><a href="/post?link=<?php echo $post->postLink(); ?>"><?php echo !empty($post->title()) ? $post->title() : 'Без названия'; ?></a></td>
                                 <td><?php echo $post->createdAt(); ?></td>
                                 <td><?php echo $post->interval()->name(); ?></td>
                                 <td><?php echo $post->postVisibility()->name(); ?></td>
