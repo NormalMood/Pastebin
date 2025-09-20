@@ -73,12 +73,14 @@
                     </thead>
                     <tbody>
                         <?php foreach ($posts as $post) { ?>
-                            <tr>
-                                <td><a href="/post?link=<?php echo $post->postLink(); ?>"><?php echo $post->title(); ?></a></td>
-                                <td><?php echo $post->createdAt(); ?></td>
-                                <td><?php echo $post->interval()->name(); ?></td>
-                                <td><?php echo $post->syntax()->name(); ?></td>
-                            </tr>
+                            <?php if ($post->postVisibility()->id() !== UNLISTED_POST_VISIBILITY_ID) { ?>
+                                <tr>
+                                    <td><a href="/post?link=<?php echo $post->postLink(); ?>"><?php echo $post->title(); ?></a></td>
+                                    <td><?php echo $post->createdAt(); ?></td>
+                                    <td><?php echo $post->interval()->name(); ?></td>
+                                    <td><?php echo $post->syntax()->name(); ?></td>
+                                </tr>
+                            <?php } ?>
                         <?php } ?>
                     </tbody>
                 </table>
