@@ -14,7 +14,11 @@ class RegisterController extends Controller
 
     public function showRegistrationForm(): void
     {
-        $this->view(name: 'auth/register', title: 'Регистрация');
+        if ($this->auth()->check()) {
+            $this->view(name: 'forbidden', title: 'Доступ запрещен');
+        } else {
+            $this->view(name: 'auth/register', title: 'Регистрация');
+        }
     }
 
     public function register(): void
@@ -36,7 +40,11 @@ class RegisterController extends Controller
 
     public function showResendLinkForm(): void
     {
-        $this->view(name: 'auth/resend-link', title: 'Ссылка активации');
+        if ($this->session()->has($this->config()->get('auth.verification_link_field'))) {
+            $this->view(name: 'auth/resend-link', title: 'Ссылка активации');
+        } else {
+            $this->view(name: 'forbidden', title: 'Доступ запрещен');
+        }
     }
 
     public function resendLink(): void

@@ -14,7 +14,11 @@ class LoginController extends Controller
 
     public function showLoginForm(): void
     {
-        $this->view(name: 'auth/login', title: 'Вход');
+        if ($this->auth()->check()) {
+            $this->view(name: 'forbidden', title: 'Доступ запрещен');
+        } else {
+            $this->view(name: 'auth/login', title: 'Вход');
+        }
     }
 
     public function login(): void

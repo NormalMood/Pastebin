@@ -18,7 +18,11 @@ class SettingsController extends Controller
             userId: $this->session()->get($this->auth()->sessionField()),
             userName: $this->request()->input('u')
         );
-        $this->view('settings', $data, title: 'Настройки');
+        if (!isset($data['userName'])) {
+            $this->view(name: 'forbidden', title: 'Доступ запрещен');
+        } else {
+            $this->view('settings', $data, title: 'Настройки');
+        }
     }
 
     public function savePicture(): void
