@@ -14,7 +14,7 @@ class Post
         private PostVisibility $postVisibility,
         private string $createdAt,
         private string $expiresAt,
-        private string $author,
+        private ?string $author,
         private ?int $authorId
     ) {
     }
@@ -64,7 +64,7 @@ class Post
         return $this->expiresAt;
     }
 
-    public function author(): string
+    public function author(): ?string
     {
         return $this->author;
     }

@@ -20,7 +20,9 @@
         <p>Поста не существует или он был удален</p>
     <?php } else { ?>
         <div>
-            <a href="/profile?u=<?php echo $post->author(); ?>"><?php echo $post->author(); ?></a><br>
+            <?php if (!empty($post->author())) { ?>
+                <a href="/profile?u=<?php echo $post->author(); ?>"><?php echo $post->author(); ?></a><br>
+            <?php } ?>
             <b><?php echo $post->title(); ?></b><br>
             <div><?php echo $post->syntax()->name(); ?></div>
             <div><?php echo $post->category()->name(); ?></div>
@@ -28,7 +30,7 @@
             <div><?php echo $post->createdAt(); ?></div>
             <div><?php echo $post->expiresAt(); ?></div>
         </div>
-        <?php if ($post->authorId() === $session->get($auth->sessionField())) { ?>
+        <?php if (!empty($post->authorId()) && $post->authorId() === $session->get($auth->sessionField())) { ?>
             <div>
                 <a href="/post/edit?link=<?php echo $post->postLink(); ?>">Редактировать</a>
             </div>

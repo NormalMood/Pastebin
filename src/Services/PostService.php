@@ -113,8 +113,8 @@ class PostService
             ),
             createdAt: $post['created_at'],
             expiresAt: $post['expires_at'],
-            author: $user['name'],
-            authorId: $post['user_id']
+            author: $user['name'] ?? null,
+            authorId: $post['user_id'] ?? null
         );
     }
 

@@ -7,6 +7,7 @@
  * @var array<\Pastebin\Models\Interval> $intervals
  * @var array<\Pastebin\Models\PostVisibility> $postVisibilities
  * @var string $csrfToken
+ * @var \Pastebin\Kernel\Auth\AuthInterface $auth
  */
 ?>
 <!DOCTYPE html>
@@ -61,14 +62,16 @@
                 <?php } ?>
             </select>
         </div>
-        <div>
-            <select name="post_visibility_id" required>
-                <option value="" disabled selected>Доступ*</option>
-                <?php foreach ($postVisibilities as $postVisibility) { ?>
-                    <option value="<?php echo $postVisibility->id(); ?>"><?php echo $postVisibility->name(); ?></option>
-                <?php } ?>
-            </select>
-        </div>
+        <?php if ($auth->check()) { ?>
+            <div>
+                <select name="post_visibility_id" required>
+                    <option value="" disabled selected>Доступ*</option>
+                    <?php foreach ($postVisibilities as $postVisibility) { ?>
+                        <option value="<?php echo $postVisibility->id(); ?>"><?php echo $postVisibility->name(); ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+        <?php } ?>
         <button>Создать</button>
     </form>
 </body>

@@ -3,6 +3,7 @@
 namespace Pastebin\Controllers;
 
 use Pastebin\Kernel\Controller\Controller;
+use Pastebin\Models\Interval;
 use Pastebin\Services\CategoryService;
 use Pastebin\Services\IntervalService;
 use Pastebin\Services\PostService;
@@ -26,10 +27,17 @@ class PostController extends Controller
 
     public function create()
     {
+        $intervals = $this->intervalService()->all();
+        if (!$this->auth()->check()) {
+            $intervals = array_filter(
+                array: $intervals,
+                callback: fn (Interval $interval): bool => $interval->id() !== INFINITY_INTERVAL_ID
+            );
+        }
         $data = [
             'categories' => $this->categoryService()->all(),
             'syntaxes' => $this->syntaxService()->all(),
-            'intervals' => $this->intervalService()->all(),
+            'intervals' => $intervals,
             'postVisibilities' => $this->postVisibilityService()->all()
         ];
         $this->view('post/create', $data, title: 'Создание поста');
@@ -37,27 +45,51 @@ class PostController extends Controller
 
     public function store(): void
     {
-        $this->validationService()->validate(
-            validationRules: [
-                'text' => 'required',
-                'title' => 'max:255',
-                'category_id' => 'required',
-                'syntax_id' => 'required',
-                'interval_id' => 'required',
-                'post_visibility_id' => 'required'
-            ],
-            redirectUrl: '/'
-        );
-        //to-do: if guest then INFINITY is forbidden validation
-        $postLink = $this->postService()->save(
-            text: $this->request()->input('text'),
-            categoryId: $this->request()->input('category_id'),
-            syntaxId: $this->request()->input('syntax_id'),
-            intervalId: $this->request()->input('interval_id'),
-            postVisibilityId: $this->request()->input('post_visibility_id'),
-            title: $this->request()->input('title'),
-            userId: $this->session()->get($this->auth()->sessionField())
-        );
+        if ($this->auth()->check()) {
+            $this->validationService()->validate(
+                validationRules: [
+                    'text' => 'required',
+                    'title' => 'max:255',
+                    'category_id' => 'required',
+                    'syntax_id' => 'required',
+                    'interval_id' => 'required',
+                    'post_visibility_id' => 'required'
+                ],
+                redirectUrl: '/'
+            );
+            $postLink = $this->postService()->save(
+                text: $this->request()->input('text'),
+                categoryId: $this->request()->input('category_id'),
+                syntaxId: $this->request()->input('syntax_id'),
+                intervalId: $this->request()->input('interval_id'),
+                postVisibilityId: $this->request()->input('post_visibility_id'),
+                title: $this->request()->input('title'),
+                userId: $this->session()->get($this->auth()->sessionField())
+            );
+        } else {
+            $this->validationService()->validate(
+                validationRules: [
+                    'text' => 'required',
+                    'title' => 'max:255',
+                    'category_id' => 'required',
+                    'syntax_id' => 'required',
+                    'interval_id' => 'required',
+                ],
+                redirectUrl: '/'
+            );
+            if ($this->request()->input('interval_id') === INFINITY_INTERVAL_ID) {
+                $this->redirect()->to('/');
+            }
+            $postLink = $this->postService()->save(
+                text: $this->request()->input('text'),
+                categoryId: $this->request()->input('category_id'),
+                syntaxId: $this->request()->input('syntax_id'),
+                intervalId: $this->request()->input('interval_id'),
+                postVisibilityId: UNLISTED_POST_VISIBILITY_ID,
+                title: $this->request()->input('title'),
+                userId: $this->session()->get($this->auth()->sessionField())
+            );
+        }
         $this->redirect()->to("/post?link=$postLink");
     }
 
