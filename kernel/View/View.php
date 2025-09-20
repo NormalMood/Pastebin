@@ -32,6 +32,17 @@ class View implements ViewInterface
         include_once $pagePath;
     }
 
+    public function component(string $name, array $data = []): void
+    {
+        $componentPath = APP_PATH . "/views/components/$name.php";
+        if (!file_exists($componentPath)) {
+            echo "Component $name not found";
+            return;
+        }
+        extract(array_merge($this->defaultData(), $data));
+        include $componentPath;
+    }
+
     private function defaultData(): array
     {
         return [
