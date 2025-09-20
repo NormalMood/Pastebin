@@ -26,7 +26,9 @@ class View implements ViewInterface
         if (!file_exists($pagePath)) {
             throw new ViewNotFoundException("View $name not found");
         }
-        $this->setCSRFToken();
+        if (!in_array(needle: $name, haystack: ['not-found', 'forbidden'])) {
+            $this->setCSRFToken();
+        }
         $this->setCSP();
         extract(array_merge($this->defaultData(), $data));
         include_once $pagePath;
