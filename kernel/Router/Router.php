@@ -86,7 +86,7 @@ class Router implements RouterInterface
 
     private function notFound(): void
     {
-        echo '404 | Not Found';
+        $this->view->page('not-found');
         exit;
     }
 
