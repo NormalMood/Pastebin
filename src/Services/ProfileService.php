@@ -19,7 +19,7 @@ class ProfileService
     ) {
     }
 
-    public function getPosts(?string $userName): array|null
+    public function getPosts(?string $userName): array
     {
         if (empty($userName)) {
             return [];
