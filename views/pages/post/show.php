@@ -26,7 +26,7 @@
             <div>
                 <a href="/post/edit?link=<?php echo $post->postLink(); ?>">Редактировать</a>
             </div>
-            <form id="deletePostForm" action="/post/delete?link=<?php echo $post->postLink(); ?>" method="post">
+            <form class="deletePostForm" action="/post/delete?link=<?php echo $post->postLink(); ?>" method="post">
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <button>Удалить пост</button>
             </form>

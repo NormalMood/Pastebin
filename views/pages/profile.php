@@ -43,10 +43,10 @@
                                         <a href="/post/edit?link=<?php echo $post->postLink(); ?>">Редактировать</a>
                                     </div>
                                     <div>
-                                        <form id="deletePostForm" action="/post/delete?link=<?php echo $post->postLink(); ?>" method="post">
+                                        <form class="deletePostForm" action="/post/delete?link=<?php echo $post->postLink(); ?>" method="post">
                                             <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                                             <input type="hidden" name="u" value="<?php echo $author->name(); ?>">
-                                            <button>Удалить пост</button>
+                                            <button type="submit">Удалить пост</button>
                                         </form>
                                     </div>
                                 </td>
