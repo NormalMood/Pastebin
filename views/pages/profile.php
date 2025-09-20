@@ -8,14 +8,7 @@
  * @var string $csrfToken
  */
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $view->title(); ?></title>
-    <script src="/scripts/confirm_post_deletion.js" defer></script>
-</head>
+<?php $view->component('start'); ?>
     <p>Profile page</p><br>
     <?php if (isset($author)) { ?>
         <div>
@@ -95,5 +88,4 @@
     <?php } else { ?>
         <b>Профиля не существует</b>
     <?php } ?>
-</body>
-</html>
+<?php $view->component('end'); ?>

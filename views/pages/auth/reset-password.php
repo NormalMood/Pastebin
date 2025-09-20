@@ -6,14 +6,7 @@
  * @var string $csrfToken
  */
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $view->title(); ?></title>
-</head>
-<body>
+<?php $view->component('start'); ?>
     <b>Reset password</b><br>
     <?php if ($session->has('errorMessages')) { ?>
         <ul>
@@ -30,5 +23,4 @@
             <button>Сохранить</button>
         </form>
     </div>
-</body>
-</html>
+<?php $view->component('end'); ?>

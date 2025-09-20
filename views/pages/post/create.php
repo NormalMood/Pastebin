@@ -10,13 +10,7 @@
  * @var \Pastebin\Kernel\Auth\AuthInterface $auth
  */
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $view->title(); ?></title>
-</head>
+<?php $view->component('start'); ?>
     <b>Post page</b>
     <?php if ($session->has('errorMessages')) { ?>
         <ul>
@@ -74,5 +68,4 @@
         <?php } ?>
         <button>Создать</button>
     </form>
-</body>
-</html>
+<?php $view->component('end'); ?>

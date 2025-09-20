@@ -10,13 +10,7 @@
  * @var \Pastebin\Models\Post $post
  */
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $view->title(); ?></title>
-</head>
+<?php $view->component('start'); ?>
     <b>Post edit page</b>
     <?php if (!isset($post)) { ?>
         <div>
@@ -74,5 +68,4 @@
             <button>Сохранить</button>
         </form>
     <?php } ?>
-</body>
-</html>
+<?php $view->component('end'); ?>

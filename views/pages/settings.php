@@ -7,15 +7,7 @@
  * @var string $csrfToken
  */
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $view->title(); ?></title>
-    <script src="/scripts/confirm_account_deletion.js" defer></script>
-</head>
-<body>
+<?php $view->component('start'); ?>
     <b>Settings page</b><br>
     <?php if ($session->has('userVerified')) { ?>
         <ul>
@@ -84,5 +76,4 @@
     <form action="/logout" method="post">
         <button>Выйти</button>
     </form>
-</body>
-</html>
+<?php $view->component('end'); ?>

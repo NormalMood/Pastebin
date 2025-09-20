@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Доступ запрещен</title>
-</head>
-<body>
+<?php
+/**
+ * @var \Pastebin\Kernel\View\ViewInterface $view
+ */
+?>
+<?php $view->component('start'); ?>
     <b>Ошибка 403 | Доступ запрещен</b>
-</body>
-</html>
+<?php $view->component('end'); ?>
