@@ -1,6 +1,8 @@
 <?php
 /**
  * @var \Pastebin\Kernel\View\ViewInterface $view
+ * @var \Pastebin\Kernel\Auth\AuthInterface $auth
+ * @var string $csrfToken
  */
 ?>
 <!DOCTYPE html>
@@ -11,6 +13,8 @@
     <title><?php echo $view->title(); ?></title>
     <script src="/scripts/confirm_post_deletion.js" defer></script>
     <script src="/scripts/confirm_account_deletion.js" defer></script>
+    <script src="/scripts/header_burger.js" defer></script>
+    <script src="/scripts/logout.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -18,3 +22,68 @@
     <link href="css/normalize.css" rel="stylesheet" />
 </head>
 <body>
+<header class="header">
+    <div class="header__container">
+        <div class="container">
+            <div class="header__body">
+                <?php if ($auth->check()) { ?>
+                    <div class="header__profile-info">
+                        <img class="header__picture" src="/img/default_picture.png">
+                        <span class="header__username"><?php echo $auth->user()->name(); ?></span>
+                    </div>
+                <?php } else { ?>
+                    <div class="header__not-auth"></div>
+                <?php } ?>
+                <div class="header__burger" id="header-burger">
+                    <span></span>
+                </div>
+                <nav class="menu header__menu" id="header-menu">
+                    <ul class="menu__list">
+                        <li class="menu__item">
+                            <a class="menu__link" href="/">
+                                <img class="menu__icon" src="/img/new_post.png">
+                                <span>Пост</span>
+                            </a>
+                        </li>
+                        <?php if ($auth->check()) { ?>
+                            <li class="menu__item">
+                                <a class="menu__link" href="/profile?u=<?php echo $auth->user()->name(); ?>">
+                                    <img class="menu__icon" src="/img/profile.png">
+                                    <span>Профиль</span>
+                                </a>
+                            </li>
+                            <li class="menu__item">
+                                <a class="menu__link" href="/settings?u=<?php echo $auth->user()->name(); ?>">
+                                    <img class="menu__icon" src="/img/settings.png">
+                                    <span>Настройки</span>
+                                </a>
+                            </li>
+                            <li class="menu__item">
+                                <a class="menu__link" href="#" id="logoutLink">
+                                    <img class="menu__icon" src="/img/logout.png">
+                                    <span>Выход</span>
+                                </a>
+                            </li>
+                            <form id="logoutFormHidden" action="/logout" method="post">
+                                <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
+                            </form>
+                        <?php } else { ?>
+                            <li class="menu__item">
+                                <a class="menu__link" href="/signin">
+                                    <img class="menu__icon" src="/img/signin.png">
+                                    <span>Вход</span>
+                                </a>
+                            </li>
+                            <li class="menu__item">
+                                <a class="menu__link" href="/signup">
+                                    <img class="menu__icon" src="/img/signup.png">
+                                    <span>Регистрация</span>
+                                </a>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>

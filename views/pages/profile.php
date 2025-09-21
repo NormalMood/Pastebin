@@ -79,12 +79,6 @@
                 </table>
             <?php } ?>
         <?php } ?>
-        <?php if ($auth->check()) { ?>
-        <form action="/logout" method="post">
-            <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
-            <button>Выйти</button>
-        </form>
-        <?php } ?>
     <?php } else { ?>
         <b>Профиля не существует</b>
     <?php } ?>

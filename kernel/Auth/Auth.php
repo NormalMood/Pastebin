@@ -115,6 +115,24 @@ class Auth implements AuthInterface
         return $this->session->has($this->sessionField());
     }
 
+    public function user(): ?User
+    {
+        if (!$this->check()) {
+            return null;
+        }
+        $user = $this->database->first($this->table(), [
+            'user_id' => $this->session->get($this->sessionField())
+        ]);
+        if ($user) {
+            return new User(
+                id: $user['user_id'],
+                name: $user[$this->username()],
+                email: $user['e_mail']
+            );
+        }
+        return null;
+    }
+
     public function table(): string
     {
         return $this->config->get('auth.table', 'users');

@@ -73,7 +73,4 @@
             <button>Изменить пароль</button>
         </form>
     </div>
-    <form action="/logout" method="post">
-        <button>Выйти</button>
-    </form>
 <?php $view->component('end'); ?>
