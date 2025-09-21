@@ -64,7 +64,10 @@ class View implements ViewInterface
     //set Content-Security-Policy
     private function setCSP(): void
     {
-        header("Content-Security-Policy: default-src 'self'; script-src 'self';");
+        header(
+            "Content-Security-Policy: default-src 'self'; script-src 'self'; " .
+            "style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;"
+        );
     }
 
     private function setCSRFToken(): void

@@ -1,3 +1,20 @@
-.redInput {
-    border: 2px solid red;
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+    font-size: 16px;
+    font-family: 'Noto Sans', sans-serif;
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+}
+
+@media (min-width: 1000px) {
+    * {
+        font-size: 17px;
+    }
 }
