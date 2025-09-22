@@ -59,6 +59,14 @@ html {
     font-weight: 600;
 }
 
+.menu__link:hover span {
+    text-decoration: underline;
+}
+
+.menu__link_underline {
+    text-decoration: underline;
+}
+
 .menu__icon {
     width: 40px;
     height: 40px;

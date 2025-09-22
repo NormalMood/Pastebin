@@ -72,7 +72,12 @@ class Container
             $this->session,
             $this->sessionCookie
         );
-        $this->view = new View($this->session, $this->config, $this->auth);
+        $this->view = new View(
+            $this->session,
+            $this->config,
+            $this->auth,
+            $this->request
+        );
         $this->router = new Router(
             $this->view,
             $this->request,

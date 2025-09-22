@@ -2,6 +2,7 @@
 /**
  * @var \Pastebin\Kernel\View\ViewInterface $view
  * @var \Pastebin\Kernel\Auth\AuthInterface $auth
+ * @var \Pastebin\Kernel\Http\RequestInterface $request
  * @var string $csrfToken
  */
 ?>
@@ -42,20 +43,20 @@
                         <li class="menu__item">
                             <a class="menu__link" href="/">
                                 <img class="menu__icon" src="/img/new_post.png">
-                                <span>Пост</span>
+                                <span <?php echo $request->uri() === '/' ? 'class="menu__link_underline"' : ''; ?>>Пост</span>
                             </a>
                         </li>
                         <?php if ($auth->check()) { ?>
                             <li class="menu__item">
                                 <a class="menu__link" href="/profile?u=<?php echo $auth->user()->name(); ?>">
                                     <img class="menu__icon" src="/img/profile.png">
-                                    <span>Профиль</span>
+                                    <span <?php echo $request->uri() === '/profile' ? 'class="menu__link_underline"' : ''; ?>>Профиль</span>
                                 </a>
                             </li>
                             <li class="menu__item">
                                 <a class="menu__link" href="/settings?u=<?php echo $auth->user()->name(); ?>">
                                     <img class="menu__icon" src="/img/settings.png">
-                                    <span>Настройки</span>
+                                    <span <?php echo $request->uri() === '/settings' ? 'class="menu__link_underline"' : ''; ?>>Настройки</span>
                                 </a>
                             </li>
                             <li class="menu__item">
@@ -71,13 +72,13 @@
                             <li class="menu__item">
                                 <a class="menu__link" href="/signin">
                                     <img class="menu__icon" src="/img/signin.png">
-                                    <span>Вход</span>
+                                    <span <?php echo $request->uri() === '/signin' ? 'class="menu__link_underline"' : ''; ?>>Вход</span>
                                 </a>
                             </li>
                             <li class="menu__item">
                                 <a class="menu__link" href="/signup">
                                     <img class="menu__icon" src="/img/signup.png">
-                                    <span>Регистрация</span>
+                                    <span <?php echo in_array($request->uri(), ['/signup', '/resend-link']) ? 'class="menu__link_underline"' : ''; ?>>Регистрация</span>
                                 </a>
                             </li>
                         <?php } ?>
