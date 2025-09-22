@@ -8,9 +8,13 @@
 ?>
 <?php $view->component('start'); ?>
     <p>Отправлена ссылка на почту <b><?php echo $session->get($config->get('auth.verification_link_field')) ?></b></p>
-    <form action="/resend-link" method="post">
-        <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
-        <input type="hidden" name="email" value="<?php echo $session->get($config->get('auth.verification_link_field')) ?>">
-        <button>Получить ссылку</button>
-    </form>
+    <section class="credentials credentials_max-width credentials_height-fit-content">
+        <div class="container container_padding-unset">
+            <form action="/resend-link" method="post">
+                <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
+                <input type="hidden" name="email" value="<?php echo $session->get($config->get('auth.verification_link_field')) ?>">
+                <button class="button">Получить ссылку</button>
+            </form>
+        </div>
+    </section>
 <?php $view->component('end'); ?>

@@ -467,3 +467,24 @@ main {
     text-decoration: underline;
     cursor: pointer;
 }
+
+
+/* Section on Resend Link page */
+@media (min-width: 425px) {
+    .credentials_max-width {
+        margin-top: 60px;
+        max-width: 325px !important;
+    }
+}
+
+@media (min-width: 425px) {
+    .credentials_height-fit-content {
+        height: fit-content !important;
+    }
+}
+
+@media (min-width: 425px) {
+    .container_padding-unset {
+        padding: unset !important;
+    }
+}
