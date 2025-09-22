@@ -7,7 +7,6 @@
  */
 ?>
 <?php $view->component('start'); ?>
-    <b>Reset password</b><br>
     <?php if ($session->has('errorMessages')) { ?>
         <ul>
             <?php foreach ($session->getFlush('errorMessages') as $errorMessage) { ?>
@@ -15,12 +14,20 @@
             <?php } ?>
         </ul>
     <?php } ?>
-    <div>
-        <form action="/reset-password" method="post">
-            <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
-            <input type="hidden" name="token" value="<?php echo $token ?>">
-            <input type="password" name="new_password" placeholder="Новый пароль*" <?php echo !empty($session->getFlush('new_password')) ? 'class="redInput"' : ''; ?>>
-            <button>Сохранить</button>
-        </form>
-    </div>
+    <section class="credentials">
+        <div class="container">
+            <form class="credentials__form" action="/reset-password" method="post">
+                <span class="title">Сброс пароля</span>
+                <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
+                <input type="hidden" name="token" value="<?php echo $token ?>">
+                <div class="credentials__container">
+                    <div class="input">
+                        <input type="password" name="new_password" placeholder=" " <?php echo !empty($session->getFlush('password')) ? 'class="redInput"' : ''; ?>>
+                        <label class="input-label" for="new_password">Новый пароль*</label>
+                    </div>
+                </div>
+                <button class="button">Сохранить</button>
+            </form>
+        </div>
+    </section>
 <?php $view->component('end'); ?>
