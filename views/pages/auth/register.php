@@ -7,7 +7,6 @@
  */
 ?>
 <?php $view->component('start'); ?>
-    <b>Registration page</b>
     <?php if ($session->has('errorMessages')) { ?>
         <ul>
             <?php foreach ($session->getFlush('errorMessages') as $errorMessage) { ?>
@@ -15,13 +14,27 @@
             <?php } ?>
         </ul>
     <?php } ?>
-    <div>
-        <form action="/signup" method="post">
-            <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
-            <input type="text" name="name" placeholder="Имя*" <?php echo !empty($session->getFlush('name')) ? 'class="redInput"' : ''; ?>>
-            <input type="email" name="email" placeholder="E-mail*" <?php echo !empty($session->getFlush('email')) ? 'class="redInput"' : ''; ?>>
-            <input type="password" name="password" placeholder="Пароль*" <?php echo !empty($session->getFlush('password')) ? 'class="redInput"' : ''; ?>>
-            <button>Создать аккаунт</button>
-        </form>
-    </div>
+    <section class="credentials">
+        <div class="container">
+            <form class="credentials__form" action="/signup" method="post">
+                <span class="title">Регистрация</span>
+                <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
+                <div class="credentials__container">
+                    <div class="input">
+                        <input type="text" name="name" placeholder=" " <?php echo !empty($session->getFlush('name')) ? 'class="redInput"' : ''; ?>>
+                        <label class="input-label" for="name">Имя*</label>
+                    </div>
+                    <div class="input">
+                        <input type="email" name="email" placeholder=" " <?php echo !empty($session->getFlush('password')) ? 'class="redInput"' : ''; ?>>
+                        <label class="input-label" for="email">E-mail*</label>
+                    </div>
+                    <div class="input">
+                        <input type="password" name="password" placeholder=" " <?php echo !empty($session->getFlush('password')) ? 'class="redInput"' : ''; ?>>
+                        <label class="input-label" for="password">Пароль*</label>
+                    </div>
+                </div>
+                <button class="button">Создать аккаунт</button>
+            </form>
+        </div>
+    </section>
 <?php $view->component('end'); ?>
