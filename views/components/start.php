@@ -16,6 +16,7 @@
     <script src="/scripts/confirm_account_deletion.js" defer></script>
     <script src="/scripts/header_burger.js" defer></script>
     <script src="/scripts/logout.js" defer></script>
+    <script src="/scripts/credentials_forms.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -23,68 +24,69 @@
     <link href="css/normalize.css" rel="stylesheet" />
 </head>
 <body>
-<header class="header">
-    <div class="header__container">
-        <div class="container">
-            <div class="header__body">
-                <?php if ($auth->check()) { ?>
-                    <div class="header__profile-info">
-                        <img class="header__picture" src="/img/default_picture.png">
-                        <span class="header__username"><?php echo $auth->user()->name(); ?></span>
+    <header class="header">
+        <div class="header__container">
+            <div>
+                <div class="header__body">
+                    <?php if ($auth->check()) { ?>
+                        <div class="header__profile-info">
+                            <img class="header__picture" src="/img/default_picture.png">
+                            <span class="header__username"><?php echo $auth->user()->name(); ?></span>
+                        </div>
+                    <?php } else { ?>
+                        <div class="header__not-auth"></div>
+                    <?php } ?>
+                    <div class="header__burger" id="header-burger">
+                        <span></span>
                     </div>
-                <?php } else { ?>
-                    <div class="header__not-auth"></div>
-                <?php } ?>
-                <div class="header__burger" id="header-burger">
-                    <span></span>
+                    <nav class="menu header__menu" id="header-menu">
+                        <ul class="menu__list">
+                            <li class="menu__item">
+                                <a class="menu__link" href="/">
+                                    <img class="menu__icon" src="/img/new_post.png">
+                                    <span <?php echo $request->uri() === '/' ? 'class="menu__link_underline"' : ''; ?>>Пост</span>
+                                </a>
+                            </li>
+                            <?php if ($auth->check()) { ?>
+                                <li class="menu__item">
+                                    <a class="menu__link" href="/profile?u=<?php echo $auth->user()->name(); ?>">
+                                        <img class="menu__icon" src="/img/profile.png">
+                                        <span <?php echo $request->uri() === '/profile' ? 'class="menu__link_underline"' : ''; ?>>Профиль</span>
+                                    </a>
+                                </li>
+                                <li class="menu__item">
+                                    <a class="menu__link" href="/settings?u=<?php echo $auth->user()->name(); ?>">
+                                        <img class="menu__icon" src="/img/settings.png">
+                                        <span <?php echo $request->uri() === '/settings' ? 'class="menu__link_underline"' : ''; ?>>Настройки</span>
+                                    </a>
+                                </li>
+                                <li class="menu__item">
+                                    <a class="menu__link" href="#" id="logoutLink">
+                                        <img class="menu__icon" src="/img/logout.png">
+                                        <span>Выход</span>
+                                    </a>
+                                </li>
+                                <form id="logoutFormHidden" action="/logout" method="post">
+                                    <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
+                                </form>
+                            <?php } else { ?>
+                                <li class="menu__item">
+                                    <a class="menu__link" href="/signin">
+                                        <img class="menu__icon" src="/img/signin.png">
+                                        <span <?php echo $request->uri() === '/signin' ? 'class="menu__link_underline"' : ''; ?>>Вход</span>
+                                    </a>
+                                </li>
+                                <li class="menu__item">
+                                    <a class="menu__link" href="/signup">
+                                        <img class="menu__icon" src="/img/signup.png">
+                                        <span <?php echo in_array($request->uri(), ['/signup', '/resend-link']) ? 'class="menu__link_underline"' : ''; ?>>Регистрация</span>
+                                    </a>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    </nav>
                 </div>
-                <nav class="menu header__menu" id="header-menu">
-                    <ul class="menu__list">
-                        <li class="menu__item">
-                            <a class="menu__link" href="/">
-                                <img class="menu__icon" src="/img/new_post.png">
-                                <span <?php echo $request->uri() === '/' ? 'class="menu__link_underline"' : ''; ?>>Пост</span>
-                            </a>
-                        </li>
-                        <?php if ($auth->check()) { ?>
-                            <li class="menu__item">
-                                <a class="menu__link" href="/profile?u=<?php echo $auth->user()->name(); ?>">
-                                    <img class="menu__icon" src="/img/profile.png">
-                                    <span <?php echo $request->uri() === '/profile' ? 'class="menu__link_underline"' : ''; ?>>Профиль</span>
-                                </a>
-                            </li>
-                            <li class="menu__item">
-                                <a class="menu__link" href="/settings?u=<?php echo $auth->user()->name(); ?>">
-                                    <img class="menu__icon" src="/img/settings.png">
-                                    <span <?php echo $request->uri() === '/settings' ? 'class="menu__link_underline"' : ''; ?>>Настройки</span>
-                                </a>
-                            </li>
-                            <li class="menu__item">
-                                <a class="menu__link" href="#" id="logoutLink">
-                                    <img class="menu__icon" src="/img/logout.png">
-                                    <span>Выход</span>
-                                </a>
-                            </li>
-                            <form id="logoutFormHidden" action="/logout" method="post">
-                                <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
-                            </form>
-                        <?php } else { ?>
-                            <li class="menu__item">
-                                <a class="menu__link" href="/signin">
-                                    <img class="menu__icon" src="/img/signin.png">
-                                    <span <?php echo $request->uri() === '/signin' ? 'class="menu__link_underline"' : ''; ?>>Вход</span>
-                                </a>
-                            </li>
-                            <li class="menu__item">
-                                <a class="menu__link" href="/signup">
-                                    <img class="menu__icon" src="/img/signup.png">
-                                    <span <?php echo in_array($request->uri(), ['/signup', '/resend-link']) ? 'class="menu__link_underline"' : ''; ?>>Регистрация</span>
-                                </a>
-                            </li>
-                        <?php } ?>
-                    </ul>
-                </nav>
             </div>
         </div>
-    </div>
-</header>
+    </header>
+    <main>
