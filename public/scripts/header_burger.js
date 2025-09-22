@@ -14,3 +14,12 @@ if ((headerBurger !== null) && (headerMenu !== null)) {
         }
     });
 }
+
+const setOverflow = () => {
+    if (window.innerWidth >= 768) {
+        document.documentElement.removeAttribute('style');
+    } else if ((headerMenu !== null) && (headerMenu.classList.contains('header__menu_opened'))) {
+        document.documentElement.style.overflow = 'hidden';
+    }
+};
+window.addEventListener('resize', setOverflow);

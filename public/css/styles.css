@@ -67,6 +67,12 @@ html {
     text-decoration: underline;
 }
 
+@media (min-width: 1000px) {
+    .menu__link span {
+        font-size: 19px;
+    }
+}
+
 .menu__icon {
     width: 40px;
     height: 40px;
@@ -216,6 +222,12 @@ html {
 .header__menu_opened {
     top: 0;
     bottom: 0;
+}
+
+@media (min-width: 768px) {
+    .header__menu {
+        display: none;
+    }
 }
 
 #logoutFormHidden {
