@@ -38,7 +38,18 @@ html {
     gap: 20px;
     list-style: none;
     padding-left: 0;
-    padding-top: 20px;
+}
+
+@media (min-width: 768px) {
+    .menu__list {
+        flex-direction: row;
+    }
+}
+
+@media (min-width: 1000px) {
+    .menu__list {
+        gap: 30px;
+    }
 }
 
 .menu__item {
@@ -59,12 +70,28 @@ html {
     font-weight: 600;
 }
 
+.menu__link:focus-visible span {
+    text-decoration: underline;
+    color: #02C;
+}
+
 .menu__link:hover span {
     text-decoration: underline;
 }
 
+.menu__link:active span {
+    color: #02C;
+}
+
 .menu__link_underline {
     text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+    .menu__link {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 @media (min-width: 1000px) {
@@ -76,6 +103,13 @@ html {
 .menu__icon {
     width: 40px;
     height: 40px;
+}
+
+@media (min-width: 1400px) {
+    .menu__icon {
+        width: 45px;
+        height: 45px;
+    }
 }
 
 /* Header */
@@ -127,7 +161,19 @@ html {
 
 @media (min-width: 768px) {
     .header__profile-info {
-        grid-template-columns: 50px 400px;
+        grid-template-columns: 50px 320px;
+    }
+}
+
+@media (min-width: 1000px) {
+    .header__profile-info {
+        grid-template-columns: 50px 500px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .header__profile-info {
+        grid-template-columns: 60px 800px;
     }
 }
 
@@ -138,6 +184,12 @@ html {
     border-radius: 50%;
     object-fit: cover;
     background-color: #383838;
+}
+
+@media (min-width: 1400px) {
+    .header__picture {
+        height: 60px;
+    }
 }
 
 .header__username {
@@ -213,7 +265,7 @@ html {
     width: 100%;
     top: -100%;
     left: 0;
-    padding-top: 70px;
+    padding-top: 90px;
     padding-left: 15px;
     padding-right: 15px;
     transition: all var(--transition-duration) ease 0s;
@@ -226,7 +278,15 @@ html {
 
 @media (min-width: 768px) {
     .header__menu {
-        display: none;
+        display: flex;
+        position: relative;
+        z-index: 2;
+        background-color: transparent;
+        padding: 0;
+        top: 0;
+        width: fit-content;
+        align-items: center;
+        justify-content: center;
     }
 }
 
