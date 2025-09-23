@@ -45,14 +45,8 @@
                 <span class="title">Вход</span>
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <div class="credentials__container">
-                    <div class="input">
-                        <input type="text" name="name" placeholder=" " <?php echo !empty($session->getFlush('name')) ? 'class="redInput"' : ''; ?>>
-                        <label class="input-label" for="name">Имя*</label>
-                    </div>
-                    <div class="input">
-                        <input type="password" name="password" placeholder=" " <?php echo !empty($session->getFlush('password')) ? 'class="redInput"' : ''; ?>>
-                        <label class="input-label" for="password">Пароль*</label>
-                    </div>
+                    <?php $view->component('input', ['type' => 'text', 'name' => 'name', 'placeholder' => 'Имя*']) ?>
+                    <?php $view->component('input', ['type' => 'password', 'name' => 'password', 'placeholder' => 'Пароль*']) ?>
                 </div>
                 <button class="button">Войти</button>
                 <div class="credentials__navigation">
@@ -64,10 +58,7 @@
                 <span class="title">Восстановление имени</span>
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <div class="credentials__container">
-                    <div class="input">
-                        <input type="email" name="email" placeholder=" " <?php echo !empty($session->getFlush('name')) ? 'class="redInput"' : ''; ?>>
-                        <label class="input-label" for="email">E-mail*</label>
-                    </div>
+                    <?php $view->component('input', ['type' => 'email', 'name' => 'email', 'placeholder' => 'E-mail*']) ?>
                 </div>
                 <button class="button">Получить имя</button>
                 <div class="credentials__navigation">
@@ -79,10 +70,7 @@
                 <span class="title">Восстановление пароля</span>
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <div class="credentials__container">
-                    <div class="input">
-                        <input type="text" name="name" placeholder=" " <?php echo !empty($session->getFlush('name')) ? 'class="redInput"' : ''; ?>>
-                        <label class="input-label" for="name">Имя*</label>
-                    </div>
+                    <?php $view->component('input', ['type' => 'text', 'name' => 'name', 'placeholder' => 'Имя*']) ?>
                 </div>
                 <button class="button">Получить пароль</button>
                 <div class="credentials__navigation">

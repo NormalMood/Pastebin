@@ -21,10 +21,7 @@
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <input type="hidden" name="token" value="<?php echo $token ?>">
                 <div class="credentials__container">
-                    <div class="input">
-                        <input type="password" name="new_password" placeholder=" " <?php echo !empty($session->getFlush('password')) ? 'class="redInput"' : ''; ?>>
-                        <label class="input-label" for="new_password">Новый пароль*</label>
-                    </div>
+                    <?php $view->component('input', ['type' => 'password', 'name' => 'new_password', 'placeholder' => 'Новый пароль*']) ?>
                 </div>
                 <button class="button">Сохранить</button>
             </form>
