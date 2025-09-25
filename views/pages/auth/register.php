@@ -17,7 +17,7 @@
     <section class="credentials">
         <div class="container">
             <form class="credentials__form" action="/signup" method="post">
-                <span class="title">Регистрация</span>
+                <span class="title credentials__title_hidden">Регистрация</span>
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <div class="credentials__container">
                     <?php $view->component('input', ['type' => 'text', 'name' => 'name', 'placeholder' => 'Имя*']) ?>

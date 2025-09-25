@@ -30,6 +30,7 @@ class View implements ViewInterface
         }
         if (!in_array(needle: $name, haystack: ['not-found', 'forbidden'])) {
             $this->setCSRFToken();
+            $this->setNonce();
         }
         $this->setCSP();
         extract(array_merge($this->defaultData(), $data));
@@ -55,7 +56,8 @@ class View implements ViewInterface
             'config' => $this->config,
             'auth' => $this->auth,
             'request' => $this->request,
-            'csrfToken' => $this->session->get('csrf_token')
+            'csrfToken' => $this->session->get('csrf_token'),
+            'nonce' => $this->session->get('nonce')
         ];
     }
 
@@ -68,13 +70,18 @@ class View implements ViewInterface
     private function setCSP(): void
     {
         header(
-            "Content-Security-Policy: default-src 'self'; script-src 'self'; " .
-            "style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;"
+            "Content-Security-Policy: default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; " .
+            "style-src 'self' 'nonce-{$this->session->get('nonce')}' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src https://fonts.gstatic.com;"
         );
     }
 
     private function setCSRFToken(): void
     {
         $this->session->set('csrf_token', Token::random());
+    }
+
+    private function setNonce(): void
+    {
+        $this->session->set('nonce', Token::random());
     }
 }

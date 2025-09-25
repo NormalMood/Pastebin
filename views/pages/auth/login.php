@@ -42,7 +42,7 @@
     <section class="credentials">
         <div class="container">
             <form class="credentials__form" id="signInForm" action="/signin" method="post">
-                <span class="title">Вход</span>
+                <span class="title credentials__title_hidden">Вход</span>
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <div class="credentials__container">
                     <?php $view->component('input', ['type' => 'text', 'name' => 'name', 'placeholder' => 'Имя*']) ?>
@@ -55,7 +55,7 @@
                 </div>
             </form>
             <form class="credentials__form credentials__form_hidden" id="forgotNameForm" action="/forgot-name" method="post">
-                <span class="title">Восстановление имени</span>
+                <span class="title credentials__title_hidden">Восстановление имени</span>
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <div class="credentials__container">
                     <?php $view->component('input', ['type' => 'email', 'name' => 'email', 'placeholder' => 'E-mail*']) ?>
@@ -67,7 +67,7 @@
                 </div>
             </form>
             <form class="credentials__form credentials__form_hidden" id="forgotPasswordForm" action="/forgot-password" method="post">
-                <span class="title">Восстановление пароля</span>
+                <span class="title credentials__title_hidden">Восстановление пароля</span>
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <div class="credentials__container">
                     <?php $view->component('input', ['type' => 'text', 'name' => 'name', 'placeholder' => 'Имя*']) ?>

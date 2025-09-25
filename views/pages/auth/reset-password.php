@@ -17,7 +17,7 @@
     <section class="credentials">
         <div class="container">
             <form class="credentials__form" action="/reset-password" method="post">
-                <span class="title">Сброс пароля</span>
+                <span class="title credentials__title_hidden">Сброс пароля</span>
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <input type="hidden" name="token" value="<?php echo $token ?>">
                 <div class="credentials__container">

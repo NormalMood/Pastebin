@@ -6,6 +6,6 @@
  */
 ?>
 <div class="input">
-    <input type="<?php echo $type; ?>" name="<?php echo $name; ?>" placeholder=" ">
-    <label class="input-label" for="<?php echo $name; ?>"><?php echo $placeholder; ?></label>
+    <input id="<?php echo $name; ?>" type="<?php echo $type; ?>" name="<?php echo $name; ?>" placeholder=" ">
+    <label class="input__label" for="<?php echo $name; ?>"><?php echo $placeholder; ?></label>
 </div>

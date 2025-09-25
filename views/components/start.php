@@ -4,6 +4,7 @@
  * @var \Pastebin\Kernel\Auth\AuthInterface $auth
  * @var \Pastebin\Kernel\Http\RequestInterface $request
  * @var string $csrfToken
+ * @var string $nonce
  */
 ?>
 <!DOCTYPE html>
@@ -17,11 +18,32 @@
     <script src="/scripts/header_burger.js" defer></script>
     <script src="/scripts/logout.js" defer></script>
     <script src="/scripts/credentials_forms.js" defer></script>
+    <script src="/scripts/select.js" defer></script>
+    <script src="/scripts/textarea_height.js" defer></script>
+    <script src="/scripts/syntax_highlight.js" defer></script>
+
+    <!-- CodeMirror 5 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.19/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.19/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.19/addon/display/placeholder.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.19/mode/shell/shell.min.js"></script>       <!-- Bash -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.19/mode/clike/clike.min.js"></script>       <!-- C, C++, C#, Java -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.19/mode/css/css.min.js"></script>             <!-- CSS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.19/mode/htmlmixed/htmlmixed.min.js"></script> <!-- HTML -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.19/mode/javascript/javascript.min.js"></script> <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.19/mode/php/php.min.js"></script>             <!-- PHP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.19/mode/python/python.min.js"></script>       <!-- Python -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.19/codemirror.min.css" />
     <link href="css/styles.css" rel="stylesheet" />
     <link href="css/normalize.css" rel="stylesheet" />
+
+
+    <style nonce="<?php echo $nonce; ?>">
+    </style>
 </head>
 <body>
     <header class="header">

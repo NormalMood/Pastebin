@@ -35,6 +35,20 @@ html, body {
     padding: 30px 15px 0px 15px;
 }
 
+.container_background-color {
+    background-color: #FFF;
+}
+
+.container_height {
+    height: 130vh;
+}
+
+@media (min-width: 768px) {
+    .container_padding-top {
+        padding-top: 60px;
+    }
+}
+
 /* Menu */
 .menu__list {
     display: flex;
@@ -374,7 +388,13 @@ main {
 }
 
 @media (min-width: 600px) {
-    .title {
+    .credentials__title_hidden {
+        display: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .title_hidden {
         display: none;
     }
 }
@@ -408,7 +428,7 @@ main {
     outline: 1px solid #02C;
 }
 
-.input-label {
+.input__label {
     position: absolute;
     color: #999B9E;
     top: 13px;
@@ -419,8 +439,8 @@ main {
     cursor: pointer;
 }
 
-.input input:focus + .input-label,
-.input input:not(:placeholder-shown) + .input-label {
+.input input:focus + .input__label,
+.input input:not(:placeholder-shown) + .input__label {
     background-color: #FFF;
     top: -11px;
     z-index: 2;
@@ -488,3 +508,372 @@ main {
         padding: unset !important;
     }
 }
+
+/* Content container */
+.content-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.content-container__settings {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+@media (min-width: 768px) {
+    .content-container__settings {
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .content-container__settings-category-id-select {
+        grid-row: 2;
+        grid-column: 1;
+    }
+
+    .content-container__settings-syntax-id-select {
+        grid-row: 3;
+        grid-column: 1;
+    }
+
+    .content-container__settings-interval-id-select {
+        grid-row: 1;
+        grid-column: 2;
+    }
+
+    .content-container__settings-highlight-checkbox {
+        grid-row: 2;
+        grid-column: 2;
+    }
+
+    .content-container__settings-button {
+        grid-row: 3;
+        grid-column: 2;
+    }
+
+    .content-container__settings-post-visibility-select_auth {
+        grid-row: 2;
+        grid-column: 2;
+    }
+
+    .content-container__settings-highlight-checkbox_auth {
+        grid-row: 3;
+        grid-column: 2;
+    }
+
+    .content-container__settings-button_auth {
+        grid-row: 4;
+        grid-column: 2;
+    }
+}
+
+@media (min-width: 1200px) {
+    .content-container__settings {
+        display: grid;
+        column-gap: 90px;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-columns: 2.5fr 2.5fr 1.5fr 1.3fr;
+    }
+
+    .content-container__settings-category-id-select {
+        grid-row: 2;
+        grid-column: 1;
+    }
+
+    .content-container__settings-syntax-id-select {
+        grid-row: 3;
+        grid-column: 1;
+    }
+
+    .content-container__settings-interval-id-select {
+        grid-row: 1;
+        grid-column: 2;
+    }
+
+    .content-container__settings-highlight-checkbox {
+        grid-row: 2;
+        grid-column: 2;
+    }
+
+    .content-container__settings-button {
+        grid-row: 3;
+        grid-column: 4;
+    }
+
+    .content-container__settings-post-visibility-select_auth {
+        grid-row: 2;
+        grid-column: 2;
+    }
+
+    .content-container__settings-highlight-checkbox_auth {
+        grid-row: 3;
+        grid-column: 2;
+    }
+
+    .content-container__settings-button_auth {
+        grid-row: 3;
+        grid-column: 4;
+    }
+}
+
+/* Select */
+
+.select {
+    position: relative;
+    border: 1px solid black;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    outline: none;
+}
+
+.select:focus-visible {
+    outline: 1px solid #02C;
+}
+
+.select_active {
+    outline: 1px solid #02C;
+}
+
+.select__trigger-wrapper {
+    position: relative;
+}
+
+.select__trigger {
+    padding: 12px 40px 12px 15px;
+    background-color: #FFF;
+    color: #999B9E;
+    border-radius: 8px;
+}
+
+.select__dropdown {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    top: calc(50% - 7px);
+    right: 15px;
+    transition: all var(--transition-duration) ease 0s;
+}
+
+.select__dropdown_rotation {
+    transform: rotate(180deg);
+    transition: all var(--transition-duration) ease 0s;
+}
+
+.select__trigger_selected {
+    color: black;
+}
+
+.select__options-wrapper {
+    position: absolute;
+    outline: 1px solid black;
+    border-radius: 8px;
+    top: calc(100% + 5px);
+    left: 0;
+    right: 0;
+    background-color: #FFF;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.select__options {
+    list-style: none;
+    max-height: 300px;
+    overflow-y: auto;
+    padding-left: 0;
+}
+
+.select__options_hidden {
+    display: none;
+}
+
+.select__option {
+    padding: 12px 40px 12px 15px;
+}
+
+.select__option:hover {
+    background-color: #999999;
+}
+
+/* Textarea */
+
+.textarea {
+    position: relative;
+    z-index: 1;
+}
+
+.textarea textarea {
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 12px 15px;
+    outline: none;
+    resize: none;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    background-color: transparent;
+    cursor: pointer;
+    overflow-wrap: break-word;
+    overflow-y: hidden;
+}
+
+.textarea textarea:focus {
+    outline: 1px solid #02C;
+}
+
+.textarea__label {
+    position: absolute;
+    color: #999B9E;
+    top: 13px;
+    left: 10px;
+    padding: 0 5px;
+    transition: all 0.2s ease 0s;
+    z-index: -1;
+    cursor: pointer;
+}
+
+.textarea textarea:focus + .textarea__label,
+.textarea textarea:not(:placeholder-shown) + .textarea__label {
+    background-color: #FFF;
+    top: -11px;
+    z-index: 2;
+}
+
+.textarea_min-height {
+    min-height: 350px;
+}
+
+/* Checkbox */
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.checkbox input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.checkbox .checkmark {
+    position: relative;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border: 1px solid black;
+    background-color: #FFF;
+    transition: background-color var(--transition-duration), border-color var(--transition-duration);
+}
+
+.checkbox:hover .checkmark {
+    border-color: #02C;
+}
+
+.checkbox:hover input[type="checkbox"]:checked + .checkmark {
+    background-color: #001BA3;
+}
+
+.checkbox input[type="checkbox"]:checked + .checkmark {
+    background-color: #02C;
+    border-color: #02C;
+}
+
+.checkbox input[type="checkbox"]:checked + .checkmark::after {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 12px;
+    left: 9px;
+    top: 4px;
+    border: solid #FFF;
+    border-width: 0px 3px 3px 0px;
+    transform: rotate(45deg);
+}
+
+/* CodeMirror5 Editor */
+
+.CodeMirror {
+    clip-path: unset !important;
+    position: relative;
+    border: 1px solid black;
+    border-radius: 8px;
+    resize: none;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    cursor: pointer;
+    min-height: 350px;
+    padding: 12px 11px;
+    height: fit-content;
+    overflow: unset;
+    z-index: 1;
+}
+
+.CodeMirror-focused {
+    outline: 1px solid #02C;
+}
+
+.CodeMirror-scroll {
+    min-height: 300px;
+    margin-right: unset;
+    overflow: hidden !important;
+}
+
+.CodeMirror-lines {
+    cursor: pointer;
+}
+
+.CodeMirror-sizer {
+    border-right: unset;
+}
+
+.CodeMirror-hscrollbar {
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
+.CodeMirror__placeholder {
+    position: absolute !important;
+    color: #999B9E;
+    top: 16px;
+    left: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease 0s;
+    z-index: -1;
+}
+
+.CodeMirror__placeholder_top {
+    position: absolute;
+    display: inline-block;
+    top: -11px;
+    background-color: #FFF;
+    z-index: 30;
+}
+
+/*
+
+.textarea__label {
+    position: absolute;
+    color: #999B9E;
+    top: 13px;
+    left: 10px;
+    padding: 0 5px;
+    transition: all 0.2s ease 0s;
+    z-index: -1;
+    cursor: pointer;
+}
+
+.textarea textarea:focus + .textarea__label,
+.textarea textarea:not(:placeholder-shown) + .textarea__label {
+    background-color: #FFF;
+    top: -11px;
+    z-index: 2;
+}
+
+*/

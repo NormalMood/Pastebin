@@ -11,7 +11,6 @@
  */
 ?>
 <?php $view->component('start'); ?>
-    <b>Post page</b>
     <?php if ($session->has('errorMessages')) { ?>
         <ul>
             <?php foreach ($session->getFlush('errorMessages') as $errorMessage) { ?>
@@ -24,48 +23,26 @@
             <li><?php echo $session->getFlush('accountDeleted'); ?></li>
         </ul>
     <?php } ?>
-    <form action="/" method="post">
-        <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
-        <div>
-            <textarea name="text" placeholder="Содержимое поста*" required></textarea>
-        </div>
-        <div>
-            <input type="text" name="title" placeholder="Заголовок">
-        </div>
-        <div>
-            <select name="category_id" required>
-                <option value="" disabled selected>Категория*</option>
-                <?php foreach ($categories as $category) { ?>
-                    <option value="<?php echo $category->id(); ?>"><?php echo $category->name(); ?></option>
+    <div class="container container_background-color container_height container_padding-top">
+        <form class="content-container" action="/" method="post">
+            <span class="title title_hidden">Пост</span>
+            <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
+            <textarea id="text" name="text"></textarea>
+            <span class="title">Настройки поста</span>
+            <div class="content-container__settings">
+                <?php $view->component('input', ['type' => 'text', 'name' => 'title', 'placeholder' => 'Заголовок']); ?>
+                <?php $view->component('select', ['classes' => ['content-container__settings-category-id-select'], 'placeholder' => 'Категория*', 'rows' => $categories, 'selectId' => 'category-id-input', 'selectName' => 'category_id']) ?>
+                <?php $view->component('select', ['classes' => ['content-container__settings-syntax-id-select'], 'placeholder' => 'Подсветка синтаксиса*', 'rows' => $syntaxes, 'selectId' => 'syntax-id-input', 'selectName' => 'syntax_id']); ?>
+                <?php $view->component('select', ['classes' => ['content-container__settings-interval-id-select'], 'placeholder' => 'Время жизни*', 'rows' => $intervals, 'selectId' => 'interval-id-input', 'selectName' => 'interval_id']); ?>
+                <?php if ($auth->check()) { ?>
+                    <?php $view->component('select', ['classes' => ['content-container__settings-post-visibility-select_auth'], 'placeholder' => 'Доступ*', 'rows' => $postVisibilities, 'selectId' => 'post-visibility-id-input', 'selectName' => 'post_visibility_id']); ?>
+                    <?php $view->component('checkbox', ['classes' => ['content-container__settings-highlight-checkbox_auth'], 'id' => 'syntax_highlight_checkbox', 'text' => 'Подсвечивать синтаксис']) ?>
+                    <button class="button content-container__settings-button_auth">Создать</button>
+                <?php } else { ?>
+                    <?php $view->component('checkbox', ['classes' => ['content-container__settings-highlight-checkbox'], 'id' => 'syntax_highlight_checkbox', 'text' => 'Подсвечивать синтаксис']) ?>
+                    <button class="button content-container__settings-button">Создать</button>
                 <?php } ?>
-            </select>
-        </div>
-        <div>
-            <select name="syntax_id" required>
-                <option value="" disabled selected>Подсветка синтаксиса*</option>
-                <?php foreach ($syntaxes as $syntax) { ?>
-                    <option value="<?php echo $syntax->id(); ?>" data-codemirror5-mode="<?php echo $syntax->codemirror5Mode(); ?>"><?php echo $syntax->name(); ?></option>
-                <?php } ?>
-            </select>
-        </div>
-        <div>
-            <select name="interval_id" required>
-                <option value="" disabled selected>Время жизни*</option>
-                <?php foreach ($intervals as $interval) { ?>
-                    <option value="<?php echo $interval->id(); ?>"><?php echo $interval->name(); ?></option>
-                <?php } ?>
-            </select>
-        </div>
-        <?php if ($auth->check()) { ?>
-            <div>
-                <select name="post_visibility_id" required>
-                    <option value="" disabled selected>Доступ*</option>
-                    <?php foreach ($postVisibilities as $postVisibility) { ?>
-                        <option value="<?php echo $postVisibility->id(); ?>"><?php echo $postVisibility->name(); ?></option>
-                    <?php } ?>
-                </select>
             </div>
-        <?php } ?>
-        <button>Создать</button>
-    </form>
+        </form>
+    </div>
 <?php $view->component('end'); ?>
