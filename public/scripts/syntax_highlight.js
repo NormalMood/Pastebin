@@ -38,7 +38,6 @@ const observer = new MutationObserver((mutationList) => {
     for (const mutation of mutationList) {
         if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
             if (codeMirrorEditor.classList.contains('CodeMirror-focused')) {
-                console.log('yes')
                 codeMirrorEditorPlaceholder.classList.add('CodeMirror__placeholder_top');
             } else {
                 if (editor.getValue() === '')
@@ -57,6 +56,9 @@ codeMirrorEditorPlaceholder.textContent = 'Содержимое поста*';
 codeMirrorEditorPlaceholder.classList.add('CodeMirror__placeholder');
 
 if (codeMirrorEditor !== null) {
+    if (editor.getValue() !== '') {
+        codeMirrorEditorPlaceholder.classList.add('CodeMirror__placeholder_top');
+    }
     codeMirrorEditor.appendChild(codeMirrorEditorPlaceholder);
     observer.observe(codeMirrorEditor, observerConfig);
 } else {

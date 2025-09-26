@@ -11,7 +11,6 @@
  */
 ?>
 <?php $view->component('start'); ?>
-    <b>Post edit page</b>
     <?php if (!isset($post)) { ?>
         <div>
             <span>Поста не существует или он был удален</span>
@@ -24,48 +23,22 @@
                 <?php } ?>
             </ul>
         <?php } ?>
-        <form action="/post/update?link=<?php echo $post->postLink(); ?>" method="post">
-            <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
-            <div>
-                <textarea name="text" placeholder="Содержимое поста*" required><?php echo $post->text(); ?></textarea>
-            </div>
-            <div>
-                <input type="text" name="title" value="<?php echo $post->title(); ?>" placeholder="Заголовок">
-            </div>
-            <div>
-                <select name="category_id" required>
-                    <option value="" disabled>Категория*</option>
-                    <?php foreach ($categories as $category) { ?>
-                        <option value="<?php echo $category->id(); ?>" <?php echo ($category->id() === $post->category()->id()) ? 'selected' : ''; ?>><?php echo $category->name(); ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-            <div>
-                <select name="syntax_id" required>
-                    <option value="" disabled>Подсветка синтаксиса*</option>
-                    <?php foreach ($syntaxes as $syntax) { ?>
-                        <option 
-                            value="<?php echo $syntax->id(); ?>" <?php echo ($syntax->id() === $post->syntax()->id()) ? 'selected' : ''; ?> data-codemirror5-mode="<?php echo $syntax->codemirror5Mode(); ?>"><?php echo $syntax->name(); ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-            <div>
-                <select name="interval_id" required>
-                    <option value="" disabled>Время жизни*</option>
-                    <?php foreach ($intervals as $interval) { ?>
-                        <option value="<?php echo $interval->id(); ?>" <?php echo ($interval->id() === $post->interval()->id()) ? 'selected' : ''; ?>><?php echo $interval->name(); ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-            <div>
-                <select name="post_visibility_id" required>
-                    <option value="" disabled>Доступ*</option>
-                    <?php foreach ($postVisibilities as $postVisibility) { ?>
-                        <option value="<?php echo $postVisibility->id(); ?>" <?php echo ($postVisibility->id() === $post->postVisibility()->id()) ? 'selected' : ''; ?> ><?php echo $postVisibility->name(); ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-            <button>Сохранить</button>
-        </form>
+        <div class="container container_background-color container_height container_padding-top">
+            <form class="content-container" action="/post/update?link=<?php echo $post->postLink(); ?>" method="post">
+                <span class="title title_hidden">Редактирование поста</span>
+                <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
+                <textarea id="text" name="text"><?php echo $post->text(); ?></textarea>
+                <span class="title">Настройки поста</span>
+                <div class="content-container__settings">
+                    <?php $view->component('input', ['type' => 'text', 'name' => 'title', 'placeholder' => 'Заголовок', 'value' => "{$post->title()}"]); ?>
+                    <?php $view->component('select', ['classes' => ['content-container__settings-category-id-select'], 'placeholder' => 'Категория*', 'rows' => $categories, 'selectId' => 'category-id-input', 'selectName' => 'category_id', 'value' => $post->category()->id()]) ?>
+                    <?php $view->component('select', ['classes' => ['content-container__settings-syntax-id-select'], 'placeholder' => 'Подсветка синтаксиса*', 'rows' => $syntaxes, 'selectId' => 'syntax-id-input', 'selectName' => 'syntax_id', 'value' => $post->syntax()->id()]); ?>
+                    <?php $view->component('select', ['classes' => ['content-container__settings-interval-id-select'], 'placeholder' => 'Время жизни*', 'rows' => $intervals, 'selectId' => 'interval-id-input', 'selectName' => 'interval_id', 'value' => $post->interval()->id()]); ?>
+                    <?php $view->component('select', ['classes' => ['content-container__settings-post-visibility-select_auth'], 'placeholder' => 'Доступ*', 'rows' => $postVisibilities, 'selectId' => 'post-visibility-id-input', 'selectName' => 'post_visibility_id', 'value' => $post->postVisibility()->id()]); ?>
+                    <?php $view->component('checkbox', ['classes' => ['content-container__settings-highlight-checkbox_auth'], 'id' => 'syntax_highlight_checkbox', 'text' => 'Подсвечивать синтаксис']) ?>
+                    <button class="button content-container__settings-button_auth">Сохранить</button>
+                </div>
+            </form>
+        </div>
     <?php } ?>
 <?php $view->component('end'); ?>

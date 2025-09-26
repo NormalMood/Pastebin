@@ -5,12 +5,19 @@
  * @var array $rows
  * @var string $selectId
  * @var string $selectName
- *
+ * @var string $value //id for hidden input
  */
 ?>
 <div class="<?php echo !empty($classes) ? 'select ' . implode(' ', $classes) : 'select'; ?>" tabindex="0">
     <div class="select__trigger-wrapper">
-        <div class="select__trigger"><?php echo $placeholder; ?></div>
+        <?php if (empty($value)) { ?>
+            <div class="select__trigger"><?php echo $placeholder; ?></div>
+        <?php } else {
+    $filtered = array_filter(array: $rows, callback: fn ($row) => $row->id() === $value);
+    $selectedOption = reset($filtered)->name(); ?>
+            <div class="select__trigger select__trigger_selected"><?php echo $selectedOption; ?></div>
+        <?php
+} ?>
         <img class="select__dropdown" src="/img/select_appearance.png">
     </div>
     <div class="select__options-wrapper select__options_hidden">
@@ -20,5 +27,5 @@
             <?php } ?>
         </div>
     </div>
-    <input id="<?php echo $selectId; ?>" type="hidden" name="<?php echo $selectName; ?>" value="">
+    <input id="<?php echo $selectId; ?>" type="hidden" name="<?php echo $selectName; ?>" <?php echo !empty($value) ? "value=\"$value\"" : "value=\"\"" ?>>
 </div>
