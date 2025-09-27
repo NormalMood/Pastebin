@@ -21,6 +21,7 @@
     <script src="/scripts/select.js" defer></script>
     <script src="/scripts/textarea_height.js" defer></script>
     <script src="/scripts/syntax_highlight.js" defer></script>
+    <script src="/scripts/copy_post.js" defer></script>
 
     <!-- CodeMirror 5 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.19/codemirror.min.js"></script>

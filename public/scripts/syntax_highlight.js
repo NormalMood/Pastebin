@@ -1,3 +1,7 @@
+/*
+ * Create Post page
+*/
+
 const textTextarea = document.getElementById('text');
 const syntaxHighlightCheckbox = document.getElementById('syntax_highlight_checkbox');
 const syntaxInput = document.getElementById('syntax-id-input');
@@ -63,4 +67,47 @@ if (codeMirrorEditor !== null) {
     observer.observe(codeMirrorEditor, observerConfig);
 } else {
     observer.disconnect();
+}
+
+
+/**
+ * Post page
+ */
+
+const postContent = document.getElementById('post-content');
+
+if (postContent !== null) {
+    const mode = document.getElementById('syntax').getAttribute('data-codemirror5-mode');
+    const postText = document.getElementById('post-text').textContent;
+    const postContentContainer = CodeMirror(postContent, {
+        theme: 'default',
+        mode: mode,
+        value: postText,
+        lineNumbers: true,
+        readOnly: true,
+        cursorBlinkRate: -1,
+        lineWrapping: false
+    });
+
+    const postCodeMirror = document.querySelector('.CodeMirror');
+    const scrollCodeMirror = document.querySelector('.CodeMirror-scroll');
+    const codeMirrorVScrollbar = document.querySelector('.CodeMirror-vscrollbar');
+    const codeMirrorHScrollbar = document.querySelector('.CodeMirror-hscrollbar');
+    const codeMirrorGutters = document.querySelector('.CodeMirror-gutters');
+
+    codeMirrorVScrollbar.remove();
+    codeMirrorHScrollbar.classList.add('CodeMirror-hscrollbar_visibility');
+
+    //delete excess scroll element
+    scrollCodeMirror.children[1].remove();
+    //unset height for div which adds unnecessary padding after click on post content
+    scrollCodeMirror.children[1].removeAttribute('style');
+    codeMirrorGutters.removeAttribute('style');
+    //no focus is needed
+    postCodeMirror.classList.add('CodeMirror-focused_unset');
+
+    postCodeMirror.classList.add('CodeMirror_height-unset');
+    scrollCodeMirror.classList.add('CodeMirror-scroll_height-unset');
+
+    postCodeMirror.classList.add('CodeMirror_border-top-unset');
 }
