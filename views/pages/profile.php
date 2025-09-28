@@ -9,77 +9,90 @@
  */
 ?>
 <?php $view->component('start'); ?>
-    <p>Profile page</p><br>
-    <?php if (isset($author)) { ?>
-        <div>
-            <h4><?php echo $author->name(); ?></h4>
-            <span><?php echo $author->createdAt(); ?></span>
-        </div>
-        <?php if (!isset($posts)) { ?>
-            <span>Постов нет</span>
-        <?php } else { ?>
-            <?php if ($session->get($auth->sessionField()) === $author->id()) { ?>
-                <table border="1" cellpadding="5" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Заголовок</th>
-                            <th>Создан</th>
-                            <th>Срок истекает</th>
-                            <th>Доступен</th>
-                            <th>Синтаксис</th>
-                            <th>Действие</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($posts as $post) { ?>
-                            <tr>
-                                <td><a href="/post?link=<?php echo $post->postLink(); ?>"><?php echo !empty($post->title()) ? $post->title() : 'Без названия'; ?></a></td>
-                                <td><?php echo $post->createdAt(); ?></td>
-                                <td><?php echo $post->interval()->name(); ?></td>
-                                <td><?php echo $post->postVisibility()->name(); ?></td>
-                                <td><?php echo $post->syntax()->name(); ?></td>
-                                <td>
-                                    <div>
-                                        <a href="/post/edit?link=<?php echo $post->postLink(); ?>">Редактировать</a>
-                                    </div>
-                                    <div>
-                                        <form class="deletePostForm" action="/post/delete?link=<?php echo $post->postLink(); ?>" method="post">
-                                            <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
-                                            <input type="hidden" name="u" value="<?php echo $author->name(); ?>">
-                                            <button type="submit">Удалить пост</button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
+    <div class="container container_background-color container_height container_padding-top container_flex">
+        <?php if (isset($author)) { ?>
+            <div class="author__metadata">
+                <?php if ($author->id() !== $session->get($auth->sessionField())) { ?>
+                    <a class="author__link" href="/profile?u=<?php echo $author->name(); ?>">
+                        <img class="author__picture" src="/img/default_picture.png">
+                        <span class="author__name"><?php echo $author->name(); ?></span>
+                    </a>
+                <?php } ?>
+                <div class="author__created-at">
+                    <img src="/img/date.png">
+                    <span><?php echo explode(' ', $author->createdAt())[0]; ?></span>
+                </div>
+            </div>
+            <?php if (!isset($posts)) { ?>
+                <span>Постов нет</span>
             <?php } else { ?>
-                <table border="1" cellpadding="5" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Заголовок</th>
-                            <th>Создан</th>
-                            <th>Срок истекает</th>
-                            <th>Синтаксис</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($posts as $post) { ?>
-                            <?php if ($post->postVisibility()->id() !== UNLISTED_POST_VISIBILITY_ID) { ?>
+                <?php if ($session->get($auth->sessionField()) === $author->id()) { ?>
+                    <div class="table">
+                        <table>
+                            <caption>Мои посты</caption>
+                            <thead>
                                 <tr>
-                                    <td><a href="/post?link=<?php echo $post->postLink(); ?>"><?php echo $post->title(); ?></a></td>
-                                    <td><?php echo $post->createdAt(); ?></td>
-                                    <td><?php echo $post->interval()->name(); ?></td>
-                                    <td><?php echo $post->syntax()->name(); ?></td>
+                                    <th>Заголовок</th>
+                                    <th>Создан</th>
+                                    <th>Срок истекает</th>
+                                    <th>Доступен</th>
+                                    <th>Синтаксис</th>
+                                    <th>Действие</th>
                                 </tr>
-                            <?php } ?>
-                        <?php } ?>
-                    </tbody>
-                </table>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($posts as $post) { ?>
+                                    <tr>
+                                        <td><a href="/post?link=<?php echo $post->postLink(); ?>"><?php echo !empty($post->title()) ? $post->title() : 'Без названия'; ?></a></td>
+                                        <td><?php echo $post->createdAt(); ?></td>
+                                        <td><?php echo $post->interval()->name(); ?></td>
+                                        <td><?php echo $post->postVisibility()->name(); ?></td>
+                                        <td><?php echo $post->syntax()->name(); ?></td>
+                                        <td>
+                                            <div class="post__actions post__actions-2-columns">
+                                                <a href="/post/edit?link=<?php echo $post->postLink(); ?>"><img class="post__actions-img" src="/img/edit_post.png"></a>
+                                                <form class="deletePostForm" action="/post/delete?link=<?php echo $post->postLink(); ?>" method="post">
+                                                    <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
+                                                    <input type="hidden" name="u" value="<?php echo $author->name(); ?>">
+                                                    <input class="post__actions-img" type="image" src="/img/delete_post.png">
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php } else { ?>
+                    <div class="table">
+                        <table>
+                            <caption>Посты</caption>
+                            <thead>
+                                <tr>
+                                    <th>Заголовок</th>
+                                    <th>Создан</th>
+                                    <th>Срок истекает</th>
+                                    <th>Синтаксис</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($posts as $post) { ?>
+                                    <?php if ($post->postVisibility()->id() !== UNLISTED_POST_VISIBILITY_ID) { ?>
+                                        <tr>
+                                            <td><a href="/post?link=<?php echo $post->postLink(); ?>"><?php echo !empty($post->title()) ? $post->title() : 'Без названия'; ?></a></td>
+                                            <td><?php echo $post->createdAt(); ?></td>
+                                            <td><?php echo $post->interval()->name(); ?></td>
+                                            <td><?php echo $post->syntax()->name(); ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php } ?>
             <?php } ?>
+        <?php } else { ?>
+            <b>Профиля не существует</b>
         <?php } ?>
-    <?php } else { ?>
-        <b>Профиля не существует</b>
-    <?php } ?>
+    </div>
 <?php $view->component('end'); ?>
