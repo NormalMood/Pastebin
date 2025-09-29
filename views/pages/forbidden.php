@@ -4,5 +4,7 @@
  */
 ?>
 <?php $view->component('start'); ?>
-    <b>Ошибка 403 | Доступ запрещен</b>
+    <div class="container container_background-color container_height container_padding-top">    
+        <b>Ошибка 403 | Доступ запрещен</b>
+    </div>
 <?php $view->component('end'); ?>

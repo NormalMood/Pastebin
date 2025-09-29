@@ -4,5 +4,7 @@
  */
 ?>
 <?php $view->component('start'); ?>
-    <b>Ошибка 404 | Страница не найдена</b>
+    <div class="container container_background-color container_height container_padding-top">
+        <b>Ошибка 404 | Страница не найдена</b>
+    </div>
 <?php $view->component('end'); ?>
