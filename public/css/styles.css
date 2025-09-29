@@ -477,6 +477,22 @@ main {
     background-color: #00147A;
 }
 
+.button_delete-account {
+    background-color: #A52A1B;
+}
+
+.button_delete-account:focus-visible {
+    background-color: #710F00;
+}
+
+.button_delete-account:hover {
+    background-color: #710F00;
+}
+
+.button_delete-account:active {
+    background-color: #5F0E01;
+}
+
 .credentials__navigation {
     display: flex;
     flex-direction: column;
@@ -1184,4 +1200,337 @@ main {
 
 .table table a:active {
     color: #001BA3;
+}
+
+/* Settings page */
+
+.settings {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: #FFF;
+    margin: 0 auto;
+}
+
+@media (min-width: 510px) {
+    .settings {
+        margin-top: 60px;
+        max-width: 470px;
+        height: fit-content;
+        border-radius: 8px;
+    }
+
+    .settings > .container {
+        padding-bottom: 30px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .settings {
+        max-width: 490px;
+    }
+
+    .settings > .container {
+        padding: 40px 50px;
+    }
+}
+
+.settings__account {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    position: relative;
+    background-color: #FFF;
+    z-index: 1;
+}
+
+.settings__password {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    position: relative;
+    background-color: #FFF;
+    z-index: 1;
+}
+
+.settings_hidden {
+    display: none;
+}
+
+.settings__title-wrapper {
+    display: grid;
+    grid-template-columns: 30px auto;
+    column-gap: 20px;
+    align-items: center;
+}
+
+@media (min-width: 1400px) {
+    .settings__title-wrapper {
+        display: none;
+    }
+}
+
+.settings__back-img {
+    width: 30px;
+    cursor: pointer;
+}
+
+.settings__picture {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    align-items: center;
+}
+
+@media (min-width: 510px) {
+    .settings__picture {
+        flex-direction: row;
+        align-items: start;
+        column-gap: 80px;
+    }
+}
+
+.settings__picture-img {
+    width: 130px;
+    background-color: #383838;
+    border-radius: 50%;
+}
+
+@media (min-width: 1400px) {
+    .settings__picture-img {
+        width: 140px;
+    }
+}
+
+.settings__account-info {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 20px;
+}
+
+.settings__account-info-labels {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    white-space: nowrap;
+}
+
+.settings__account-info-content {
+    display: grid;
+    grid-template-rows: auto auto;
+    row-gap: 30px;
+}
+
+.settings__account-info-content > span {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.settings__menu {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-color: #FFF;
+    top: 0;
+}
+
+@media (min-width: 510px) {
+    .settings__menu {
+        border-radius: 8px;
+        height: fit-content;
+    }
+
+    .settings__menu > .container {
+        padding-bottom: 30px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .settings__menu {
+        left: 100%;
+        margin-left: 20px;
+        width: fit-content;
+    }
+
+    .settings__menu:hover .settings__menu-option {
+        column-gap: 15px;
+    }
+
+    .settings__menu:hover .settings__menu-option > span {
+        opacity: unset;
+        max-width: unset;
+        overflow:unset;
+    }
+
+    .settings__menu > .container {
+        padding: 10px;
+    }
+
+    .settings__menu > .container > .title {
+        display: none;
+    }
+}
+
+.settings__menu-options {
+    list-style: none;
+    padding-top: 30px;
+}
+
+@media (min-width: 1400px) {
+    .settings__menu-options {
+        padding-top: unset;
+        row-gap: 10px;
+    }
+}
+
+.settings__menu-option {
+    display: grid;
+    grid-template-columns: 35px auto 23px;
+    align-items: center;
+    column-gap: 15px;
+    border-radius: 8px;
+    padding: 10px 5px;
+    outline: none;
+}
+
+@media (min-width: 1400px) {
+    .settings__menu-option {
+        grid-template-columns: 35px auto;
+        column-gap: 0px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .settings__menu-option:last-child {
+        margin-bottom: unset;
+    }
+
+    .settings__menu-option > span {
+        max-width: 0;
+        opacity: 0;
+        overflow: hidden;
+    }
+}
+
+.settings__menu-option:focus-visible {
+    background-color: rgba(153, 155, 158, 0.6);
+}
+
+.settings__menu-option:hover {
+    background-color: rgba(153, 155, 158, 0.6);
+    cursor: pointer;
+}
+
+.settings__menu-option:active {
+    background-color: rgba(153, 155, 158, 1);
+}
+
+.settings__menu-option_active {
+    background-color: rgba(153, 155, 158, 1);
+}
+
+.settings__menu-option-img {
+    width: 35px;
+}
+
+.settings__move-to-img {
+    width: 23px;
+    transform: rotate(-90deg);
+}
+
+@media (min-width: 1400px) {
+    .settings__move-to-img {
+        display: none;
+    }
+}
+
+/* Upload button */
+
+.upload-button {
+    display: flex;
+    align-items: center;
+    border: 1px dashed black;
+    border-radius: 8px;
+    outline: none;
+    width: 100%;
+}
+
+.upload-button > label {
+    display: flex;
+    align-items: center;
+    text-decoration: underline;
+    padding: 15px;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 8px;
+    background-image: url('/img/upload_file.png');
+    background-repeat: no-repeat;
+    background-size: 35px;
+    background-position: calc(100% - 12px) center;
+}
+
+.upload-button > label:focus-visible {
+    background-color: rgba(153, 155, 158, 0.8);
+}
+
+.upload-button > label:active {
+    background-color: rgba(153, 155, 158, 0.8);
+}
+
+.upload-button > input {
+    display: none;
+}
+
+/* Delete account popup */
+
+.delete-account-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(153, 155, 158, 0.4);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    display: none;
+}
+
+.delete-account-popup_visible {
+    display: flex;
+}
+
+.delete-account-popup__content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+    border-radius: 8px;
+    background-color: #FFF;
+    padding: 20px 10px 30px 10px;
+    width: 100%;
+    max-width: 425px;
+}
+
+@media (min-width: 425px) {
+    .delete-account-popup__content > form {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+
+.delete-account-popup__content:first-child {
+    align-items: end;
+}
+
+.delete-account-popup__content > img {
+    width: 30px;
+    cursor: pointer;
+}
+
+.delete-account-popup__content > form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    width: 100%;
 }
