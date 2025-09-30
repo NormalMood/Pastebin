@@ -3,6 +3,8 @@
 namespace Pastebin\Controllers;
 
 use Pastebin\Kernel\Controller\Controller;
+use Pastebin\Mappers\IntervalMapper;
+use Pastebin\Mappers\PostVisibilityMapper;
 use Pastebin\Models\Interval;
 use Pastebin\Services\CategoryService;
 use Pastebin\Services\IntervalService;
@@ -37,8 +39,8 @@ class PostController extends Controller
         $data = [
             'categories' => $this->categoryService()->all(),
             'syntaxes' => $this->syntaxService()->all(),
-            'intervals' => $intervals,
-            'postVisibilities' => $this->postVisibilityService()->all()
+            'intervals' => IntervalMapper::getMapped($intervals),
+            'postVisibilities' => PostVisibilityMapper::getMapped($this->postVisibilityService()->all())
         ];
         $this->view('post/create', $data, title: 'Создание поста');
     }
@@ -105,8 +107,8 @@ class PostController extends Controller
         $data = [
             'categories' => $this->categoryService()->all(),
             'syntaxes' => $this->syntaxService()->all(),
-            'intervals' => $this->intervalService()->all(),
-            'postVisibilities' => $this->postVisibilityService()->all(),
+            'intervals' => IntervalMapper::getMapped($this->intervalService()->all()),
+            'postVisibilities' => PostVisibilityMapper::getMapped($this->postVisibilityService()->all()),
             'post' => $post
         ];
         $this->view('post/edit', $data, 'Редактирование поста');

@@ -38,7 +38,7 @@
                 <?php $view->component('select', ['classes' => ['content-container__settings-syntax-id-select'], 'placeholder' => 'Подсветка синтаксиса*', 'rows' => $syntaxes, 'selectId' => 'syntax-id-input', 'selectName' => 'syntax_id']); ?>
                 <?php $view->component('select', ['classes' => ['content-container__settings-interval-id-select'], 'placeholder' => 'Время жизни*', 'rows' => $intervals, 'selectId' => 'interval-id-input', 'selectName' => 'interval_id']); ?>
                 <?php if ($auth->check()) { ?>
-                    <?php $view->component('select', ['classes' => ['content-container__settings-post-visibility-select_auth'], 'placeholder' => 'Доступ*', 'rows' => $postVisibilities, 'selectId' => 'post-visibility-id-input', 'selectName' => 'post_visibility_id']); ?>
+                    <?php $view->component('select', ['classes' => ['content-container__settings-post-visibility-select_auth'], 'placeholder' => 'Видимость*', 'rows' => $postVisibilities, 'selectId' => 'post-visibility-id-input', 'selectName' => 'post_visibility_id']); ?>
                     <?php $view->component('checkbox', ['classes' => ['content-container__settings-highlight-checkbox_auth'], 'id' => 'syntax_highlight_checkbox', 'text' => 'Подсвечивать синтаксис']) ?>
                     <button class="button content-container__settings-button_auth">Создать</button>
                 <?php } else { ?>

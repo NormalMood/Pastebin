@@ -1,4 +1,8 @@
 <?php
+
+use Pastebin\Mappers\IntervalMapper;
+use Pastebin\Mappers\PostVisibilityMapper;
+
 /**
  * @var \Pastebin\Kernel\View\ViewInterface $view
  * @var \Pastebin\Kernel\Auth\Auth $auth
@@ -37,7 +41,7 @@
                                     <th>Заголовок</th>
                                     <th>Создан</th>
                                     <th>Срок истекает</th>
-                                    <th>Доступен</th>
+                                    <th>Видимость</th>
                                     <th>Синтаксис</th>
                                     <th>Действие</th>
                                 </tr>
@@ -47,8 +51,8 @@
                                     <tr>
                                         <td><a class="link" href="/post?link=<?php echo $post->postLink(); ?>"><?php echo !empty($post->title()) ? $post->title() : 'Без названия'; ?></a></td>
                                         <td><?php echo $post->createdAt(); ?></td>
-                                        <td><?php echo $post->interval()->name(); ?></td>
-                                        <td><?php echo $post->postVisibility()->name(); ?></td>
+                                        <td><?php echo IntervalMapper::getExpiration($post->interval()->name()); ?></td>
+                                        <td><?php echo PostVisibilityMapper::getValue($post->postVisibility()->name()); ?></td>
                                         <td><?php echo $post->syntax()->name(); ?></td>
                                         <td>
                                             <div class="post__actions post__actions-2-columns">
@@ -94,7 +98,7 @@
                                         <tr>
                                             <td><a class="link" href="/post?link=<?php echo $post->postLink(); ?>"><?php echo !empty($post->title()) ? $post->title() : 'Без названия'; ?></a></td>
                                             <td><?php echo $post->createdAt(); ?></td>
-                                            <td><?php echo $post->interval()->name(); ?></td>
+                                            <td><?php echo IntervalMapper::getExpiration($post->interval()->name()); ?></td>
                                             <td><?php echo $post->syntax()->name(); ?></td>
                                         </tr>
                                     <?php } ?>
