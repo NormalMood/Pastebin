@@ -9,7 +9,11 @@
 ?>
 <?php $view->component('start'); ?>
     <?php if (!isset($post)) { ?>
-        <p>Поста не существует или он был удален</p>
+        <div class="message-wrapper message-wrapper_height">
+            <div class="container">
+                <?php $view->component('message', ['type' => 'info', 'messages' => ['Поста не существует или он был удален']]); ?>
+            </div>
+        </div>
     <?php } else { ?>
         <div class="container container_background-color container_height container_padding-top container_flex">
             <?php if (!empty($post->author())) { ?>
@@ -67,6 +71,11 @@
                 </div>
                 <div id="post-content"></div>
             </div>
+            <?php if (empty($post->author())) { ?>
+                <div class="bottom-message">
+                    <?php $view->component('message', ['type' => 'info', 'messages' => ['Еще нет аккаунта? <a class="link" href="/signup">Зарегистрируйтесь</a>, и у Вас будет больше возможностей!']]); ?>
+                </div>
+            <?php } ?>
         </div>
     <?php } ?>
 <?php $view->component('end'); ?>

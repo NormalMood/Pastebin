@@ -8,20 +8,23 @@
  * @var array<\Pastebin\Models\PostVisibility> $postVisibilities
  * @var string $csrfToken
  * @var \Pastebin\Kernel\Auth\AuthInterface $auth
+ * @var \Pastebin\Kernel\Http\RequestInterface $request
  */
 ?>
 <?php $view->component('start'); ?>
     <?php if ($session->has('errorMessages')) { ?>
-        <ul>
-            <?php foreach ($session->getFlush('errorMessages') as $errorMessage) { ?>
-                <li><?php echo $errorMessage; ?></li>
-            <?php } ?>
-        </ul>
+        <div class="message-wrapper">
+            <div class="container">
+                <?php $view->component('message', ['type' => 'error', 'messages' => $session->getFlush('errorMessages')]); ?>
+            </div>
+        </div>
     <?php } ?>
-    <?php if ($session->has('accountDeleted')) { ?>
-        <ul>
-            <li><?php echo $session->getFlush('accountDeleted'); ?></li>
-        </ul>
+    <?php if ($request->input('account_deleted')) { ?>
+        <div class="message-wrapper">
+            <div class="container">
+                <?php $view->component('message', ['type' => 'success', 'messages' => ['Аккаунт удален']]); ?>
+            </div>
+        </div>
     <?php } ?>
     <div class="container container_background-color container_height container_padding-top">
         <form class="content-container" action="/" method="post">

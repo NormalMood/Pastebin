@@ -9,36 +9,46 @@
 ?>
 <?php $view->component('start'); ?>
     <?php if ($session->has('userVerified')) { ?>
-        <ul>
-            <li><?php echo $session->getFlush('userVerified') ?></li>
-        </ul>
+        <div class="message-wrapper message-wrapper_background-color">
+            <div class="container container_padding-top-settings-page">
+                <?php $view->component('message', ['type' => 'success', 'messages' => [$session->getFlush('userVerified')]]); ?>
+            </div>
+        </div>
     <?php } ?>
     <?php if ($session->has('errorMessages')) { ?>
-        <ul>
-            <?php foreach ($session->getFlush('errorMessages') as $errorMessage) { ?>
-                <li><?php echo $errorMessage; ?></li>
-            <?php } ?>
-        </ul>
+        <div class="message-wrapper message-wrapper_background-color">
+            <div class="container container_padding-top-settings-page">
+                <?php $view->component('message', ['type' => 'error', 'messages' => $session->getFlush('errorMessages')]); ?>
+            </div>
+        </div>
     <?php } ?>
     <?php if ($session->has('settingsSaved')) { ?>
-        <ul>
-            <li><?php echo $session->getFlush('settingsSaved') ?></li>
-        </ul>
+        <div class="message-wrapper message-wrapper_background-color">
+            <div class="container container_padding-top-settings-page">
+                <?php $view->component('message', ['type' => 'success', 'messages' => [$session->getFlush('settingsSaved')]]); ?>
+            </div>
+        </div>
     <?php } ?>
     <?php if ($session->has('image')) { ?>
-        <ul>
-            <li><?php echo $session->getFlush('image') ?></li>
-        </ul>
+        <div class="message-wrapper message-wrapper_background-color">
+            <div class="container container_padding-top-settings-page">
+                <?php $view->component('message', ['type' => 'error', 'messages' => [$session->getFlush('image')]]); ?>
+            </div>
+        </div>
     <?php } ?>
     <?php if ($session->has('incorrectPassword')) { ?>
-        <ul>
-            <li><?php echo $session->getFlush('incorrectPassword') ?></li>
-        </ul>
+        <div class="message-wrapper message-wrapper_background-color">
+            <div class="container container_padding-top-settings-page">
+                <?php $view->component('message', ['type' => 'error', 'messages' => [$session->getFlush('incorrectPassword')]]); ?>
+            </div>
+        </div>
     <?php } ?>
     <?php if ($session->has('resetPassword')) { ?>
-        <ul>
-            <li><?php echo $session->getFlush('resetPassword') ?></li>
-        </ul>
+        <div class="message-wrapper message-wrapper_background-color">
+            <div class="container container_padding-top-settings-page">
+                <?php $view->component('message', ['type' => 'success', 'messages' => [$session->getFlush('resetPassword')]]); ?>
+            </div>
+        </div>
     <?php } ?>
     <section class="settings">
         <div class="container">
@@ -105,6 +115,7 @@
             <form id="deleteAccountForm" action="/delete-account" method="post">
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <input type="hidden" name="u" value="<?php echo $userName; ?>">
+                <?php $view->component('message', ['type' => 'error', 'messages' => ['После удаления <b>не получится создать аккаунт с этим же именем, и все посты будут необратимо удалены</b>']]); ?>
                 <?php $view->component('input', ['type' => 'password', 'name' => 'password', 'placeholder' => 'Пароль*']) ?>
                 <button class="button button_delete-account">Удалить аккаунт</button>
             </form>

@@ -26,6 +26,7 @@ class RegisterService
         $verificationToken = $this->auth->register($name, $email, $password)->get();
         $this->sendVerificationLink($email, $name, $verificationToken);
         $this->session->set($this->config->get('auth.verification_link_field'), $email);
+        $this->session->set($this->config->get('auth.verification_link_for_user'), $name);
         $this->redirect->to('/resend-link');
     }
 
@@ -49,6 +50,8 @@ class RegisterService
         } else {
             //delete email for account verification from session
             $this->session->delete($this->config->get('auth.verification_link_field'));
+            //delete username for message on Resend Verification Link page from session
+            $this->session->delete($this->config->get('auth.verification_link_for_user'));
             //delete verification token from db
             $this->database->update('users', ['verification_token' => null], ['user_id' => $user['user_id']]);
 

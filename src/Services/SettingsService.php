@@ -76,7 +76,6 @@ class SettingsService
             $this->database->delete('posts', ['user_id' => $userId]);
             $this->auth->logout();
             $this->database->delete('users', ['user_id' => $userId]);
-            $this->session->set('accountDeleted', 'Аккаунт удален');
             return true;
         } else {
             $this->session->set('incorrectPassword', 'Неверный пароль');

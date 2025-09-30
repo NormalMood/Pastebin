@@ -8,36 +8,46 @@
 ?>
 <?php $view->component('start'); ?>
     <?php if ($session->has('userNotVerified')) { ?>
-        <ul>
-            <li><?php echo $session->getFlush('userNotVerified'); ?></li>
-        </ul>
-    <?php } ?>
-    <?php if ($session->has('errorMessages')) { ?>
-        <ul>
-            <?php foreach ($session->getFlush('errorMessages') as $errorMessage) { ?>
-                <li><?php echo $errorMessage; ?></li>
-            <?php } ?>
-        </ul>
+        <div class="message-credentials-wrapper">
+            <div class="container">
+                <?php $view->component('message', ['type' => 'error', 'messages' => [$session->getFlush('userNotVerified')]]) ?>
+            </div>
+        </div>
     <?php } ?>
     <?php if ($session->has('incorrectPassword')) { ?>
-        <ul>
-            <li><?php echo $session->getFlush('incorrectPassword'); ?></li>
-        </ul>
+        <div class="message-credentials-wrapper">
+            <div class="container">
+                <?php $view->component('message', ['type' => 'error', 'messages' => [$session->getFlush('incorrectPassword')]]) ?>
+            </div>
+        </div>
     <?php } ?>
     <?php if ($session->has('resetPassword')) { ?>
-        <ul>
-            <li><?php echo $session->getFlush('resetPassword'); ?></li>
-        </ul>
+        <div class="message-credentials-wrapper">
+            <div class="container">
+                <?php $view->component('message', ['type' => 'success', 'messages' => [$session->getFlush('resetPassword')]]) ?>
+            </div>
+        </div>
     <?php } ?>
     <?php if ($session->has('forgotName')) { ?>
-        <ul>
-            <li><?php echo $session->getFlush('forgotName'); ?></li>
-        </ul>
+        <div class="message-credentials-wrapper">
+            <div class="container">
+                <?php $view->component('message', ['type' => 'error', 'messages' => [$session->getFlush('forgotName')]]) ?>
+            </div>
+        </div>
     <?php } ?>
     <?php if ($session->has('forgotPassword')) { ?>
-        <ul>
-            <li><?php echo $session->getFlush('forgotPassword'); ?></li>
-        </ul>
+        <div class="message-credentials-wrapper">
+            <div class="container">
+                <?php $view->component('message', ['type' => 'error', 'messages' => [$session->getFlush('forgotPassword')]]) ?>
+            </div>
+        </div>
+    <?php } ?>
+    <?php if ($session->has('errorMessages')) { ?>
+        <div class="message-credentials-wrapper">
+            <div class="container">
+                <?php $view->component('message', ['type' => 'error', 'messages' => $session->getFlush('errorMessages')]) ?>
+            </div>
+        </div>
     <?php } ?>
     <section class="credentials">
         <div class="container">

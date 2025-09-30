@@ -43,6 +43,12 @@ html, body {
     height: 130vh;
 }
 
+@media (min-width: 510px) {
+    .container_padding-top-settings-page {
+        padding-top: 60px;
+    }
+}
+
 @media (min-width: 768px) {
     .container_padding-top {
         padding-top: 60px;
@@ -52,6 +58,24 @@ html, body {
 .container_flex {
     display: flex;
     flex-direction: column;
+}
+
+/* Link */
+.link {
+    color: black;
+    outline: none;
+}
+
+.link:focus-visible {
+    color: #02C;
+}
+
+.link:hover {
+    color: #02C;
+}
+
+.link:active {
+    color: #001BA3;
 }
 
 /* Menu */
@@ -1185,23 +1209,6 @@ main {
     border-left-width: 0px;
 }
 
-.table table a {
-    color: black;
-    outline: none;
-}
-
-.table table a:focus-visible {
-    color: #02C;
-}
-
-.table table a:hover {
-    color: #02C;
-}
-
-.table table a:active {
-    color: #001BA3;
-}
-
 /* Settings page */
 
 .settings {
@@ -1533,4 +1540,102 @@ main {
     flex-direction: column;
     row-gap: 30px;
     width: 100%;
+}
+
+/* Message */
+
+.message {
+    display: grid;
+    grid-template-columns: 32px auto;
+    column-gap: 15px;
+    width: 100%;
+    border-radius: 8px;
+    list-style: none;
+    background-color: #FFF;
+    padding: 15px;
+    font-size: 15px;
+}
+
+@media (min-width: 1000px) {
+    .message {
+        font-size: 16px;
+    }
+}
+
+.message > img {
+    width: 32px;
+}
+
+.message__content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.message__content > li {
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.message_error {
+    border: 1px solid #F44336;
+    border-left-width: 8px;
+}
+
+.message_success {
+    border: 1px solid #8BC34A;
+    border-left-width: 8px;
+}
+
+.message_info {
+    border: 1px solid #999B9E;
+    border-left-width: 8px;
+}
+
+.message-credentials-wrapper {
+    margin: 0 auto;
+    background-color: #FFF;
+}
+
+@media (min-width: 600px) {
+    .message-credentials-wrapper {
+        background-color: transparent;
+    }
+
+    .message-credentials-wrapper > .container {
+        padding-top: 60px;
+    }
+}
+
+.message-wrapper {
+    margin: 0 auto;
+    background-color: #FFF;
+}
+
+@media (min-width: 768px) {
+    .message-wrapper > .container {
+        padding-top: 60px;
+    }
+}
+
+.message-wrapper_height {
+    height: 100vh;
+}
+
+@media (min-width: 510px) {
+    .message-wrapper_background-color {
+        background-color: transparent;
+    }
+}
+
+/* No posts message container on Profile page */
+
+.no-posts-message {
+    padding-top: 30px;
+}
+
+/* Register info message on Post page for guest*/
+
+.bottom-message {
+    padding-top: 80px;
 }

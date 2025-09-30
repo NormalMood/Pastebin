@@ -8,11 +8,11 @@
 ?>
 <?php $view->component('start'); ?>
     <?php if ($session->has('errorMessages')) { ?>
-        <ul>
-            <?php foreach ($session->getFlush('errorMessages') as $errorMessage) { ?>
-                <li><?php echo $errorMessage; ?></li>
-            <?php } ?>
-        </ul>
+        <div class="message-credentials-wrapper">
+            <div class="container">
+                <?php $view->component('message', ['type' => 'error', 'messages' => $session->getFlush('errorMessages')]) ?>
+            </div>
+        </div>
     <?php } ?>
     <section class="credentials">
         <div class="container">

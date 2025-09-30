@@ -24,7 +24,9 @@
                 </div>
             </div>
             <?php if (!isset($posts)) { ?>
-                <span>Постов нет</span>
+                <div class="no-posts-message">
+                    <span>Постов нет</span>
+                </div>
             <?php } else { ?>
                 <?php if ($session->get($auth->sessionField()) === $author->id()) { ?>
                     <div class="table">
@@ -43,7 +45,7 @@
                             <tbody>
                                 <?php foreach ($posts as $post) { ?>
                                     <tr>
-                                        <td><a href="/post?link=<?php echo $post->postLink(); ?>"><?php echo !empty($post->title()) ? $post->title() : 'Без названия'; ?></a></td>
+                                        <td><a class="link" href="/post?link=<?php echo $post->postLink(); ?>"><?php echo !empty($post->title()) ? $post->title() : 'Без названия'; ?></a></td>
                                         <td><?php echo $post->createdAt(); ?></td>
                                         <td><?php echo $post->interval()->name(); ?></td>
                                         <td><?php echo $post->postVisibility()->name(); ?></td>
@@ -63,6 +65,17 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="bottom-message">
+                        <?php
+                            $firstParagraph = "Добро пожаловать, {$author->name()}, на Вашу персональную страницу! Чтобы другой человек увидел ее, отправьте ему ссылку<br><br>";
+                            $secondParagraph = "Только Вы можете видеть в таблице посты, доступные по ссылке. Также редактирование и удаление Ваших постов доступно только Вам<br><br>";
+                            $allPostsCount = count($posts);
+                            $unlistedPostsCount = count(array_filter($posts, fn ($post) => $post->postVisibility()->id() === UNLISTED_POST_VISIBILITY_ID));
+                            $publicPostsCount = $allPostsCount - $unlistedPostsCount;
+                            $thirdParagraph = "Статистика:<br>Общее количество постов: $allPostsCount<br>Количество публичных постов: $publicPostsCount<br>Количество постов, доступных по ссылке: $unlistedPostsCount";
+                        ?>
+                        <?php $view->component('message', ['type' => 'info', 'messages' => [$firstParagraph . $secondParagraph . $thirdParagraph]]); ?>
+                    </div>
                 <?php } else { ?>
                     <div class="table">
                         <table>
@@ -79,7 +92,7 @@
                                 <?php foreach ($posts as $post) { ?>
                                     <?php if ($post->postVisibility()->id() !== UNLISTED_POST_VISIBILITY_ID) { ?>
                                         <tr>
-                                            <td><a href="/post?link=<?php echo $post->postLink(); ?>"><?php echo !empty($post->title()) ? $post->title() : 'Без названия'; ?></a></td>
+                                            <td><a class="link" href="/post?link=<?php echo $post->postLink(); ?>"><?php echo !empty($post->title()) ? $post->title() : 'Без названия'; ?></a></td>
                                             <td><?php echo $post->createdAt(); ?></td>
                                             <td><?php echo $post->interval()->name(); ?></td>
                                             <td><?php echo $post->syntax()->name(); ?></td>

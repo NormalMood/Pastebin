@@ -65,7 +65,7 @@ class SettingsController extends Controller
             password: $this->request()->input('password')
         );
         if ($accountDeleted) {
-            $this->redirect()->to('/');
+            $this->redirect()->to('/?account_deleted=1');
         } else {
             $this->redirect()->to("/settings?u={$this->request()->input('u')}");
         }
