@@ -14,6 +14,11 @@ if (selects !== null) {
             selectOptions.classList.toggle('select__options_hidden');
             select.classList.add('select_active');
         });
+        selectDropdown.addEventListener('click', () => {
+            selectDropdown.classList.toggle('select__dropdown_rotation');
+            selectOptions.classList.toggle('select__options_hidden');
+            select.classList.add('select_active');
+        });
 
         //select option on click
         options.forEach(option => {
