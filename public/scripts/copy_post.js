@@ -11,7 +11,7 @@ if ((successCopyElement) !== null && (copyButton !== null)) {
 
     const copyText = (text) => {
         const hiddenTextArea = document.createElement('textarea');
-        hiddenTextArea.value(text);
+        hiddenTextArea.value = text;
         hiddenTextArea.classList.add('text_hidden');
         document.body.appendChild(hiddenTextArea);
         hiddenTextArea.focus();
