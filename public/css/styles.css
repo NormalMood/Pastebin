@@ -1639,3 +1639,10 @@ main {
 .bottom-message {
     padding-top: 80px;
 }
+
+/* Hidden textarea for text copy in browsers that don't support navigator.clipboard */
+
+.text_hidden {
+    position: fixed;
+    left: -9999px;
+}
