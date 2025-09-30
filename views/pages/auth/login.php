@@ -55,7 +55,7 @@
                 <span class="title credentials__title_hidden">Вход</span>
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <div class="credentials__container">
-                    <?php $view->component('input', ['type' => 'text', 'name' => 'name', 'placeholder' => 'Имя*']) ?>
+                    <?php $view->component('input', ['id' => 'signin-name-input', 'type' => 'text', 'name' => 'name', 'placeholder' => 'Имя*']) ?>
                     <?php $view->component('input', ['type' => 'password', 'name' => 'password', 'placeholder' => 'Пароль*']) ?>
                 </div>
                 <button class="button">Войти</button>
@@ -80,7 +80,7 @@
                 <span class="title credentials__title_hidden">Восстановление пароля</span>
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <div class="credentials__container">
-                    <?php $view->component('input', ['type' => 'text', 'name' => 'name', 'placeholder' => 'Имя*']) ?>
+                    <?php $view->component('input', ['id' => 'forgot-password-name-input', 'type' => 'text', 'name' => 'name', 'placeholder' => 'Имя*']) ?>
                 </div>
                 <button class="button">Получить пароль</button>
                 <div class="credentials__navigation">

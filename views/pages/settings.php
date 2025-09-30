@@ -85,7 +85,7 @@
                 </div>
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <input type="hidden" name="u" value="<?php echo $userName; ?>">
-                <?php $view->component('input', ['type' => 'password', 'name' => 'password', 'placeholder' => 'Старый пароль*']) ?>
+                <?php $view->component('input', ['id' => 'change-password-password-input', 'type' => 'password', 'name' => 'password', 'placeholder' => 'Старый пароль*']) ?>
                 <?php $view->component('input', ['type' => 'password', 'name' => 'new_password', 'placeholder' => 'Новый пароль*']) ?>
                 <?php $view->component('input', ['type' => 'password', 'name' => 'new_password_confirmation', 'placeholder' => 'Еще раз новый пароль*']) ?>
                 <button class="button">Изменить пароль</button>
@@ -116,7 +116,7 @@
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <input type="hidden" name="u" value="<?php echo $userName; ?>">
                 <?php $view->component('message', ['type' => 'error', 'messages' => ['После удаления <b>не получится создать аккаунт с этим же именем, и все посты будут необратимо удалены</b>']]); ?>
-                <?php $view->component('input', ['type' => 'password', 'name' => 'password', 'placeholder' => 'Пароль*']) ?>
+                <?php $view->component('input', ['id' => 'delete-account-password-input', 'type' => 'password', 'name' => 'password', 'placeholder' => 'Пароль*']) ?>
                 <button class="button button_delete-account">Удалить аккаунт</button>
             </form>
         </div>
