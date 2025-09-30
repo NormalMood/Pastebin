@@ -1151,6 +1151,7 @@ main {
 .table {
     overflow-x: auto;
     width: 100%;
+    min-height: fit-content;
     padding-top: 30px;
 }
 
