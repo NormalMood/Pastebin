@@ -72,8 +72,11 @@ class PostService
         return $postLink;
     }
 
-    public function getPost(string $postLink): Post|null
+    public function getPost(?string $postLink): Post|null
     {
+        if (!isset($postLink) || (strlen($postLink) !== 8)) {
+            return null;
+        }
         $post = $this->database->first('posts', ['post_link' => $postLink]);
         if (empty($post)) {
             return null;
