@@ -16,7 +16,7 @@
         </div>
     <?php } else { ?>
         <div class="container container_background-color container_height container_padding-top container_flex">
-            <?php if (!empty($post->author())) { ?>
+            <?php if (($post->author() !== null) && ($post->author() !== '')) { ?>
                 <a class="author__link" href="/profile?u=<?php echo $post->author(); ?>">
                     <img class="author__picture" src="/img/default_picture.png">
                     <span class="author__name"><?php echo $post->author(); ?></span>
@@ -27,7 +27,7 @@
                     <span>Гость</span>
                 </a>
             <?php } ?>
-            <div <?php echo ($post->title() !== '') ? 'class="post__metadata-top"' : 'class="post__metadata-top post__metadata-top_column-gap-unset"' ?>>
+            <div <?php echo (($post->title() !== null) && ($post->title() !== '')) ? 'class="post__metadata-top"' : 'class="post__metadata-top post__metadata-top_column-gap-unset"' ?>>
                 <span class="post__title"><?php echo $post->title(); ?></span>
                 <div class="post__datetime-metadata">
                     <div>
@@ -71,7 +71,7 @@
                 </div>
                 <div id="post-content"></div>
             </div>
-            <?php if (empty($post->author())) { ?>
+            <?php if (($post->author() === null) || ($post->author() === '')) { ?>
                 <div class="bottom-message">
                     <?php $view->component('message', ['type' => 'info', 'messages' => ['Еще нет аккаунта? <a class="link" href="/signup">Зарегистрируйтесь</a>, и у Вас будет больше возможностей!']]); ?>
                 </div>

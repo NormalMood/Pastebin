@@ -10,7 +10,7 @@
 ?>
 <div class="<?php echo !empty($classes) ? 'select ' . implode(' ', $classes) : 'select'; ?>" tabindex="0">
     <div class="select__trigger-wrapper">
-        <?php if (empty($value)) { ?>
+        <?php if (!isset($value)) { ?>
             <div class="select__trigger"><?php echo $placeholder; ?></div>
         <?php } else {
     $filtered = array_filter(array: $rows, callback: fn ($row) => $row->id() === $value);
@@ -27,5 +27,5 @@
             <?php } ?>
         </div>
     </div>
-    <input id="<?php echo $selectId; ?>" type="hidden" name="<?php echo $selectName; ?>" <?php echo !empty($value) ? "value=\"$value\"" : "value=\"\"" ?>>
+    <input id="<?php echo $selectId; ?>" type="hidden" name="<?php echo $selectName; ?>" <?php echo isset($value) ? "value=\"$value\"" : "value=\"\"" ?>>
 </div>

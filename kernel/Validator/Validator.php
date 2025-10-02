@@ -44,7 +44,7 @@ class Validator implements ValidatorInterface
         $value = $this->data[$field];
         switch ($ruleName) {
             case 'required':
-                if (empty($value)) {
+                if (!isset($value) || $value === '') {
                     return $ruleName;
                 }
                 break;

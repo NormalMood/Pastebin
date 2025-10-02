@@ -27,7 +27,7 @@ use Pastebin\Mappers\PostVisibilityMapper;
                     <span><?php echo explode(' ', $author->createdAt())[0]; ?></span>
                 </div>
             </div>
-            <?php if (!isset($posts)) { ?>
+            <?php if (empty($posts)) { ?>
                 <div class="no-posts-message">
                     <span>Постов нет</span>
                 </div>
@@ -49,7 +49,7 @@ use Pastebin\Mappers\PostVisibilityMapper;
                             <tbody>
                                 <?php foreach ($posts as $post) { ?>
                                     <tr>
-                                        <td><a class="link" href="/post?link=<?php echo $post->postLink(); ?>"><?php echo !empty($post->title()) ? $post->title() : 'Без названия'; ?></a></td>
+                                        <td><a class="link" href="/post?link=<?php echo $post->postLink(); ?>"><?php echo (($post->title() !== null) && ($post->title() !== '')) ? $post->title() : 'Без названия'; ?></a></td>
                                         <td><?php echo $post->createdAt(); ?></td>
                                         <td><?php echo IntervalMapper::getExpiration($post->interval()->name()); ?></td>
                                         <td><?php echo PostVisibilityMapper::getValue($post->postVisibility()->name()); ?></td>
@@ -96,7 +96,7 @@ use Pastebin\Mappers\PostVisibilityMapper;
                                 <?php foreach ($posts as $post) { ?>
                                     <?php if ($post->postVisibility()->id() !== UNLISTED_POST_VISIBILITY_ID) { ?>
                                         <tr>
-                                            <td><a class="link" href="/post?link=<?php echo $post->postLink(); ?>"><?php echo !empty($post->title()) ? $post->title() : 'Без названия'; ?></a></td>
+                                            <td><a class="link" href="/post?link=<?php echo $post->postLink(); ?>"><?php echo (($post->title() !== null) && ($post->title() !== '')) ? $post->title() : 'Без названия'; ?></a></td>
                                             <td><?php echo $post->createdAt(); ?></td>
                                             <td><?php echo IntervalMapper::getExpiration($post->interval()->name()); ?></td>
                                             <td><?php echo $post->syntax()->name(); ?></td>
