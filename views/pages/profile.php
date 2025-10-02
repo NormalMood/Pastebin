@@ -54,7 +54,7 @@ use Pastebin\Mappers\PostVisibilityMapper;
                                         <td><?php echo IntervalMapper::getExpiration($post->interval()->name()); ?></td>
                                         <td><?php echo PostVisibilityMapper::getValue($post->postVisibility()->name()); ?></td>
                                         <td><?php echo $post->syntax()->name(); ?></td>
-                                        <td>
+                                        <td class="table__actions">
                                             <div class="post__actions post__actions-2-columns">
                                                 <a href="/post/edit?link=<?php echo $post->postLink(); ?>"><img class="post__actions-img" src="/img/edit_post.png"></a>
                                                 <form class="deletePostForm" action="/post/delete?link=<?php echo $post->postLink(); ?>" method="post">

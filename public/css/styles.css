@@ -1211,6 +1211,7 @@ main {
     border: 1px solid #E9E9EB;
     border-width: 0px 0px 0px 2px;
     padding: 13px 10px;
+    white-space: nowrap;
 }
 
 .table table td:first-child {
@@ -1225,6 +1226,10 @@ main {
 
 .table table tr:nth-child(even) td:first-child {
     border-left-width: 0px;
+}
+
+.table__actions {
+    width: 105px;
 }
 
 /* Settings page */
