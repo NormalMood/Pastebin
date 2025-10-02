@@ -64,7 +64,7 @@ class Auth implements AuthInterface
         $this->database->delete('sessions_tokens', ['user_id' => $userId]);
     }
 
-    public function createSession(int $userId, bool $restoreSession = false): void
+    public function createSession(int $userId, ?int $sessionTokenId = null, bool $restoreSession = false): void
     {
         //create session:
         $this->session->set($this->sessionField(), $userId);
@@ -93,7 +93,7 @@ class Auth implements AuthInterface
                     'expires_at' => TimestampTZ::convert(timestamp: $cookieExpiresAt)
                 ],
                 conditions: [
-                    'user_id' => $userId
+                    'session_token_id' => $sessionTokenId
                 ]
             );
         } else {

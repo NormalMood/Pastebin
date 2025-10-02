@@ -12,7 +12,7 @@ interface AuthInterface
 
     public function logout(): void;
 
-    public function createSession(int $userId, bool $restoreSession = false): void;
+    public function createSession(int $userId, ?int $sessionTokenId = null, bool $restoreSession = false): void;
 
     public function check(): bool;
 
