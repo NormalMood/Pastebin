@@ -117,6 +117,17 @@ class PostController extends Controller
     public function update(): void
     {
         $postLink = $this->request()->input('link');
+        $this->validationService()->validate(
+            validationRules: [
+                    'text' => 'required',
+                    'title' => 'max:255',
+                    'category_id' => 'required',
+                    'syntax_id' => 'required',
+                    'interval_id' => 'required',
+                    'post_visibility_id' => 'required'
+                ],
+            redirectUrl: "/post/edit?link=$postLink"
+        );
         $this->postService()->updatePost(
             postLink: $postLink,
             text: $this->request()->input('text'),
