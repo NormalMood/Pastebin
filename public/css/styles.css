@@ -35,6 +35,13 @@ html, body {
     padding: 30px 15px 0px 15px;
 }
 
+@media (min-width: 1000px) {
+    .container {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+}
+
 .container_background-color {
     background-color: #FFF;
 }
@@ -189,6 +196,12 @@ html, body {
     padding: 0px 15px;
 }
 
+@media (min-width: 1000px) {
+    .header__container > div {
+        padding: 0px 40px;
+    }
+}
+
 .header__body {
     display: flex;
     position: relative;
@@ -220,7 +233,7 @@ html, body {
 
 @media (min-width: 1000px) {
     .header__profile-info {
-        grid-template-columns: 50px 500px;
+        grid-template-columns: 50px 450px;
     }
 }
 
@@ -1220,6 +1233,11 @@ main {
     margin: 0 auto;
 }
 
+.settings > .container {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
 @media (min-width: 510px) {
     .settings {
         margin-top: 60px;
@@ -1341,6 +1359,11 @@ main {
     height: 100vh;
     background-color: #FFF;
     top: 0;
+}
+
+.settings__menu > .container {
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 @media (min-width: 510px) {
