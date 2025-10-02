@@ -70,8 +70,8 @@
                             <span>E-mail:</span>
                         </div>
                         <div class="settings__account-info-content">
-                            <span> <?php echo $userName; ?></span>
-                            <span> <?php echo $email; ?></span>
+                            <span> <?php echo htmlspecialchars($userName); ?></span>
+                            <span> <?php echo htmlspecialchars($email); ?></span>
                         </div>
                     </div>
                 </div>

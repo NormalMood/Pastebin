@@ -56,7 +56,7 @@
                     <?php if ($auth->check()) { ?>
                         <div class="header__profile-info">
                             <img class="header__picture" src="/img/default_picture.png">
-                            <span class="header__username"><?php echo $auth->user()->name(); ?></span>
+                            <span class="header__username"><?php echo htmlspecialchars($auth->user()->name()); ?></span>
                         </div>
                     <?php } else { ?>
                         <div class="header__not-auth"></div>

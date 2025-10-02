@@ -28,7 +28,7 @@
                 </a>
             <?php } ?>
             <div <?php echo (($post->title() !== null) && ($post->title() !== '')) ? 'class="post__metadata-top"' : 'class="post__metadata-top post__metadata-top_column-gap-unset"' ?>>
-                <span class="post__title"><?php echo $post->title(); ?></span>
+                <span class="post__title"><?php echo htmlspecialchars($post->title()); ?></span>
                 <div class="post__datetime-metadata">
                     <div>
                         <img src="/img/date.png">

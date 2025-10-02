@@ -19,7 +19,7 @@ use Pastebin\Mappers\PostVisibilityMapper;
                 <?php if ($author->id() !== $session->get($auth->sessionField())) { ?>
                     <a class="author__link" href="/profile?u=<?php echo $author->name(); ?>">
                         <img class="author__picture" src="/img/default_picture.png">
-                        <span class="author__name"><?php echo $author->name(); ?></span>
+                        <span class="author__name"><?php echo htmlspecialchars($author->name()); ?></span>
                     </a>
                 <?php } ?>
                 <div class="author__created-at">
@@ -49,7 +49,7 @@ use Pastebin\Mappers\PostVisibilityMapper;
                             <tbody>
                                 <?php foreach ($posts as $post) { ?>
                                     <tr>
-                                        <td><a class="link" href="/post?link=<?php echo $post->postLink(); ?>"><?php echo (($post->title() !== null) && ($post->title() !== '')) ? $post->title() : 'Без названия'; ?></a></td>
+                                        <td><a class="link" href="/post?link=<?php echo $post->postLink(); ?>"><?php echo (($post->title() !== null) && ($post->title() !== '')) ? htmlspecialchars($post->title()) : 'Без названия'; ?></a></td>
                                         <td><?php echo $post->createdAt(); ?></td>
                                         <td><?php echo IntervalMapper::getExpiration($post->interval()->name()); ?></td>
                                         <td><?php echo PostVisibilityMapper::getValue($post->postVisibility()->name()); ?></td>
@@ -71,7 +71,8 @@ use Pastebin\Mappers\PostVisibilityMapper;
                     </div>
                     <div class="bottom-message">
                         <?php
-                            $firstParagraph = "Добро пожаловать, {$author->name()}, на Вашу персональную страницу! Чтобы другой человек увидел ее, отправьте ему ссылку<br><br>";
+                            $authorName = htmlspecialchars($author->name());
+                            $firstParagraph = "Добро пожаловать, {$authorName}, на Вашу персональную страницу! Чтобы другой человек увидел ее, отправьте ему ссылку<br><br>";
                             $secondParagraph = "Только Вы можете видеть в таблице посты, доступные по ссылке. Также редактирование и удаление Ваших постов доступно только Вам<br><br>";
                             $allPostsCount = count($posts);
                             $unlistedPostsCount = count(array_filter($posts, fn ($post) => $post->postVisibility()->id() === UNLISTED_POST_VISIBILITY_ID));
@@ -96,7 +97,7 @@ use Pastebin\Mappers\PostVisibilityMapper;
                                 <?php foreach ($posts as $post) { ?>
                                     <?php if ($post->postVisibility()->id() !== UNLISTED_POST_VISIBILITY_ID) { ?>
                                         <tr>
-                                            <td><a class="link" href="/post?link=<?php echo $post->postLink(); ?>"><?php echo (($post->title() !== null) && ($post->title() !== '')) ? $post->title() : 'Без названия'; ?></a></td>
+                                            <td><a class="link" href="/post?link=<?php echo $post->postLink(); ?>"><?php echo (($post->title() !== null) && ($post->title() !== '')) ? htmlspecialchars($post->title()) : 'Без названия'; ?></a></td>
                                             <td><?php echo $post->createdAt(); ?></td>
                                             <td><?php echo IntervalMapper::getExpiration($post->interval()->name()); ?></td>
                                             <td><?php echo $post->syntax()->name(); ?></td>

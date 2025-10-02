@@ -9,7 +9,11 @@
 <?php $view->component('start'); ?>
     <div class="message-credentials-wrapper">
         <div class="container">
-            <?php $view->component('message', ['type' => 'success', 'messages' => ["Добро пожаловать, {$session->get($config->get('auth.verification_link_for_user'))}! Ваш аккаунт создан. На Вашу почту <b>{$session->get($config->get('auth.verification_link_field'))}</b> было отправлено письмо с <b>ссылкой активации</b> внутри.<br>Пожалуйста, перейдите по ней, чтобы активировать аккаунт"]]) ?>
+            <?php
+                $registeredUsername = htmlspecialchars($session->get($config->get('auth.verification_link_for_user')));
+                $toEmail = htmlspecialchars($session->get($config->get('auth.verification_link_field')));
+            ?>
+            <?php $view->component('message', ['type' => 'success', 'messages' => ["Добро пожаловать, {$registeredUsername}! Ваш аккаунт создан. На Вашу почту <b>{$toEmail}</b> было отправлено письмо с <b>ссылкой активации</b> внутри.<br>Пожалуйста, перейдите по ней, чтобы активировать аккаунт"]]) ?>
         </div>
     </div>
     <div class="message-credentials-wrapper">
@@ -21,7 +25,7 @@
         <div class="container container_padding-unset">
             <form action="/resend-link" method="post">
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
-                <input type="hidden" name="email" value="<?php echo $session->get($config->get('auth.verification_link_field')) ?>">
+                <input type="hidden" name="email" value="<?php echo $toEmail; ?>">
                 <button class="button">Получить ссылку</button>
             </form>
         </div>

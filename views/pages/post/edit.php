@@ -22,7 +22,7 @@
         <form class="content-container" action="/post/update?link=<?php echo $post->postLink(); ?>" method="post">
             <span class="title title_hidden">Редактирование поста</span>
             <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
-            <textarea id="text" name="text"><?php echo $post->text(); ?></textarea>
+            <textarea id="text" name="text"><?php echo htmlspecialchars($post->text()); ?></textarea>
             <span class="title">Настройки поста</span>
             <div class="content-container__settings">
                 <?php $view->component('input', ['type' => 'text', 'name' => 'title', 'placeholder' => 'Заголовок', 'value' => "{$post->title()}"]); ?>
