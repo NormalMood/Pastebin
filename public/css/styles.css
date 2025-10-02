@@ -1029,6 +1029,10 @@ main {
     }
 }
 
+.post__metadata-top_column-gap-unset {
+    column-gap: unset;
+}
+
 .post__title {
     font-size: 17px;
     font-weight: 700;
