@@ -26,7 +26,7 @@
             </div>
         </div>
     <?php } ?>
-    <div class="container container_background-color container_height container_padding-top">
+    <div class="container container_background-color container_post-height container_padding-top container_padding-bottom">
         <form class="content-container" action="/" method="post">
             <span class="title title_hidden">Пост</span>
             <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">

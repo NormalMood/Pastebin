@@ -50,6 +50,12 @@ html, body {
     height: 130vh;
 }
 
+@media (min-width: 768px) {
+    .container_post-height {
+        height: 130vh;
+    }
+}
+
 @media (min-width: 510px) {
     .container_padding-top-settings-page {
         padding-top: 60px;
@@ -59,6 +65,16 @@ html, body {
 @media (min-width: 768px) {
     .container_padding-top {
         padding-top: 60px;
+    }
+}
+
+.container_padding-bottom {
+    padding-bottom: 60px;
+}
+
+@media (min-width: 768px) {
+    .container_padding-bottom {
+      padding-bottom: unset;
     }
 }
 
@@ -364,7 +380,7 @@ main {
     background-color: rgba(0, 34, 204, 0.25);
     padding-top: 70px;
     width: 100%;
-    min-height: 100vh;
+    min-height: 110vh;
 }
 
 @media (min-width: 768px) {
@@ -396,6 +412,7 @@ main {
 @media (min-width: 600px) {
     .credentials {
         margin-top: 60px;
+        margin-bottom: 60px;
         max-width: 490px;
         height: fit-content;
         border-radius: 8px;
@@ -1671,6 +1688,7 @@ main {
 
 .bottom-message {
     padding-top: 80px;
+    padding-bottom: 30px;
 }
 
 /* Hidden textarea for text copy in browsers that don't support navigator.clipboard */
