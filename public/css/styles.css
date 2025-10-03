@@ -1028,6 +1028,7 @@ main {
 
 .author__created-at span {
     font-weight: 300;
+    white-space: nowrap;
 }
 
 /* Post metadata */

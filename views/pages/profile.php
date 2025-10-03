@@ -24,7 +24,7 @@ use Pastebin\Mappers\PostVisibilityMapper;
                 <?php } ?>
                 <div class="author__created-at">
                     <img src="/img/date.png">
-                    <span><?php echo explode(' ', $author->createdAt())[0]; ?></span>
+                    <span><?php echo $author->createdAt(); ?></span>
                 </div>
             </div>
             <?php if (empty($posts)) { ?>
