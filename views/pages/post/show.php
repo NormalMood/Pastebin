@@ -46,7 +46,20 @@
                     <div class="post__metadata-tags">
                         <div class="post__syntax-size">
                             <span class="post__metadata-tag" id="syntax" data-codemirror5-mode="<?php echo $post->syntax()->codemirror5Mode(); ?>"><?php echo $post->syntax()->name(); ?></span>
-                            <span class="post__metadata-tag"><?php echo strlen($post->text()) . ' B'; ?></span>
+                            <?php
+                                $textBytes = strlen($post->text());
+                                $textKB = round(num: $textBytes / 1024, precision: 2);
+                                $textMB = round(num: $textBytes / 1024 / 1024, precision: 2);
+                                $textSize = '';
+                                if ($textBytes < 1024) {
+                                    $textSize = "$textBytes Б";
+                                } elseif ($textKB < 1024) {
+                                    $textSize = "$textKB КБ";
+                                } else {
+                                    $textSize = "$textMB МБ";
+                                }
+                            ?>
+                            <span class="post__metadata-tag"><?php echo $textSize; ?></span>
                         </div>
                         <span class="post__metadata-tag"><?php echo $post->category()->name(); ?></span>
                     </div>
