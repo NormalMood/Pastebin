@@ -77,7 +77,7 @@ if (datetimeMetadataExpiresAt !== null) {
         const daysLeft = Math.floor(hoursLeft / 24);
         const weeksLeft = Math.floor(daysLeft / 7);
         const monthsLeft = Math.floor(daysLeft / 30);
-        
+
         if (minutesLeft === 0) {
             datetimeMetadataExpiresAt.textContent = secondsLeft + ' сек.';
         } else if (hoursLeft === 0) {
@@ -92,6 +92,8 @@ if (datetimeMetadataExpiresAt !== null) {
             datetimeMetadataExpiresAt.textContent = monthsLeft + ' мес.';
         } else if (monthsLeft >= 12) {
             datetimeMetadataExpiresAt.textContent = '1 год';
+        } else {
+            datetimeMetadataExpiresAt.textContent = '0 сек.';
         }
 
         const datetimeExpiresAtTitle = 'Пост будет удален: ' + date + ' ' + timeExtra;
