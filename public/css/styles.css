@@ -229,34 +229,52 @@ html, body {
 
 .header__profile-info {
     display: inline-grid;
-    grid-template-columns: 50px 180px;
+    grid-template-columns: 50px auto;
     column-gap: 10px;
     align-items: center;
     z-index: 5;
+    outline: none;
+    text-decoration: none;
+    width: fit-content;
+    max-width: 240px;
 }
 
 @media (min-width: 425px) {
     .header__profile-info {
-        grid-template-columns: 50px 280px;
+        max-width: 340px;
     }
 }
 
 @media (min-width: 768px) {
     .header__profile-info {
-        grid-template-columns: 50px 320px;
+        max-width: 380px;
     }
 }
 
 @media (min-width: 1000px) {
     .header__profile-info {
-        grid-template-columns: 50px 450px;
+        max-width: 510px;
     }
 }
 
 @media (min-width: 1400px) {
     .header__profile-info {
-        grid-template-columns: 60px 800px;
+        grid-template-columns: 60px auto;
+        max-width: 870px;
     }
+}
+
+.header__profile-info:focus-visible .header__username {
+    text-decoration: underline;
+    color: #02C;
+}
+
+.header__profile-info:hover .header__username {
+    text-decoration: underline;
+}
+
+.header__profile-info:active .header__username {
+    color: #02C;
 }
 
 .header__picture {

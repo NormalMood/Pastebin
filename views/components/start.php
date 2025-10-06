@@ -55,10 +55,10 @@
             <div>
                 <div class="header__body">
                     <?php if ($auth->check()) { ?>
-                        <div class="header__profile-info">
+                        <a class="header__profile-info" href="/profile?u=<?php echo htmlspecialchars($auth->user()->name()); ?>">
                             <img class="header__picture" src="/img/default_picture.png">
                             <span class="header__username"><?php echo htmlspecialchars($auth->user()->name()); ?></span>
-                        </div>
+                        </a>
                     <?php } else { ?>
                         <div class="header__not-auth"></div>
                     <?php } ?>
