@@ -50,7 +50,7 @@ class PostController extends Controller
         if ($this->auth()->check()) {
             $this->validationService()->validate(
                 validationRules: [
-                    'text' => 'required',
+                    'text' => 'required|max_bytes:10485760',
                     'title' => 'max:255',
                     'category_id' => 'required',
                     'syntax_id' => 'required',
@@ -71,7 +71,7 @@ class PostController extends Controller
         } else {
             $this->validationService()->validate(
                 validationRules: [
-                    'text' => 'required',
+                    'text' => 'required|max_bytes:10485760',
                     'title' => 'max:255',
                     'category_id' => 'required',
                     'syntax_id' => 'required',
@@ -119,7 +119,7 @@ class PostController extends Controller
         $postLink = $this->request()->input('link');
         $this->validationService()->validate(
             validationRules: [
-                    'text' => 'required',
+                    'text' => 'required|max_bytes:10485760',
                     'title' => 'max:255',
                     'category_id' => 'required',
                     'syntax_id' => 'required',

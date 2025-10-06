@@ -91,6 +91,11 @@ class Validator implements ValidatorInterface
                     return $ruleName;
                 }
                 break;
+            case 'max_bytes':
+                if (strlen($value) > $ruleValue) {
+                    return $ruleName;
+                }
+                break;
         }
         return false;
     }
