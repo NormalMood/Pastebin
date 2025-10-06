@@ -1024,11 +1024,13 @@ main {
 
 .author__created-at img {
     width: 24px;
+    cursor: help;
 }
 
 .author__created-at span {
     font-weight: 300;
     white-space: nowrap;
+    cursor: help;
 }
 
 /* Post metadata */
@@ -1051,6 +1053,10 @@ main {
     column-gap: unset;
 }
 
+.post__metadata-top_row-gap-unset {
+    row-gap: unset;
+}
+
 .post__title {
     font-size: 17px;
     font-weight: 700;
@@ -1067,9 +1073,16 @@ main {
 
 .post__datetime-metadata {
     display: flex;
-    flex-direction: row;
-    column-gap: 35px;
+    flex-direction: column;
+    row-gap: 15px;
     min-width: fit-content;
+}
+
+@media (min-width: 768px) {
+    .post__datetime-metadata {
+        flex-direction: row;
+        column-gap: 35px;
+    }
 }
 
 .post__datetime-metadata div {
@@ -1082,10 +1095,12 @@ main {
 
 .post__datetime-metadata div img {
     height: 100%;
+    cursor: help;
 }
 
 .post__datetime-metadata div span {
     font-weight: 300;
+    cursor: help;
 }
 
 /* Post metadata above post */
@@ -1248,6 +1263,10 @@ main {
 
 .table__actions {
     width: 105px;
+}
+
+.post__created-at {
+    cursor: help;
 }
 
 /* Settings page */

@@ -27,16 +27,16 @@
                     <span>Гость</span>
                 </a>
             <?php } ?>
-            <div <?php echo (($post->title() !== null) && ($post->title() !== '')) ? 'class="post__metadata-top"' : 'class="post__metadata-top post__metadata-top_column-gap-unset"' ?>>
+            <div <?php echo (($post->title() !== null) && ($post->title() !== '')) ? 'class="post__metadata-top"' : 'class="post__metadata-top post__metadata-top_column-gap-unset post__metadata-top_row-gap-unset"' ?>>
                 <span class="post__title"><?php echo htmlspecialchars($post->title()); ?></span>
                 <div class="post__datetime-metadata">
-                    <div>
+                    <div class="post__datetime-metadata-created-at">
                         <img src="/img/date.png">
-                        <span><?php echo explode(' ', $post->createdAt())[0]; ?></span>
+                        <span><?php echo $post->createdAt(); ?></span>
                     </div>
-                    <div>
+                    <div class="post__datetime-metadata-expires-at">
                         <img src="/img/time.png">
-                        <span><?php echo explode(' ', $post->expiresAt())[0]; ?></span>
+                        <span><?php echo $post->expiresAt(); ?></span>
                     </div>
                 </div>
             </div>
