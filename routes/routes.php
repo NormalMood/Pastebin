@@ -5,6 +5,7 @@ use Pastebin\Controllers\PostController;
 use Pastebin\Controllers\ProfileController;
 use Pastebin\Controllers\RegisterController;
 use Pastebin\Controllers\SettingsController;
+use Pastebin\Controllers\ValidationController;
 use Pastebin\Kernel\Router\Route;
 use Pastebin\Middlewares\AuthMiddleware;
 use Pastebin\Middlewares\AuthorMiddleware;
@@ -35,5 +36,6 @@ return [
     Route::post(uri: '/forgot-password', action: [LoginController::class, 'forgotPassword'], middlewares: [CSRFTokenMiddleware::class, GuestMiddleware::class]),
     Route::get(uri: '/reset-password', action: [LoginController::class, 'showResetPasswordForm']),
     Route::post(uri: '/reset-password', action: [LoginController::class, 'resetPassword'], middlewares: [CSRFTokenMiddleware::class]),
-    Route::post(uri: '/logout', action: [LoginController::class, 'logout'], middlewares: [AuthMiddleware::class])
+    Route::post(uri: '/logout', action: [LoginController::class, 'logout'], middlewares: [AuthMiddleware::class]),
+    Route::get(uri: '/validate', action: [ValidationController::class, 'validate'])
 ];

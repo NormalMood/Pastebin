@@ -1,14 +1,15 @@
 <?php
 /**
+ * @var string $selectId
  * @var array<string> $classes
  * @var string $placeholder
  * @var array $rows
- * @var string $selectId
+ * @var string $inputId
  * @var string $selectName
  * @var string $value //id for hidden input
  */
 ?>
-<div class="<?php echo !empty($classes) ? 'select ' . implode(' ', $classes) : 'select'; ?>" tabindex="0">
+<div id="<?php echo $selectId; ?>" class="<?php echo !empty($classes) ? 'select ' . implode(' ', $classes) : 'select'; ?>" tabindex="0">
     <div class="select__trigger-wrapper">
         <?php if (!isset($value)) { ?>
             <div class="select__trigger"><?php echo $placeholder; ?></div>
@@ -27,5 +28,5 @@
             <?php } ?>
         </div>
     </div>
-    <input id="<?php echo $selectId; ?>" type="hidden" name="<?php echo $selectName; ?>" <?php echo isset($value) ? "value=\"$value\"" : "value=\"\"" ?>>
+    <input id="<?php echo $inputId; ?>" type="hidden" name="<?php echo $selectName; ?>" <?php echo isset($value) ? "value=\"$value\"" : "value=\"\"" ?>>
 </div>

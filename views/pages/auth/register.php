@@ -20,9 +20,12 @@
                 <span class="title credentials__title_hidden">Регистрация</span>
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <div class="credentials__container">
-                    <?php $view->component('input', ['type' => 'text', 'name' => 'name', 'placeholder' => 'Имя*']) ?>
-                    <?php $view->component('input', ['type' => 'email', 'name' => 'email', 'placeholder' => 'E-mail*']) ?>
-                    <?php $view->component('input', ['type' => 'password', 'name' => 'password', 'placeholder' => 'Пароль*']) ?>
+                    <?php $view->component('input', ['id' => 'signup-name-input', 'type' => 'text', 'name' => 'name', 'placeholder' => 'Имя*']) ?>
+                    <p id="signup-name-error" class="validation__message validation__message_margin-top"></p>
+                    <?php $view->component('input', ['id' => 'signup-email-input', 'type' => 'email', 'name' => 'email', 'placeholder' => 'E-mail*']) ?>
+                    <p id="signup-email-error" class="validation__message validation__message_margin-top"></p>
+                    <?php $view->component('input', ['id' => 'signup-password-input', 'type' => 'password', 'name' => 'password', 'placeholder' => 'Пароль*']) ?>
+                    <p id="signup-password-error" class="validation__message validation__message_margin-top"></p>
                 </div>
                 <button class="button">Создать аккаунт</button>
             </form>

@@ -56,7 +56,9 @@
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <div class="credentials__container">
                     <?php $view->component('input', ['id' => 'signin-name-input', 'type' => 'text', 'name' => 'name', 'placeholder' => 'Имя*']) ?>
-                    <?php $view->component('input', ['type' => 'password', 'name' => 'password', 'placeholder' => 'Пароль*']) ?>
+                    <p id="signin-name-error" class="validation__message validation__message_margin-top"></p>
+                    <?php $view->component('input', ['id' => 'signin-password-input', 'type' => 'password', 'name' => 'password', 'placeholder' => 'Пароль*']) ?>
+                    <p id="signin-password-error" class="validation__message validation__message_margin-top"></p>
                 </div>
                 <button class="button">Войти</button>
                 <div class="credentials__navigation">
@@ -68,7 +70,8 @@
                 <span class="title credentials__title_hidden">Восстановление имени</span>
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <div class="credentials__container">
-                    <?php $view->component('input', ['type' => 'email', 'name' => 'email', 'placeholder' => 'E-mail*']) ?>
+                    <?php $view->component('input', ['id' => 'forgot-name-email-input', 'type' => 'email', 'name' => 'email', 'placeholder' => 'E-mail*']) ?>
+                    <p id="forgot-name-email-error" class="validation__message validation__message_margin-top"></p>
                 </div>
                 <button class="button">Получить имя</button>
                 <div class="credentials__navigation">
@@ -81,6 +84,7 @@
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <div class="credentials__container">
                     <?php $view->component('input', ['id' => 'forgot-password-name-input', 'type' => 'text', 'name' => 'name', 'placeholder' => 'Имя*']) ?>
+                    <p id="forgot-password-name-error" class="validation__message validation__message_margin-top"></p>
                 </div>
                 <button class="button">Получить пароль</button>
                 <div class="credentials__navigation">

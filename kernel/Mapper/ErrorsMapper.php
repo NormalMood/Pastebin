@@ -51,7 +51,7 @@ class ErrorsMapper
             'required' => 'Выберите время жизни поста'
         ],
         'post_visibility_id' => [
-            'required' => 'Настройте доступ к посту'
+            'required' => 'Настройте видимость поста'
         ]
     ];
 

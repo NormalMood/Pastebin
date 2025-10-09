@@ -73,6 +73,11 @@ class Request implements RequestInterface
         return $this->validator->validate($data, $validationRules);
     }
 
+    public function validator(): ValidatorInterface
+    {
+        return $this->validator;
+    }
+
     public function setValidator(ValidatorInterface $validator): void
     {
         $this->validator = $validator;
