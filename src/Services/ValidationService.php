@@ -111,7 +111,10 @@ class ValidationService
     private function setErrorFields(array $fieldErrors): void
     {
         foreach ($fieldErrors as $field => $errors) {
-            $this->session->set($field, true);
+            $this->session->set(
+                $field,
+                ErrorsMapper::getReadableError($field, $errors[0])
+            );
         }
     }
 

@@ -51,11 +51,11 @@ class LoginController extends Controller
     {
         $this->validationService()->validate(
             validationRules: [
-                'name' => 'required|name|exists:users,name|max:100'
+                'forgot-password_name' => 'required|name|exists:users,name|max:100'
             ],
             redirectUrl: '/signin'
         );
-        $this->loginService()->forgotPassword($this->request()->input('name'));
+        $this->loginService()->forgotPassword($this->request()->input('forgot-password_name'));
     }
 
     public function showResetPasswordForm(): void

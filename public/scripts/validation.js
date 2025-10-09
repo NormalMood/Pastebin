@@ -178,6 +178,10 @@ const focusObserverConfig = {
 };
 
 if (postTextEditor !== null) {
+    if (postTextError.classList.contains('validation__message_visible')) {
+        postTextEditor.classList.add('input_error');
+    }
+
     focusObserver.observe(postTextEditor, focusObserverConfig);
 
     validateInput('post_title', postTitleInput, postTitleError);

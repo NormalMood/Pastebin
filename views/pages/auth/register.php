@@ -21,11 +21,11 @@
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <div class="credentials__container">
                     <?php $view->component('input', ['id' => 'signup-name-input', 'type' => 'text', 'name' => 'name', 'placeholder' => 'Имя*']) ?>
-                    <p id="signup-name-error" class="validation__message validation__message_margin-top"></p>
+                    <?php $view->component('validation-message', ['id' => 'signup-name-error', 'inputName' => 'name']); ?>
                     <?php $view->component('input', ['id' => 'signup-email-input', 'type' => 'email', 'name' => 'email', 'placeholder' => 'E-mail*']) ?>
-                    <p id="signup-email-error" class="validation__message validation__message_margin-top"></p>
+                    <?php $view->component('validation-message', ['id' => 'signup-email-error', 'inputName' => 'email']); ?>
                     <?php $view->component('input', ['id' => 'signup-password-input', 'type' => 'password', 'name' => 'password', 'placeholder' => 'Пароль*']) ?>
-                    <p id="signup-password-error" class="validation__message validation__message_margin-top"></p>
+                    <?php $view->component('validation-message', ['id' => 'signup-password-error', 'inputName' => 'password']); ?>
                 </div>
                 <button class="button">Создать аккаунт</button>
             </form>

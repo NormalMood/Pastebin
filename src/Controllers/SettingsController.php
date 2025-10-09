@@ -38,7 +38,7 @@ class SettingsController extends Controller
     {
         $this->validationService()->validate(
             validationRules: [
-                'password' => 'required|min:12|max:50',
+                'old_password' => 'required|min:12|max:50',
                 'new_password' => 'required|min:12|max:50|confirmed',
                 'new_password_confirmation' => 'required|min:12|max:50'
             ],
@@ -46,7 +46,7 @@ class SettingsController extends Controller
         );
         $this->settingsService()->changePassword(
             userId: $this->session()->get($this->auth()->sessionField()),
-            password: $this->request()->input('password'),
+            password: $this->request()->input('old_password'),
             newPassword: $this->request()->input('new_password')
         );
         $this->redirect()->to("/settings?u={$this->request()->input('u')}");

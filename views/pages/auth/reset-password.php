@@ -22,7 +22,7 @@
                 <input type="hidden" name="token" value="<?php echo $token ?>">
                 <div class="credentials__container">
                     <?php $view->component('input', ['id' => 'reset-password-password-input', 'type' => 'password', 'name' => 'new_password', 'placeholder' => 'Новый пароль*']) ?>
-                    <p id="reset-password-password-error" class="validation__message validation__message_margin-top"></p>
+                    <?php $view->component('validation-message', ['id' => 'reset-password-password-error', 'inputName' => 'new_password']); ?>
                 </div>
                 <button class="button">Сохранить</button>
             </form>

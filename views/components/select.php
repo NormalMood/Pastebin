@@ -9,6 +9,11 @@
  * @var string $value //id for hidden input
  */
 ?>
+<?php
+    if ($session->has($selectName)) {
+        $classes[] = 'input_error';
+    }
+?>
 <div id="<?php echo $selectId; ?>" class="<?php echo !empty($classes) ? 'select ' . implode(' ', $classes) : 'select'; ?>" tabindex="0">
     <div class="select__trigger-wrapper">
         <?php if (!isset($value)) { ?>
