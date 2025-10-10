@@ -8,5 +8,7 @@ interface UploadedFileInterface
 
     public function tmpName(): string;
 
+    public function error(): int;
+
     public function size(): int;
 }

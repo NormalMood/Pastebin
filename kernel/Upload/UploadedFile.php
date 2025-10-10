@@ -20,6 +20,11 @@ class UploadedFile implements UploadedFileInterface
         return $this->tmpName;
     }
 
+    public function error(): int
+    {
+        return $this->error;
+    }
+
     public function size(): int
     {
         return $this->size;

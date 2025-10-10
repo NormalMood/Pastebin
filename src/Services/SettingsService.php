@@ -31,8 +31,16 @@ class SettingsService
 
     public function savePicture(string $userName, UploadedFileInterface $uploadedFile): void
     {
-        if ($uploadedFile->size() === 0) {
+        if ($uploadedFile->error() === UPLOAD_ERR_NO_FILE) {
+            $this->session->set('image', 'Необходимо выбрать изображение');
+            return;
+        }
+        if ($uploadedFile->error() === UPLOAD_ERR_INI_SIZE) {
             $this->session->set('image', 'Размер изображения не должен превышать 16 МБ');
+            return;
+        }
+        if ($uploadedFile->error() !== UPLOAD_ERR_OK) {
+            $this->session->set('image', 'Произошла ошибка при загрузке изображения');
             return;
         }
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
