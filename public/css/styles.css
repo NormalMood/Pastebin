@@ -584,6 +584,13 @@ main {
     color: #73767A;
     text-decoration: underline;
     cursor: pointer;
+    font-size: 15px;
+}
+
+@media (min-width: 1000px) {
+    .credentials__navigation span {
+        font-size: 16px;
+    }
 }
 
 
@@ -1672,13 +1679,6 @@ main {
     list-style: none;
     background-color: #FFF;
     padding: 15px;
-    font-size: 15px;
-}
-
-@media (min-width: 1000px) {
-    .message {
-        font-size: 16px;
-    }
 }
 
 .message > img {
@@ -1694,6 +1694,13 @@ main {
 .message__content > li {
     word-wrap: break-word;
     word-break: break-word;
+    font-size: 15px;
+}
+
+@media (min-width: 1000px) {
+    .message__content > li {
+        font-size: 16px;
+    }
 }
 
 .message_error {
