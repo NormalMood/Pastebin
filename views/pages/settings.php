@@ -61,7 +61,7 @@
                     <img class="settings__picture-img" src="/img/default_picture.png">
                     <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                     <input type="hidden" name="u" value="<?php echo $userName; ?>">
-                    <?php $view->component(name: 'upload-button', data: ['name' => 'picture', 'text' => 'Загрузить фото', 'accept' => '.jpeg, .jpg, .png']); ?>
+                    <?php $view->component(name: 'upload-button', data: ['name' => 'picture', 'text' => 'Выбрать фото', 'accept' => '.jpeg, .jpg, .png']); ?>
                 </div>
                 <div>
                     <div class="settings__account-info">
