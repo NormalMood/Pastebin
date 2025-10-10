@@ -2,6 +2,23 @@ const settingsAccount = document.querySelector('.settings__account');
 const settingsPassword = document.querySelector('.settings__password');
 const settingsBackArrows = document.querySelectorAll('.settings__back-img');
 
+const settingsAccountOption = document.getElementById('settings-account-option');
+const settingsPasswordOption = document.getElementById('settings-password-option');
+
+const showSettingsAccountForm = () => {
+    settingsAccount.classList.remove('settings_hidden');
+    settingsPassword.classList.add('settings_hidden');
+    settingsAccountOption.classList.add('settings__menu-option_active');
+    settingsPasswordOption.classList.remove('settings__menu-option_active');
+}
+
+const showSettingsPasswordForm = () => {
+    settingsAccount.classList.add('settings_hidden');
+    settingsPassword.classList.remove('settings_hidden');
+    settingsPasswordOption.classList.add('settings__menu-option_active');
+    settingsAccountOption.classList.remove('settings__menu-option_active');
+}
+
 if ((settingsAccount !== null) && (settingsPassword !== null) && (settingsBackArrows !== null)) {
     settingsBackArrows.forEach(settingsBackArrow => {
         settingsBackArrow.addEventListener('click', () => {
@@ -11,20 +28,12 @@ if ((settingsAccount !== null) && (settingsPassword !== null) && (settingsBackAr
             settingsPasswordOption.classList.remove('settings__menu-option_active');
         });
     });
-    const settingsAccountOption = document.getElementById('settings-account-option');
-    const settingsPasswordOption = document.getElementById('settings-password-option');
 
     settingsAccountOption.addEventListener('click', () => {
-        settingsAccount.classList.remove('settings_hidden');
-        settingsPassword.classList.add('settings_hidden');
-        settingsAccountOption.classList.add('settings__menu-option_active');
-        settingsPasswordOption.classList.remove('settings__menu-option_active');
+        showSettingsAccountForm();
     });
     settingsPasswordOption.addEventListener('click', () => {
-        settingsAccount.classList.add('settings_hidden');
-        settingsPassword.classList.remove('settings_hidden');
-        settingsPasswordOption.classList.add('settings__menu-option_active');
-        settingsAccountOption.classList.remove('settings__menu-option_active');
+        showSettingsPasswordForm();
     });
 
     const showSettingsAccount = () => {

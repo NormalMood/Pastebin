@@ -30,14 +30,14 @@
         </div>
     <?php } ?>
     <?php if ($session->has('image')) { ?>
-        <div class="message-wrapper message-wrapper_background-color">
+        <div id="picture-error-message-wrapper" class="message-wrapper message-wrapper_background-color">
             <div class="container container_padding-top-settings-page">
                 <?php $view->component('message', ['type' => 'error', 'messages' => [$session->getFlush('image')]]); ?>
             </div>
         </div>
     <?php } ?>
     <?php if ($session->has('incorrectPassword')) { ?>
-        <div class="message-wrapper message-wrapper_background-color">
+        <div id="incorrect-password-message-wrapper" class="message-wrapper message-wrapper_background-color">
             <div class="container container_padding-top-settings-page">
                 <?php $view->component('message', ['type' => 'error', 'messages' => [$session->getFlush('incorrectPassword')]]); ?>
             </div>

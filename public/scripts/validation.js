@@ -89,6 +89,9 @@ const forgotNameEmailError = document.getElementById('forgot-name-email-error');
 
 if (forgotNameEmailInput !== null) {
     validateInput('forgot-name_email', forgotNameEmailInput, forgotNameEmailError);
+    if (forgotNameEmailError.textContent !== '') {
+        showForgotNameForm();
+    }
 }
 
 const forgotPasswordNameInput = document.getElementById('forgot-password-name-input');
@@ -96,6 +99,9 @@ const forgotPasswordNameError = document.getElementById('forgot-password-name-er
 
 if (forgotPasswordNameInput !== null) {
     validateInput('forgot-password_name', forgotPasswordNameInput, forgotPasswordNameError);
+    if (forgotPasswordNameError.textContent !== '') {
+        showForgotPasswordForm();
+    }
 }
 
 /* Registration page */
@@ -205,6 +211,10 @@ const deleteAccountPasswordError = document.getElementById('delete-account-passw
 
 if (deleteAccountPasswordInput !== null) {
     validateInput('password', deleteAccountPasswordInput, deleteAccountPasswordError);
+
+    if (deleteAccountPasswordError.textContent !== '') {
+        showSettingsAccountForm();
+    }
 }
 
 //Password option
@@ -226,4 +236,19 @@ if (changePasswordPasswordInput !== null) {
         changePasswordNewPasswordConfirmationInput
     );
     validateInput('new_password_confirmation', changePasswordNewPasswordConfirmationInput, changePasswordNewPasswordConfirmationError);
+
+    if (changePasswordPasswordError.textContent !== '' ||
+        changePasswordNewPasswordError.textContent !== '' ||
+        changePasswordNewPasswordConfirmationError.textContent !== ''
+    ) {
+        showSettingsPasswordForm();
+    }
+}
+
+// Validation errors regarding account option
+const pictureErrorMessageWrapper = document.getElementById('picture-error-message-wrapper');
+const incorrectPasswordMessageWrapper = document.getElementById('incorrect-password-message-wrapper');
+
+if ((pictureErrorMessageWrapper !== null) || (incorrectPasswordMessageWrapper !== null)) {
+    showSettingsAccountForm();
 }
