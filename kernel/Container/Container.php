@@ -19,6 +19,8 @@ use Pastebin\Kernel\Session\Session;
 use Pastebin\Kernel\Session\SessionCookie;
 use Pastebin\Kernel\Session\SessionCookieInterface;
 use Pastebin\Kernel\Session\SessionInterface;
+use Pastebin\Kernel\Storage\Storage;
+use Pastebin\Kernel\Storage\StorageInterface;
 use Pastebin\Kernel\Utils\Hash;
 use Pastebin\Kernel\Utils\PostLink;
 use Pastebin\Kernel\Validator\Validator;
@@ -49,6 +51,8 @@ class Container
     public readonly RedirectInterface $redirect;
 
     public readonly ValidatorInterface $validator;
+
+    public readonly StorageInterface $storage;
 
     public function __construct()
     {
@@ -92,5 +96,6 @@ class Container
         );
         Hash::setConfig($this->config);
         PostLink::setDatabase($this->database);
+        $this->storage = new Storage();
     }
 }

@@ -3,3 +3,4 @@
 /config/mailer.php
 /config/auth.php
 /storage/
+/.aws/credentials
