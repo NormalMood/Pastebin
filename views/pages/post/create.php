@@ -19,6 +19,13 @@
             </div>
         </div>
     <?php } ?>
+    <?php if ($session->has('postNotSaved')) { ?>
+        <div class="message-wrapper">
+            <div class="container">
+                <?php $view->component('message', ['type' => 'error', 'messages' => [$session->getFlush('postNotSaved')]]) ?>
+            </div>
+        </div>
+    <?php } ?>
     <?php if ($request->input('account_deleted')) { ?>
         <div class="message-wrapper">
             <div class="container">

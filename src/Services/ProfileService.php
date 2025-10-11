@@ -4,6 +4,9 @@ namespace Pastebin\Services;
 
 use DateTime;
 use Pastebin\Kernel\Database\DatabaseInterface;
+use Pastebin\Kernel\Http\RedirectInterface;
+use Pastebin\Kernel\Session\SessionInterface;
+use Pastebin\Kernel\Storage\StorageInterface;
 use Pastebin\Models\Author;
 use Pastebin\Models\Interval;
 use Pastebin\Models\Post;
@@ -15,7 +18,10 @@ class ProfileService
     private PostService $postService;
 
     public function __construct(
-        private DatabaseInterface $database
+        private DatabaseInterface $database,
+        private StorageInterface $storage,
+        private SessionInterface $session,
+        private RedirectInterface $redirect
     ) {
     }
 
@@ -84,7 +90,12 @@ class ProfileService
     private function postService(): PostService
     {
         if (!isset($this->postService)) {
-            $this->postService = new PostService($this->database);
+            $this->postService = new PostService(
+                $this->database,
+                $this->storage,
+                $this->session,
+                $this->redirect
+            );
         }
         return $this->postService;
     }

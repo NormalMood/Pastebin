@@ -18,6 +18,13 @@
             </div>
         </div>
     <?php } ?>
+    <?php if ($session->has('postNotSaved')) { ?>
+        <div class="message-wrapper">
+            <div class="container">
+                <?php $view->component('message', ['type' => 'error', 'messages' => [$session->getFlush('postNotSaved')]]) ?>
+            </div>
+        </div>
+    <?php } ?>
     <div class="container container_background-color container_post-height container_padding-top container_padding-bottom">
         <form class="content-container" action="/post/update?link=<?php echo $post->postLink(); ?>" method="post">
             <span class="title title_hidden">Редактирование поста</span>

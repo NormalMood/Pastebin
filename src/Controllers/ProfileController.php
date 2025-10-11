@@ -22,7 +22,10 @@ class ProfileController extends Controller
     {
         if (!isset($this->profileService)) {
             $this->profileService = new ProfileService(
-                $this->database()
+                $this->database(),
+                $this->storage(),
+                $this->session(),
+                $this->redirect()
             );
         }
         return $this->profileService;

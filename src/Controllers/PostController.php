@@ -66,7 +66,8 @@ class PostController extends Controller
                 intervalId: $this->request()->input('interval_id'),
                 postVisibilityId: $this->request()->input('post_visibility_id'),
                 title: $this->request()->input('title'),
-                userId: $this->session()->get($this->auth()->sessionField())
+                userId: $this->session()->get($this->auth()->sessionField()),
+                redirectUrl: '/'
             );
         } else {
             $this->validationService()->validate(
@@ -89,7 +90,8 @@ class PostController extends Controller
                 intervalId: $this->request()->input('interval_id'),
                 postVisibilityId: UNLISTED_POST_VISIBILITY_ID,
                 title: $this->request()->input('title'),
-                userId: $this->session()->get($this->auth()->sessionField())
+                userId: $this->session()->get($this->auth()->sessionField()),
+                redirectUrl: '/'
             );
         }
         $this->redirect()->to("/post?link=$postLink");
@@ -136,7 +138,8 @@ class PostController extends Controller
             syntaxId: $this->request()->input('syntax_id'),
             intervalId: $this->request()->input('interval_id'),
             postVisibilityId: $this->request()->input('post_visibility_id'),
-            title: $this->request()->input('title')
+            title: $this->request()->input('title'),
+            redirectUrl: "/post/edit?link=$postLink"
         );
         $this->redirect()->to("/post?link=$postLink");
     }
@@ -154,7 +157,12 @@ class PostController extends Controller
     private function postService(): PostService
     {
         if (!isset($this->postService)) {
-            $this->postService = new PostService($this->database());
+            $this->postService = new PostService(
+                $this->database(),
+                $this->storage(),
+                $this->session(),
+                $this->redirect()
+            );
         }
         return $this->postService;
     }

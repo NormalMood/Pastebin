@@ -3,7 +3,11 @@
 namespace Pastebin\Services;
 
 use DateTime;
+use DateTimeZone;
 use Pastebin\Kernel\Database\DatabaseInterface;
+use Pastebin\Kernel\Http\RedirectInterface;
+use Pastebin\Kernel\Session\SessionInterface;
+use Pastebin\Kernel\Storage\StorageInterface;
 use Pastebin\Kernel\Utils\PostLink;
 use Pastebin\Kernel\Utils\Token;
 use Pastebin\Models\Author;
@@ -16,7 +20,10 @@ use Pastebin\Models\Syntax;
 class PostService
 {
     public function __construct(
-        private DatabaseInterface $database
+        private DatabaseInterface $database,
+        private StorageInterface $storage,
+        private SessionInterface $session,
+        private RedirectInterface $redirect
     ) {
     }
 
@@ -26,17 +33,22 @@ class PostService
         int $syntaxId,
         int $intervalId,
         int $postVisibilityId,
+        string $redirectUrl,
         ?string $title = null,
         ?int $userId = null,
         ?string $postLink = null,
         ?string $postBlobLink = null,
-        bool $update = false
+        bool $update = false,
     ): string {
         $intervals = $this->database->get(table: 'intervals');
         $interval = current(array_filter($intervals, fn ($interval) => $interval['interval_id'] == $intervalId));
         $postLink ??= PostLink::get();
-        $postBlobLink ??= APP_PATH . '/storage/' . Token::random() . '.txt';
-        file_put_contents($postBlobLink, $text);
+        $postBlobLink ??= $this->getUniquePostName();
+        $result = $this->storage->uploadPost($text, $postBlobLink);
+        if (!$result) {
+            $this->session->set('postNotSaved', 'Не удалось сохранить пост');
+            $this->redirect->to($redirectUrl);
+        }
         if ($update) {
             $sql = "UPDATE posts SET title = :title, category_id = :category_id, syntax_id = :syntax_id, " .
                 "interval_id = :interval_id, post_visibility_id = :post_visibility_id, created_at = now(), expires_at = now() + interval '{$interval['name']}' WHERE post_link = :post_link";
@@ -127,8 +139,17 @@ class PostService
         ];
     }
 
-    public function updatePost(string $postLink, string $text, int $categoryId, int $syntaxId, int $intervalId, int $postVisibilityId, ?string $title = null, ?int $userId = null): void
-    {
+    public function updatePost(
+        string $postLink,
+        string $text,
+        int $categoryId,
+        int $syntaxId,
+        int $intervalId,
+        int $postVisibilityId,
+        string $redirectUrl,
+        ?string $title = null,
+        ?int $userId = null
+    ): void {
         $post = $this->database->first('posts', ['post_link' => $postLink]);
         if (empty($post)) {
             $this->save(
@@ -139,6 +160,7 @@ class PostService
                 postVisibilityId: $postVisibilityId,
                 title: $title,
                 userId: $userId,
+                redirectUrl: $redirectUrl,
                 postLink: $postLink
             );
         } else {
@@ -149,6 +171,7 @@ class PostService
                 intervalId: $intervalId,
                 postVisibilityId: $postVisibilityId,
                 title: $title,
+                redirectUrl: $redirectUrl,
                 postLink: $postLink,
                 postBlobLink: $post['post_blob_link'],
                 update: true
@@ -161,5 +184,11 @@ class PostService
         $post = $this->database->first('posts', ['post_link' => $postLink]);
         $this->database->delete('posts', ['post_id' => $post['post_id']]);
         unlink($post['post_blob_link']);
+    }
+
+    private function getUniquePostName(): string
+    {
+        $now = new DateTime('now', new DateTimeZone('UTC'));
+        return Token::random() . "_{$now->format('d-m-Y_H-i-s')}.txt";
     }
 }
