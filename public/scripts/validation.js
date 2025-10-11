@@ -183,7 +183,9 @@ const focusObserverConfig = {
     attributes: true
 };
 
-if (postTextEditor !== null) {
+const postContentDiv = document.getElementById('post-content'); //only on Show Post page and there is no validation on that page
+
+if ((postTextEditor !== null) && (postContentDiv === null)) {
     if ((postTextError !== null) && (postTextError.classList.contains('validation__message_visible'))) {
         postTextEditor.classList.add('input_error');
     }
