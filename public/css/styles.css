@@ -1415,7 +1415,7 @@ main {
     .settings__picture {
         flex-direction: row;
         align-items: start;
-        column-gap: 80px;
+        column-gap: 50px;
     }
 }
 
@@ -1598,7 +1598,7 @@ main {
     display: flex;
     align-items: center;
     text-decoration: underline;
-    padding: 15px;
+    padding: 15px 60px 15px 15px;
     width: 100%;
     cursor: pointer;
     border-radius: 8px;
