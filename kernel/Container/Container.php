@@ -82,6 +82,7 @@ class Container
             $this->auth,
             $this->request
         );
+        $this->storage = new Storage($this->config);
         $this->router = new Router(
             $this->view,
             $this->request,
@@ -92,10 +93,10 @@ class Container
             $this->sessionCookie,
             $this->config,
             $this->auth,
-            $this->validator
+            $this->validator,
+            $this->storage
         );
         Hash::setConfig($this->config);
         PostLink::setDatabase($this->database);
-        $this->storage = new Storage();
     }
 }

@@ -9,6 +9,7 @@ use Pastebin\Kernel\Http\RedirectInterface;
 use Pastebin\Kernel\Http\RequestInterface;
 use Pastebin\Kernel\MailSender\MailSenderInterface;
 use Pastebin\Kernel\Session\SessionInterface;
+use Pastebin\Kernel\Storage\StorageInterface;
 use Pastebin\Kernel\View\ViewInterface;
 
 abstract class Controller
@@ -18,6 +19,8 @@ abstract class Controller
     private RequestInterface $request;
 
     private DatabaseInterface $database;
+
+    private StorageInterface $storage;
 
     private RedirectInterface $redirect;
 
@@ -57,6 +60,16 @@ abstract class Controller
     public function setDatabase(DatabaseInterface $database): void
     {
         $this->database = $database;
+    }
+
+    public function storage(): StorageInterface
+    {
+        return $this->storage;
+    }
+
+    public function setStorage(StorageInterface $storage): void
+    {
+        $this->storage = $storage;
     }
 
     public function redirect(): RedirectInterface

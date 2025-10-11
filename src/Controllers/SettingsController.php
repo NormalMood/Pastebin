@@ -29,7 +29,7 @@ class SettingsController extends Controller
     {
         $this->settingsService()->savePicture(
             userName: $this->request()->input('u'),
-            uploadedFile: $this->request()->file('picture')
+            picture: $this->request()->file('picture')
         );
         $this->redirect()->to("/settings?u={$this->request()->input('u')}");
     }
@@ -88,6 +88,7 @@ class SettingsController extends Controller
         if (!isset($this->settingsService)) {
             $this->settingsService = new SettingsService(
                 $this->database(),
+                $this->storage(),
                 $this->auth(),
                 $this->session()
             );
