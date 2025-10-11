@@ -993,6 +993,10 @@ main {
     border-top-right-radius: unset;
 }
 
+.CodeMirror_border-color-unset {
+    border-color: unset !important;
+}
+
 /* Post page CodeMirror div */
 
 .CodeMirror_height-unset {
@@ -1007,7 +1011,7 @@ main {
 }
 
 .CodeMirror-focused_unset {
-    outline: unset;
+    outline: unset !important;
 }
 
 .CodeMirror-hscrollbar_visibility {

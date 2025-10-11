@@ -110,4 +110,6 @@ if (postContent !== null) {
     scrollCodeMirror.classList.add('CodeMirror-scroll_height-unset');
 
     postCodeMirror.classList.add('CodeMirror_border-top-unset');
+
+    postCodeMirror.classList.add('CodeMirror_border-color-unset');
 }
