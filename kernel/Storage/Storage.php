@@ -58,6 +58,19 @@ class Storage implements StorageInterface
         }
     }
 
+    public function getPost(string $postBlobLink): string
+    {
+        try {
+            $result = $this->s3->getObject([
+                'Bucket' => $this->postsBucket,
+                'Key' => $postBlobLink
+            ]);
+            return $result['Body'];
+        } catch (\Exception $e) {
+            return '';
+        }
+    }
+
     public function setBucketsFromConfig(): void
     {
         $this->picturesBucket = $this->config->get('storage.pictures_bucket');

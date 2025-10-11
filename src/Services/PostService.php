@@ -106,9 +106,10 @@ class PostService
         $interval = $this->database->first('intervals', ['interval_id' => $post['interval_id']]);
         $postVisibility = $this->database->first('post_visibilities', ['post_visibility_id' => $post['post_visibility_id']]);
         $user = $this->database->first('users', ['user_id' => $post['user_id']]);
+        $text = $this->storage->getPost($post['post_blob_link']);
         $postObject = new Post(
             postLink: $post['post_link'],
-            text: file_get_contents($post['post_blob_link']),
+            text: $text,
             title: $post['title'],
             category: new Category(
                 id: $category['category_id'],

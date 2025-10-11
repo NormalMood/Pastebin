@@ -10,5 +10,7 @@ interface StorageInterface
 
     public function uploadPost(string $text, string $postBlobLink): bool;
 
+    public function getPost(string $postBlobLink): string;
+
     public function setBucketsFromConfig(): void;
 }
