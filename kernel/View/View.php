@@ -71,7 +71,8 @@ class View implements ViewInterface
     {
         header(
             "Content-Security-Policy: default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; " .
-            "style-src 'self' 'nonce-{$this->session->get('nonce')}' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src https://fonts.gstatic.com;"
+            "style-src 'self' 'nonce-{$this->session->get('nonce')}' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src https://fonts.gstatic.com; " .
+            "img-src 'self' https://pastebin-pictures-bucket.storage.yandexcloud.net;"
         );
     }
 

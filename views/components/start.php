@@ -57,7 +57,7 @@
                 <div class="header__body">
                     <?php if ($auth->check()) { ?>
                         <a class="header__profile-info" href="/profile?u=<?php echo htmlspecialchars($auth->user()->name()); ?>">
-                            <img class="header__picture" src="/img/default_picture.png">
+                            <img class="header__picture" <?php echo !empty($auth->user()->pictureLink()) ? "src=\"{$auth->user()->pictureLink()}\"" : 'src="/img/default_picture.png"'; ?>>
                             <span class="header__username"><?php echo htmlspecialchars($auth->user()->name()); ?></span>
                         </a>
                     <?php } else { ?>

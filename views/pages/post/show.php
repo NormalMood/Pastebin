@@ -4,6 +4,7 @@
  * @var \Pastebin\Kernel\Session\SessionInterface $session
  * @var \Pastebin\Kernel\Auth\AuthInterface $auth
  * @var \Pastebin\Models\Post $post
+ * @var \Pastebin\Models\Author $author
  * @var string $csrfToken
  */
 ?>
@@ -18,7 +19,7 @@
         <div class="container container_background-color container_height container_padding-top container_flex">
             <?php if (($post->author() !== null) && ($post->author() !== '')) { ?>
                 <a class="author__link" href="/profile?u=<?php echo $post->author(); ?>">
-                    <img class="author__picture" src="/img/default_picture.png">
+                    <img class="author__picture" <?php echo !empty($author->pictureLink()) ? "src=\"{$author->pictureLink()}\"" : 'src="/img/default_picture.png"'; ?>>
                     <span class="author__name"><?php echo $post->author(); ?></span>
                 </a>
             <?php } else { ?>

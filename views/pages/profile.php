@@ -18,7 +18,7 @@ use Pastebin\Mappers\PostVisibilityMapper;
             <div class="author__metadata">
                 <?php if ($author->id() !== $session->get($auth->sessionField())) { ?>
                     <a class="author__link" href="/profile?u=<?php echo $author->name(); ?>">
-                        <img class="author__picture" src="/img/default_picture.png">
+                        <img class="author__picture" <?php echo !empty($author->pictureLink()) ? "src=\"{$author->pictureLink()}\"" : 'src="/img/default_picture.png"'; ?>>
                         <span class="author__name"><?php echo htmlspecialchars($author->name()); ?></span>
                     </a>
                 <?php } ?>

@@ -7,7 +7,8 @@ class User
     public function __construct(
         private int $id,
         private string $name,
-        private string $email
+        private string $email,
+        private ?string $pictureLink
     ) {
     }
 
@@ -24,5 +25,10 @@ class User
     public function name(): string
     {
         return $this->name;
+    }
+
+    public function pictureLink(): ?string
+    {
+        return $this->pictureLink;
     }
 }

@@ -2,6 +2,7 @@
 /**
  * @var \Pastebin\Kernel\View\ViewInterface $view
  * @var \Pastebin\Kernel\Session\SessionInterface $session
+ * @var \Pastebin\Kernel\Auth\AuthInterface $auth
  * @var string $userName
  * @var string $email
  * @var string $csrfToken
@@ -58,7 +59,7 @@
                     <span class="title">Аккаунт</span>
                 </div>
                 <div class="settings__picture">
-                    <img class="settings__picture-img" src="/img/default_picture.png">
+                    <img class="settings__picture-img" <?php echo !empty($auth->user()->pictureLink()) ? "src=\"{$auth->user()->pictureLink()}\"" : 'src="/img/default_picture.png"'; ?>>
                     <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                     <input type="hidden" name="u" value="<?php echo $userName; ?>">
                     <?php $view->component(name: 'upload-button', data: ['name' => 'picture', 'text' => 'Выбрать фото', 'accept' => '.jpeg, .jpg, .png']); ?>

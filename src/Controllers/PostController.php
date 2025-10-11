@@ -97,19 +97,20 @@ class PostController extends Controller
 
     public function show(): void
     {
-        $post = $this->postService()->getPost($this->request()->input('link'));
-        $this->view('post/show', ['post' => $post], title: 'Пост');
+        $data = $this->postService()->getPost($this->request()->input('link'));
+        $this->view('post/show', $data, title: 'Пост');
     }
 
     public function edit(): void
     {
-        $post = $this->postService()->getPost($this->request()->input('link'));
+        $postAndAuthor = $this->postService()->getPost($this->request()->input('link'));
         $data = [
             'categories' => $this->categoryService()->all(),
             'syntaxes' => $this->syntaxService()->all(),
             'intervals' => IntervalMapper::getMapped($this->intervalService()->all()),
             'postVisibilities' => PostVisibilityMapper::getMapped($this->postVisibilityService()->all()),
-            'post' => $post
+            'post' => $postAndAuthor['post'],
+            'author' => $postAndAuthor['author']
         ];
         $this->view('post/edit', $data, 'Редактирование поста');
     }

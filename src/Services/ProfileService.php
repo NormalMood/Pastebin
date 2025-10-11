@@ -29,7 +29,12 @@ class ProfileService
             return [];
         }
         $posts = $this->database->get('posts', ['user_id' => $user['user_id']]);
-        $author = new Author(id: $user['user_id'], name: $userName, createdAt: $user['created_at']);
+        $author = new Author(
+            id: $user['user_id'],
+            name: $userName,
+            createdAt: $user['created_at'],
+            pictureLink: $user['picture_blob_link']
+        );
         if (empty($posts)) {
             return [
                 'author' => $author,

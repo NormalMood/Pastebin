@@ -6,6 +6,7 @@ use DateTime;
 use Pastebin\Kernel\Database\DatabaseInterface;
 use Pastebin\Kernel\Utils\PostLink;
 use Pastebin\Kernel\Utils\Token;
+use Pastebin\Models\Author;
 use Pastebin\Models\Category;
 use Pastebin\Models\Interval;
 use Pastebin\Models\Post;
@@ -72,7 +73,7 @@ class PostService
         return $postLink;
     }
 
-    public function getPost(?string $postLink): Post|null
+    public function getPost(?string $postLink): array|null
     {
         if (!isset($postLink) || (strlen($postLink) !== 8)) {
             return null;
@@ -93,7 +94,7 @@ class PostService
         $interval = $this->database->first('intervals', ['interval_id' => $post['interval_id']]);
         $postVisibility = $this->database->first('post_visibilities', ['post_visibility_id' => $post['post_visibility_id']]);
         $user = $this->database->first('users', ['user_id' => $post['user_id']]);
-        return new Post(
+        $postObject = new Post(
             postLink: $post['post_link'],
             text: file_get_contents($post['post_blob_link']),
             title: $post['title'],
@@ -119,6 +120,11 @@ class PostService
             author: $user['name'] ?? null,
             authorId: $post['user_id'] ?? null
         );
+        $authorObject = new Author($user['user_id'] ?? null, $user['name'] ?? null, $post['created_at'] ?? null, $user['picture_blob_link'] ?? null);
+        return [
+            'post' => $postObject,
+            'author' => $authorObject
+        ];
     }
 
     public function updatePost(string $postLink, string $text, int $categoryId, int $syntaxId, int $intervalId, int $postVisibilityId, ?string $title = null, ?int $userId = null): void

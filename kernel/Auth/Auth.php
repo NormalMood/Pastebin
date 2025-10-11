@@ -127,7 +127,8 @@ class Auth implements AuthInterface
             return new User(
                 id: $user['user_id'],
                 name: $user[$this->username()],
-                email: $user['e_mail']
+                email: $user['e_mail'],
+                pictureLink: $user['picture_blob_link']
             );
         }
         return null;

@@ -1052,6 +1052,7 @@ main {
     border-radius: 50%;
     width: 45px;
     height: 45px;
+    object-fit: cover;
 }
 
 .author__link span {
@@ -1420,13 +1421,17 @@ main {
 
 .settings__picture-img {
     width: 130px;
+    height: 130px;
+    flex-shrink: 0;
     background-color: #383838;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 @media (min-width: 1400px) {
     .settings__picture-img {
         width: 140px;
+        height: 140px;
     }
 }
 
