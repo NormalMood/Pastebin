@@ -183,8 +183,9 @@ class PostService
     public function deletePost(string $postLink): void
     {
         $post = $this->database->first('posts', ['post_link' => $postLink]);
-        $this->database->delete('posts', ['post_id' => $post['post_id']]);
-        unlink($post['post_blob_link']);
+        if ($this->storage->deletePost($post['post_blob_link'])) {
+            $this->database->delete('posts', ['post_id' => $post['post_id']]);
+        }
     }
 
     private function getUniquePostName(): string

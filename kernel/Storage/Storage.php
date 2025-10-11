@@ -71,6 +71,19 @@ class Storage implements StorageInterface
         }
     }
 
+    public function deletePost(string $postBlobLink): bool
+    {
+        try {
+            $this->s3->deleteObject([
+                'Bucket' => $this->postsBucket,
+                'Key' => $postBlobLink
+            ]);
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
     public function setBucketsFromConfig(): void
     {
         $this->picturesBucket = $this->config->get('storage.pictures_bucket');
