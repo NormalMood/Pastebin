@@ -88,17 +88,17 @@ class PostService
     public function getPost(?string $postLink): array|null
     {
         if (!isset($postLink) || (strlen($postLink) !== 8)) {
-            return null;
+            return [];
         }
         $post = $this->database->first('posts', ['post_link' => $postLink]);
         if (empty($post)) {
-            return null;
+            return [];
         }
         if ($post['expires_at'] !== POSTGRES_INFINITY_DATE) {
             $expiresAt = new DateTime($post['expires_at'])->getTimestamp();
             if (time() > $expiresAt) {
                 $this->deletePost($postLink);
-                return null;
+                return [];
             }
         }
         $category = $this->database->first('categories', ['category_id' => $post['category_id']]);
