@@ -184,19 +184,21 @@ const focusObserverConfig = {
 };
 
 if (postTextEditor !== null) {
-    if (postTextError.classList.contains('validation__message_visible')) {
+    if ((postTextError !== null) && (postTextError.classList.contains('validation__message_visible'))) {
         postTextEditor.classList.add('input_error');
     }
 
     focusObserver.observe(postTextEditor, focusObserverConfig);
+} else {
+    focusObserver.disconnect();
+}
 
+if (postTitleInput !== null) {
     validateInput('post_title', postTitleInput, postTitleError);
 
     validateSelect('post_category_id', postCategoryIdSelect, postCategoryIdInput, postCategoryIdError);
     validateSelect('post_syntax_id', postSyntaxIdSelect, postSyntaxIdInput, postSyntaxIdError);
     validateSelect('post_interval_id', postIntervalIdSelect, postIntervalIdInput, postIntervalIdError);
-} else {
-    focusObserver.disconnect();
 }
 
 if (postPostVisibilityIdSelect !== null) {
