@@ -4,6 +4,10 @@ RUN apt-get update && apt-get install -y unzip git zip libzip-dev libpq-dev && d
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+COPY composer.json composer.lock /var/www/pastebin/
+WORKDIR /var/www/pastebin
+RUN composer install --no-dev --optimize-autoloader
+
 COPY . /var/www/pastebin
 COPY pastebin.conf /etc/apache2/sites-available/000-default.conf
 COPY php.ini /usr/local/etc/php/php.ini
@@ -11,8 +15,5 @@ COPY php.ini /usr/local/etc/php/php.ini
 RUN a2enmod rewrite
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
-
-WORKDIR /var/www/pastebin
-RUN composer install --no-dev --optimize-autoloader
 
 EXPOSE 80
