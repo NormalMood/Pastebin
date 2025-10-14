@@ -53,7 +53,7 @@ class RegisterService
             //delete verification token from db
             $this->database->update('users', ['verification_token' => null], ['user_id' => $user['user_id']]);
 
-            $this->auth->createSession($user['user_id']);
+            $this->auth->createSession(userId: $user['user_id']);
 
             $this->session->set('userVerified', 'Аккаунт активирован');
 
