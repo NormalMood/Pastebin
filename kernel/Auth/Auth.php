@@ -2,7 +2,6 @@
 
 namespace Pastebin\Kernel\Auth;
 
-use Pastebin\Kernel\Config\ConfigInterface;
 use Pastebin\Kernel\Database\DatabaseInterface;
 use Pastebin\Kernel\Session\SessionCookieInterface;
 use Pastebin\Kernel\Session\SessionInterface;
@@ -13,7 +12,6 @@ use Pastebin\Kernel\Utils\Token;
 class Auth implements AuthInterface
 {
     public function __construct(
-        private ConfigInterface $config,
         private DatabaseInterface $database,
         private SessionInterface $session,
         private SessionCookieInterface $sessionCookie
@@ -136,21 +134,21 @@ class Auth implements AuthInterface
 
     public function table(): string
     {
-        return $this->config->get('auth.table', 'users');
+        return $_ENV['AUTH_TABLE'];
     }
 
     public function username(): string
     {
-        return $this->config->get('auth.username', 'name');
+        return $_ENV['AUTH_USERNAME'];
     }
 
     public function password(): string
     {
-        return $this->config->get('auth.password', 'password');
+        return $_ENV['AUTH_PASSWORD'];
     }
 
     public function sessionField(): string
     {
-        return $this->config->get('auth.session_field', 'user_id');
+        return $_ENV['AUTH_SESSION_FIELD'];
     }
 }

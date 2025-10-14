@@ -4,8 +4,6 @@ namespace Pastebin\Kernel\Container;
 
 use Pastebin\Kernel\Auth\Auth;
 use Pastebin\Kernel\Auth\AuthInterface;
-use Pastebin\Kernel\Config\Config;
-use Pastebin\Kernel\Config\ConfigInterface;
 use Pastebin\Kernel\Database\Database;
 use Pastebin\Kernel\Database\DatabaseInterface;
 use Pastebin\Kernel\Http\Redirect;
@@ -21,7 +19,6 @@ use Pastebin\Kernel\Session\SessionCookieInterface;
 use Pastebin\Kernel\Session\SessionInterface;
 use Pastebin\Kernel\Storage\Storage;
 use Pastebin\Kernel\Storage\StorageInterface;
-use Pastebin\Kernel\Utils\Hash;
 use Pastebin\Kernel\Utils\PostLink;
 use Pastebin\Kernel\Validator\Validator;
 use Pastebin\Kernel\Validator\ValidatorInterface;
@@ -35,8 +32,6 @@ class Container
     public readonly ViewInterface $view;
 
     public readonly RouterInterface $router;
-
-    public readonly ConfigInterface $config;
 
     public readonly DatabaseInterface $database;
 
@@ -63,26 +58,23 @@ class Container
     {
         $this->request = Request::createFromGlobals();
         $this->session = new Session();
-        $this->config = new Config();
-        $this->database = new Database($this->config);
+        $this->database = new Database();
         $this->validator = new Validator($this->database);
         $this->request->setValidator($this->validator);
         $this->redirect = new Redirect();
-        $this->mailSender = new MailSender($this->config);
-        $this->sessionCookie = new SessionCookie($this->config, $this->request);
+        $this->mailSender = new MailSender();
+        $this->sessionCookie = new SessionCookie($this->request);
         $this->auth = new Auth(
-            $this->config,
             $this->database,
             $this->session,
             $this->sessionCookie
         );
         $this->view = new View(
             $this->session,
-            $this->config,
             $this->auth,
             $this->request
         );
-        $this->storage = new Storage($this->config);
+        $this->storage = new Storage();
         $this->router = new Router(
             $this->view,
             $this->request,
@@ -91,12 +83,10 @@ class Container
             $this->mailSender,
             $this->session,
             $this->sessionCookie,
-            $this->config,
             $this->auth,
             $this->validator,
             $this->storage
         );
-        Hash::setConfig($this->config);
         PostLink::setDatabase($this->database);
     }
 }

@@ -2,14 +2,12 @@
 
 namespace Pastebin\Kernel\Session;
 
-use Pastebin\Kernel\Config\ConfigInterface;
 use Pastebin\Kernel\Http\RequestInterface;
 use Pastebin\Kernel\Utils\Token;
 
 class SessionCookie implements SessionCookieInterface
 {
     public function __construct(
-        private ConfigInterface $config,
         private RequestInterface $request
     ) {
     }
@@ -18,7 +16,7 @@ class SessionCookie implements SessionCookieInterface
     {
         return new Token(
             token: $this->request->cookie()[
-                $this->config->get(key: 'auth.cookie_field', default: 'SESSION_TOKEN')
+                $_ENV['AUTH_COOKIE_FIELD']
             ] ?? null
         );
     }
@@ -26,7 +24,7 @@ class SessionCookie implements SessionCookieInterface
     public function set(string $token, int $expiresAt): void
     {
         setcookie(
-            $this->config->get('auth.cookie_field', 'SESSION_TOKEN'),
+            $_ENV['AUTH_COOKIE_FIELD'],
             $token,
             [
                 'expires' => $expiresAt,

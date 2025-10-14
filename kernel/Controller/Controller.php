@@ -3,7 +3,6 @@
 namespace Pastebin\Kernel\Controller;
 
 use Pastebin\Kernel\Auth\AuthInterface;
-use Pastebin\Kernel\Config\ConfigInterface;
 use Pastebin\Kernel\Database\DatabaseInterface;
 use Pastebin\Kernel\Http\RedirectInterface;
 use Pastebin\Kernel\Http\RequestInterface;
@@ -27,8 +26,6 @@ abstract class Controller
     private MailSenderInterface $mailSender;
 
     private SessionInterface $session;
-
-    private ConfigInterface $config;
 
     private AuthInterface $auth;
 
@@ -100,16 +97,6 @@ abstract class Controller
     public function setSession(SessionInterface $session): void
     {
         $this->session = $session;
-    }
-
-    public function config(): ConfigInterface
-    {
-        return $this->config;
-    }
-
-    public function setConfig(ConfigInterface $config): void
-    {
-        $this->config = $config;
     }
 
     public function auth(): AuthInterface

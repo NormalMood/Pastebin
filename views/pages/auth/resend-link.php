@@ -2,7 +2,6 @@
 /**
  * @var \Pastebin\Kernel\View\ViewInterface $view
  * @var \Pastebin\Kernel\Session\SessionInterface $session
- * @var \Pastebin\Kernel\Config\ConfigInterface $config
  * @var string $csrfToken
  */
 ?>
@@ -10,8 +9,8 @@
     <div class="message-credentials-wrapper">
         <div class="container">
             <?php
-                $registeredUsername = htmlspecialchars($session->get($config->get('auth.verification_link_for_user')));
-                $toEmail = htmlspecialchars($session->get($config->get('auth.verification_link_field')));
+                $registeredUsername = htmlspecialchars($session->get($_ENV['AUTH_VERIFICATION_LINK_FOR_USER']));
+                $toEmail = htmlspecialchars($session->get($_ENV['AUTH_VERIFICATION_LINK_FIELD']));
             ?>
             <?php $view->component('message', ['type' => 'success', 'messages' => ["Добро пожаловать, {$registeredUsername}! Ваш аккаунт создан. На Вашу почту <b>{$toEmail}</b> было отправлено письмо с <b>ссылкой активации</b> внутри.<br>Пожалуйста, перейдите по ней, чтобы активировать аккаунт"]]) ?>
         </div>

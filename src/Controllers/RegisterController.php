@@ -40,7 +40,7 @@ class RegisterController extends Controller
 
     public function showResendLinkForm(): void
     {
-        if ($this->session()->has($this->config()->get('auth.verification_link_field'))) {
+        if ($this->session()->has($_ENV['AUTH_VERIFICATION_LINK_FIELD'])) {
             $this->view(name: 'auth/resend-link', title: 'Ссылка активации');
         } else {
             $this->view(name: 'forbidden', title: 'Доступ запрещен');
@@ -71,7 +71,6 @@ class RegisterController extends Controller
                 $this->redirect(),
                 $this->mailSender(),
                 $this->session(),
-                $this->config(),
                 $this->auth()
             );
         }

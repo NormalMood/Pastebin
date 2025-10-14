@@ -3,7 +3,6 @@
 namespace Pastebin\Kernel\Router;
 
 use Pastebin\Kernel\Auth\AuthInterface;
-use Pastebin\Kernel\Config\ConfigInterface;
 use Pastebin\Kernel\Database\DatabaseInterface;
 use Pastebin\Kernel\Http\RedirectInterface;
 use Pastebin\Kernel\Http\RequestInterface;
@@ -29,7 +28,6 @@ class Router implements RouterInterface
         private MailSenderInterface $mailSender,
         private SessionInterface $session,
         private SessionCookieInterface $sessionCookie,
-        private ConfigInterface $config,
         private AuthInterface $auth,
         private ValidatorInterface $validator,
         private StorageInterface $storage
@@ -71,7 +69,6 @@ class Router implements RouterInterface
             call_user_func([$controller, 'setRedirect'], $this->redirect);
             call_user_func([$controller, 'setMailSender'], $this->mailSender);
             call_user_func([$controller, 'setSession'], $this->session);
-            call_user_func([$controller, 'setConfig'], $this->config);
             call_user_func([$controller, 'setAuth'], $this->auth);
             call_user_func(callback: [$controller, $action]);
         } else {

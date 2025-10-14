@@ -2,9 +2,7 @@
 
 namespace Pastebin\Kernel\Storage;
 
-use Aws\Credentials\CredentialProvider;
 use Aws\S3\S3Client;
-use Pastebin\Kernel\Config\ConfigInterface;
 use Pastebin\Kernel\Upload\UploadedFileInterface;
 
 class Storage implements StorageInterface
@@ -15,15 +13,16 @@ class Storage implements StorageInterface
 
     private readonly string $postsBucket;
 
-    public function __construct(
-        private readonly ConfigInterface $config
-    ) {
-        $credentials = CredentialProvider::ini(profile: 'default', filename: APP_PATH . '/.aws/credentials');
+    public function __construct()
+    {
         $this->s3 = new S3Client([
             'version' => 'latest',
             'endpoint' => 'https://storage.yandexcloud.net',
             'region' => 'ru-central1',
-            'credentials' => $credentials
+            'credentials' => [
+                'key' => $_ENV['AWS_ACCESS_KEY_ID'],
+                'secret' => $_ENV['AWS_SECRET_ACCESS_KEY']
+            ]
         ]);
         $this->setBucketsFromConfig();
     }
@@ -86,7 +85,7 @@ class Storage implements StorageInterface
 
     public function setBucketsFromConfig(): void
     {
-        $this->picturesBucket = $this->config->get('storage.pictures_bucket');
-        $this->postsBucket = $this->config->get('storage.posts_bucket');
+        $this->picturesBucket = $_ENV['AWS_PICTURES_BUCKET'];
+        $this->postsBucket = $_ENV['AWS_POSTS_BUCKET'];
     }
 }

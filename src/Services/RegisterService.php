@@ -3,7 +3,6 @@
 namespace Pastebin\Services;
 
 use Pastebin\Kernel\Auth\AuthInterface;
-use Pastebin\Kernel\Config\ConfigInterface;
 use Pastebin\Kernel\Database\DatabaseInterface;
 use Pastebin\Kernel\Http\RedirectInterface;
 use Pastebin\Kernel\MailSender\MailSenderInterface;
@@ -16,7 +15,6 @@ class RegisterService
         private RedirectInterface $redirect,
         private MailSenderInterface $mailSender,
         private SessionInterface $session,
-        private ConfigInterface $config,
         private AuthInterface $auth
     ) {
     }
@@ -25,8 +23,8 @@ class RegisterService
     {
         $verificationToken = $this->auth->register($name, $email, $password)->get();
         $this->sendVerificationLink($email, $name, $verificationToken);
-        $this->session->set($this->config->get('auth.verification_link_field'), $email);
-        $this->session->set($this->config->get('auth.verification_link_for_user'), $name);
+        $this->session->set($_ENV['AUTH_VERIFICATION_LINK_FIELD'], $email);
+        $this->session->set($_ENV['AUTH_VERIFICATION_LINK_FOR_USER'], $name);
         $this->redirect->to('/resend-link');
     }
 
@@ -49,9 +47,9 @@ class RegisterService
             exit;
         } else {
             //delete email for account verification from session
-            $this->session->delete($this->config->get('auth.verification_link_field'));
+            $this->session->delete($_ENV['AUTH_VERIFICATION_LINK_FIELD']);
             //delete username for message on Resend Verification Link page from session
-            $this->session->delete($this->config->get('auth.verification_link_for_user'));
+            $this->session->delete($_ENV['AUTH_VERIFICATION_LINK_FOR_USER']);
             //delete verification token from db
             $this->database->update('users', ['verification_token' => null], ['user_id' => $user['user_id']]);
 

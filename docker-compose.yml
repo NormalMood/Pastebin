@@ -20,6 +20,4 @@ services:
       - "80:80"
     depends_on:
       - db
-    environment:
-      - DB_HOST=db
     

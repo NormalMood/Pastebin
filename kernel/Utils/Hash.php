@@ -2,12 +2,8 @@
 
 namespace Pastebin\Kernel\Utils;
 
-use Pastebin\Kernel\Config\ConfigInterface;
-
 class Hash
 {
-    private static ConfigInterface $config;
-
     public static function get(string $data): string
     {
         return hash(
@@ -18,13 +14,8 @@ class Hash
         );
     }
 
-    public static function setConfig(ConfigInterface $config): void
-    {
-        self::$config = $config;
-    }
-
     private static function salt(): string
     {
-        return self::$config->get('auth.salt');
+        return $_ENV['AUTH_SALT'];
     }
 }

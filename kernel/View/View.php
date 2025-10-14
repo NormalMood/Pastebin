@@ -3,7 +3,6 @@
 namespace Pastebin\Kernel\View;
 
 use Pastebin\Kernel\Auth\AuthInterface;
-use Pastebin\Kernel\Config\ConfigInterface;
 use Pastebin\Kernel\Exceptions\ViewNotFoundException;
 use Pastebin\Kernel\Http\RequestInterface;
 use Pastebin\Kernel\Session\SessionInterface;
@@ -15,7 +14,6 @@ class View implements ViewInterface
 
     public function __construct(
         private SessionInterface $session,
-        private ConfigInterface $config,
         private AuthInterface $auth,
         private RequestInterface $request
     ) {
@@ -53,7 +51,6 @@ class View implements ViewInterface
         return [
             'view' => $this,
             'session' => $this->session,
-            'config' => $this->config,
             'auth' => $this->auth,
             'request' => $this->request,
             'csrfToken' => $this->session->get('csrf_token'),

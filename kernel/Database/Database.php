@@ -2,15 +2,12 @@
 
 namespace Pastebin\Kernel\Database;
 
-use Pastebin\Kernel\Config\ConfigInterface;
-
 class Database implements DatabaseInterface
 {
     private \PDO $pdo;
 
-    public function __construct(
-        private ConfigInterface $config
-    ) {
+    public function __construct()
+    {
         $this->connect();
     }
 
@@ -155,13 +152,13 @@ class Database implements DatabaseInterface
 
     private function connect(): void
     {
-        $driver = $this->config->get('database.driver');
-        $host = $this->config->get('database.host');
-        $port = $this->config->get('database.port');
-        $database = $this->config->get('database.database');
-        $username = $this->config->get('database.username');
-        $password = $this->config->get('database.password');
-        $charset = $this->config->get('database.charset');
+        $driver = $_ENV['DATABASE_DRIVER'];
+        $host = $_ENV['DATABASE_HOST'];
+        $port = $_ENV['DATABASE_PORT'];
+        $database = $_ENV['DATABASE_DATABASE'];
+        $username = $_ENV['DATABASE_USERNAME'];
+        $password = $_ENV['DATABASE_PASSWORD'];
+        $charset = $_ENV['DATABASE_CHARSET'];
         try {
             $this->pdo = new \PDO(
                 "$driver:host=$host;port=$port;dbname=$database;options='--client_encoding=$charset'",
@@ -169,7 +166,7 @@ class Database implements DatabaseInterface
                 $password
             );
         } catch (\PDOException $exception) {
-            exit("Database connection failed: {$exception->getMessage()}");
+            exit("Database connection failed: {$exception->getMessage()}" . ' drivername: ' . $driver);
         }
     }
 }

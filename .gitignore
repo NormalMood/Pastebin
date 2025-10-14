@@ -1,8 +1,3 @@
 /vendor/
 .vscode/
-/config/mailer.php
-/config/auth.php
-/config/database.php
-/database/init.sql
-/.aws/credentials
 .env
