@@ -52,10 +52,11 @@ class LoginService
             ['password_reset_token' => $passwordResetToken],
             ['user_id' => $user['user_id']]
         );
+        $server = $_ENV['SERVER'];
         $this->mailSender->sendHtml(
             $user['e_mail'],
-            "Здравствуйте, {$user['name']}!<br>Для сброса пароля перейдите по ссылке: <a href=\"http://localhost/reset-password?token=$passwordResetToken\">http://localhost/reset-password?token=$passwordResetToken</a>",
-            "Здравствуйте, {$user['name']}! Для сброса пароля перейдите по ссылке: http://localhost/reset-password?token=$passwordResetToken",
+            "Здравствуйте, {$user['name']}!<br>Для сброса пароля перейдите по ссылке: <a href=\"http://$server/reset-password?token=$passwordResetToken\">http://$server/reset-password?token=$passwordResetToken</a>",
+            "Здравствуйте, {$user['name']}! Для сброса пароля перейдите по ссылке: http://$server/reset-password?token=$passwordResetToken",
             'Сброс пароля на Pastebin'
         );
         $this->session->set('forgotPassword', 'Ссылка для сброса пароля отправлена на почту');

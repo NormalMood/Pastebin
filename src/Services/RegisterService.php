@@ -63,10 +63,11 @@ class RegisterService
 
     private function sendVerificationLink(string $email, string $name, string $token): void
     {
+        $server = $_ENV['SERVER'];
         $this->mailSender->sendHtml(
             address: $email,
-            html: "<b>Здравствуйте, $name!</b><br>Для подтверждения аккаунта перейдите по ссылке: <a href=\"http://localhost/verify?token=$token\">http://localhost/verify?token=$token</a>",
-            altBody: "Здравствуйте, $name! Для подтверждения аккаунта перейдите по ссылке: http://localhost/verify?token=$token",
+            html: "<b>Здравствуйте, $name!</b><br>Для подтверждения аккаунта перейдите по ссылке: <a href=\"http://$server/verify?token=$token\">http://$server/verify?token=$token</a>",
+            altBody: "Здравствуйте, $name! Для подтверждения аккаунта перейдите по ссылке: http://$server/verify?token=$token",
             subject: 'Подтверждение аккаунта на Pastebin'
         );
     }

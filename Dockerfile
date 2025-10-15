@@ -14,6 +14,6 @@ COPY php.ini /usr/local/etc/php/php.ini
 
 RUN a2enmod rewrite
 
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+RUN echo "ServerName 188.225.78.31" >> /etc/apache2/apache2.conf
 
 EXPOSE 80

@@ -29,7 +29,6 @@ class SessionCookie implements SessionCookieInterface
             [
                 'expires' => $expiresAt,
                 'path' => '/',
-                'domain' => 'localhost',
                 'secure' => false,
                 'httponly' => true,
                 'samesite' => 'Strict'
