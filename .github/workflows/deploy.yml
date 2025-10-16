@@ -24,4 +24,3 @@ jobs:
             cd /var/www/Pastebin
             git pull
             docker compose up -d --build
-            docker compose logs --tail=200
