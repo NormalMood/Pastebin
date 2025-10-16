@@ -9,8 +9,8 @@ WORKDIR /var/www/pastebin
 RUN composer install --no-dev --optimize-autoloader
 
 COPY . /var/www/pastebin
-COPY pastebin.conf /etc/apache2/sites-available/000-default.conf
-COPY php.ini /usr/local/etc/php/php.ini
+COPY config/pastebin.conf /etc/apache2/sites-available/000-default.conf
+COPY config/php.ini /usr/local/etc/php/php.ini
 
 RUN a2enmod rewrite
 
