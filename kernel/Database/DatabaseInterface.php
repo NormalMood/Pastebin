@@ -14,6 +14,8 @@ interface DatabaseInterface
 
     public function execSQL(string $sql, array $params): int|bool;
 
+    public function execSelect(string $sql): array;
+
     public function update(string $table, array $data, array $conditions = []): void;
 
     public function delete(string $table, array $conditions = []): void;

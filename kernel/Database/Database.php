@@ -106,6 +106,17 @@ class Database implements DatabaseInterface
         }
     }
 
+    public function execSelect(string $sql): array
+    {
+        try {
+            $statement = $this->pdo->prepare($sql);
+            $statement->execute();
+            return $statement->fetchAll(mode: \PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            exit("Database error in execSelect(): {$e->getMessage()}");
+        }
+    }
+
     public function update(string $table, array $data, array $conditions = []): void
     {
         try {
