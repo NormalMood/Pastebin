@@ -55,9 +55,9 @@
                 <span class="title credentials__title_hidden">Вход</span>
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <div class="credentials__container">
-                    <?php $view->component('input', ['id' => 'signin-name-input', 'type' => 'text', 'name' => 'name', 'placeholder' => 'Имя*']) ?>
+                    <?php $view->component('input', ['id' => 'signin-name-input', 'type' => 'text', 'name' => 'name', 'placeholder' => 'Имя*', 'value' => $this->session->getFlush('name_error_value')]) ?>
                     <?php $view->component('validation-message', ['id' => 'signin-name-error', 'inputName' => 'name']); ?>
-                    <?php $view->component('input', ['id' => 'signin-password-input', 'type' => 'password', 'name' => 'password', 'placeholder' => 'Пароль*']) ?>
+                    <?php $view->component('input', ['id' => 'signin-password-input', 'type' => 'password', 'name' => 'password', 'placeholder' => 'Пароль*', 'value' => $this->session->getFlush('password_error_value')]) ?>
                     <?php $view->component('validation-message', ['id' => 'signin-password-error', 'inputName' => 'password']); ?>
                 </div>
                 <button class="button">Войти</button>
@@ -70,7 +70,7 @@
                 <span class="title credentials__title_hidden">Восстановление имени</span>
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <div class="credentials__container">
-                    <?php $view->component('input', ['id' => 'forgot-name-email-input', 'type' => 'email', 'name' => 'email', 'placeholder' => 'E-mail*']) ?>
+                    <?php $view->component('input', ['id' => 'forgot-name-email-input', 'type' => 'email', 'name' => 'email', 'placeholder' => 'E-mail*', 'value' => $this->session->getFlush('email_error_value')]) ?>
                     <?php $view->component('validation-message', ['id' => 'forgot-name-email-error', 'inputName' => 'email']); ?>
                 </div>
                 <button class="button">Получить имя</button>
@@ -83,7 +83,7 @@
                 <span class="title credentials__title_hidden">Восстановление пароля</span>
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <div class="credentials__container">
-                    <?php $view->component('input', ['id' => 'forgot-password-name-input', 'type' => 'text', 'name' => 'forgot-password_name', 'placeholder' => 'Имя*']) ?>
+                    <?php $view->component('input', ['id' => 'forgot-password-name-input', 'type' => 'text', 'name' => 'forgot-password_name', 'placeholder' => 'Имя*', 'value' => $this->session->getFlush('forgot-password_name_error_value')]) ?>
                     <?php $view->component('validation-message', ['id' => 'forgot-password-name-error', 'inputName' => 'forgot-password_name']); ?>
                 </div>
                 <button class="button">Получить пароль</button>

@@ -16,10 +16,10 @@
 ?>
 <div id="<?php echo $selectId; ?>" class="<?php echo !empty($classes) ? 'select ' . implode(' ', $classes) : 'select'; ?>" tabindex="0">
     <div class="select__trigger-wrapper">
-        <?php if (!isset($value)) { ?>
+        <?php if (!isset($value) || ($value === '')) { ?>
             <div class="select__trigger"><?php echo $placeholder; ?></div>
         <?php } else {
-    $filtered = array_filter(array: $rows, callback: fn ($row) => $row->id() === $value);
+    $filtered = array_filter(array: $rows, callback: fn ($row) => $row->id() == $value);
     $selectedOption = reset($filtered)->name(); ?>
             <div class="select__trigger select__trigger_selected"><?php echo $selectedOption; ?></div>
         <?php

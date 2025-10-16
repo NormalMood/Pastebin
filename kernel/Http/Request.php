@@ -87,4 +87,9 @@ class Request implements RequestInterface
     {
         return $this->validator->errors();
     }
+
+    public function errorValues(): array
+    {
+        return $this->validator->errorValues();
+    }
 }

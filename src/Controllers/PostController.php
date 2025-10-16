@@ -48,7 +48,7 @@ class PostController extends Controller
     public function store(): void
     {
         if ($this->auth()->check()) {
-            $this->validationService()->validate(
+            $validation = $this->validationService()->validate(
                 validationRules: [
                     'text' => 'required|max_bytes:10485760',
                     'title' => 'max:255',
@@ -57,8 +57,20 @@ class PostController extends Controller
                     'interval_id' => 'required',
                     'post_visibility_id' => 'required'
                 ],
-                redirectUrl: '/'
+                redirectUrl: '/',
+                redirect: false
             );
+            if (!$validation) {
+                $this->session()->set('text_value', $this->request()->input('text'));
+                $this->session()->set('title_value', $this->request()->input('title'));
+
+                $this->session()->set('category_id_value', $this->request()->input('category_id'));
+                $this->session()->set('syntax_id_value', $this->request()->input('syntax_id'));
+                $this->session()->set('interval_id_value', $this->request()->input('interval_id'));
+                $this->session()->set('post_visibility_id_value', $this->request()->input('post_visibility_id'));
+
+                $this->redirect()->to('/');
+            }
             $postLink = $this->postService()->save(
                 text: $this->request()->input('text'),
                 categoryId: $this->request()->input('category_id'),
@@ -70,7 +82,7 @@ class PostController extends Controller
                 redirectUrl: '/'
             );
         } else {
-            $this->validationService()->validate(
+            $validation = $this->validationService()->validate(
                 validationRules: [
                     'text' => 'required|max_bytes:10485760',
                     'title' => 'max:255',
@@ -78,8 +90,19 @@ class PostController extends Controller
                     'syntax_id' => 'required',
                     'interval_id' => 'required',
                 ],
-                redirectUrl: '/'
+                redirectUrl: '/',
+                redirect: false
             );
+            if (!$validation) {
+                $this->session()->set('text_value', $this->request()->input('text'));
+                $this->session()->set('title_value', $this->request()->input('title'));
+
+                $this->session()->set('category_id_value', $this->request()->input('category_id'));
+                $this->session()->set('syntax_id_value', $this->request()->input('syntax_id'));
+                $this->session()->set('interval_id_value', $this->request()->input('interval_id'));
+
+                $this->redirect()->to('/');
+            }
             if ($this->request()->input('interval_id') === INFINITY_INTERVAL_ID) {
                 $this->redirect()->to('/');
             }
@@ -120,7 +143,7 @@ class PostController extends Controller
     public function update(): void
     {
         $postLink = $this->request()->input('link');
-        $this->validationService()->validate(
+        $validation = $this->validationService()->validate(
             validationRules: [
                     'text' => 'required|max_bytes:10485760',
                     'title' => 'max:255',
@@ -129,8 +152,15 @@ class PostController extends Controller
                     'interval_id' => 'required',
                     'post_visibility_id' => 'required'
                 ],
-            redirectUrl: "/post/edit?link=$postLink"
+            redirectUrl: "/post/edit?link=$postLink",
+            redirect: false
         );
+        if (!$validation) {
+            $this->session()->set('text_value', $this->request()->input('text'));
+            $this->session()->set('title_value', $this->request()->input('title'));
+
+            $this->redirect()->to("/post/edit?link=$postLink");
+        }
         $this->postService()->updatePost(
             postLink: $postLink,
             text: $this->request()->input('text'),

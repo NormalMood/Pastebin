@@ -29,12 +29,20 @@
         <form class="content-container" action="/post/update?link=<?php echo $post->postLink(); ?>" method="post">
             <span class="title title_hidden">Редактирование поста</span>
             <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
-            <textarea id="text" name="text"><?php echo htmlspecialchars($post->text()); ?></textarea>
+            <?php if ($session->has('text_value')) { ?>
+                <textarea id="text" name="text"><?php echo htmlspecialchars($session->getFlush('text_value')); ?></textarea>
+            <?php } else { ?>
+                <textarea id="text" name="text"><?php echo htmlspecialchars($post->text()); ?></textarea>
+            <?php } ?>
             <?php $view->component('validation-message', ['id' => 'post-text-error', 'inputName' => 'text']); ?>
             <span class="title">Настройки поста</span>
             <div class="content-container__settings">
                 <div class="content-container__input">
+                    <?php if ($session->has('title_value')) { ?>
+                    <?php $view->component('input', ['id' => 'post-title-input', 'type' => 'text', 'name' => 'title', 'placeholder' => 'Заголовок', 'value' => $session->getFlush('title_value')]); ?>
+                    <?php } else { ?>
                     <?php $view->component('input', ['id' => 'post-title-input', 'type' => 'text', 'name' => 'title', 'placeholder' => 'Заголовок', 'value' => "{$post->title()}"]); ?>
+                    <?php } ?>
                     <?php $view->component('validation-message', ['id' => 'post-title-error', 'inputName' => 'title']); ?>
                 </div>
                 <div class="content-container__select content-container__settings-category-id-select">

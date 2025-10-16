@@ -86,11 +86,11 @@
                 </div>
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <input type="hidden" name="u" value="<?php echo $userName; ?>">
-                <?php $view->component('input', ['id' => 'change-password-password-input', 'type' => 'password', 'name' => 'old_password', 'placeholder' => 'Старый пароль*']) ?>
+                <?php $view->component('input', ['id' => 'change-password-password-input', 'type' => 'password', 'name' => 'old_password', 'placeholder' => 'Старый пароль*', 'value' => $session->getFlush('old_password_error_value')]) ?>
                 <?php $view->component('validation-message', ['id' => 'change-password-password-error', 'inputName' => 'old_password']); ?>
-                <?php $view->component('input', ['id' => 'change-password-new-password-input', 'type' => 'password', 'name' => 'new_password', 'placeholder' => 'Новый пароль*']) ?>
+                <?php $view->component('input', ['id' => 'change-password-new-password-input', 'type' => 'password', 'name' => 'new_password', 'placeholder' => 'Новый пароль*', 'value' => $session->getFlush('new_password_error_value')]) ?>
                 <?php $view->component('validation-message', ['id' => 'change-password-new-password-error', 'inputName' => 'new_password']); ?>
-                <?php $view->component('input', ['id' => 'change-password-new-password-confirmation-input', 'type' => 'password', 'name' => 'new_password_confirmation', 'placeholder' => 'Еще раз новый пароль*']) ?>
+                <?php $view->component('input', ['id' => 'change-password-new-password-confirmation-input', 'type' => 'password', 'name' => 'new_password_confirmation', 'placeholder' => 'Еще раз новый пароль*', 'value' => $session->getFlush('new_password_confirmation_error_value')]) ?>
                 <?php $view->component('validation-message', ['id' => 'change-password-new-password-confirmation-error', 'inputName' => 'new_password_confirmation']); ?>
                 <button class="button">Изменить пароль</button>
             </form>
@@ -120,7 +120,7 @@
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <input type="hidden" name="u" value="<?php echo $userName; ?>">
                 <?php $view->component('message', ['type' => 'error', 'messages' => ['После удаления <b>не получится создать аккаунт с этим же именем, и все посты будут необратимо удалены</b>']]); ?>
-                <?php $view->component('input', ['id' => 'delete-account-password-input', 'type' => 'password', 'name' => 'password', 'placeholder' => 'Пароль*']) ?>
+                <?php $view->component('input', ['id' => 'delete-account-password-input', 'type' => 'password', 'name' => 'password', 'placeholder' => 'Пароль*', 'value' => $session->getFlush('password_error_value')]) ?>
                 <?php $view->component('validation-message', ['id' => 'delete-account-password-error', 'inputName' => 'password']); ?>
                 <button class="button button_delete-account">Удалить аккаунт</button>
             </form>

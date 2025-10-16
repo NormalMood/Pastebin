@@ -26,4 +26,6 @@ interface RequestInterface
     public function setValidator(ValidatorInterface $validator): void;
 
     public function errors(): array;
+
+    public function errorValues(): array;
 }
