@@ -80,7 +80,7 @@ class Validator implements ValidatorInterface
                 }
                 break;
             case 'name':
-                if (!preg_match(pattern: '/^[a-zA-Z0-9-_]+$/', subject: $value)) {
+                if (!preg_match(pattern: '/^[а-яА-ЯёЁa-zA-Z0-9-_]+$/u', subject: $value)) {
                     return $ruleName;
                 }
                 break;

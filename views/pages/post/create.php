@@ -37,7 +37,7 @@
         <form class="content-container" action="/" method="post">
             <span class="title title_hidden">Пост</span>
             <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
-            <textarea id="text" name="text"><?php echo htmlspecialchars($session->getFlush('text_value')); ?></textarea>
+            <textarea id="text" name="text"><?php echo htmlspecialchars($session->getFlush('text_value') ?? ''); ?></textarea>
             <?php $view->component('validation-message', ['id' => 'post-text-error', 'inputName' => 'text']); ?>
             <span class="title">Настройки поста</span>
             <div class="content-container__settings">
