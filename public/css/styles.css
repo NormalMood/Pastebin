@@ -501,6 +501,10 @@ main {
     cursor: pointer;
 }
 
+.input_password input {
+    padding-right: 50px;
+}
+
 .input_error {
     border-color: #E01B3C !important;
 }
@@ -526,6 +530,16 @@ main {
     background-color: #FFF;
     top: -11px;
     z-index: 2;
+}
+
+.input__eye {
+    position: absolute;
+    width: 27px;
+    height: 27px;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
 }
 
 /* Button */
