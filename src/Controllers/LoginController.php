@@ -73,7 +73,7 @@ class LoginController extends Controller
             validationRules: [
                 'new_password' => 'required|min:12|max:50'
             ],
-            redirectUrl: '/reset-password'
+            redirectUrl: "/reset-password?token={$this->request()->input('token')}"
         );
         $this->loginService()->resetPassword(
             $this->request()->input('token'),
