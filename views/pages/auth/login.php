@@ -31,14 +31,14 @@
     <?php if ($session->has('forgotName')) { ?>
         <div class="message-credentials-wrapper">
             <div class="container">
-                <?php $view->component('message', ['type' => 'error', 'messages' => [$session->getFlush('forgotName')]]) ?>
+                <?php $view->component('message', ['type' => 'success', 'messages' => [$session->getFlush('forgotName')]]) ?>
             </div>
         </div>
     <?php } ?>
     <?php if ($session->has('forgotPassword')) { ?>
         <div class="message-credentials-wrapper">
             <div class="container">
-                <?php $view->component('message', ['type' => 'error', 'messages' => [$session->getFlush('forgotPassword')]]) ?>
+                <?php $view->component('message', ['type' => 'success', 'messages' => [$session->getFlush('forgotPassword')]]) ?>
             </div>
         </div>
     <?php } ?>
