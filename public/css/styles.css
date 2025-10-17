@@ -517,7 +517,8 @@ main {
 .input__label {
     position: absolute;
     color: #999B9E;
-    top: 13px;
+    top: 50%;
+    transform: translateY(-50%);
     left: 10px;
     padding: 0 5px;
     transition: all 0.2s ease 0s;
