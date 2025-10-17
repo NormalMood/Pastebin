@@ -20,4 +20,5 @@ services:
       - "80:80"
     depends_on:
       - db
-    
+    volumes:
+    - /var/log/apache2:/var/log/apache2
