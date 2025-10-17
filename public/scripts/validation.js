@@ -251,8 +251,7 @@ if (changePasswordPasswordInput !== null) {
 
 // Validation errors regarding account option
 const pictureErrorMessageWrapper = document.getElementById('picture-error-message-wrapper');
-const incorrectPasswordMessageWrapper = document.getElementById('incorrect-password-message-wrapper');
 
-if ((pictureErrorMessageWrapper !== null) || (incorrectPasswordMessageWrapper !== null)) {
+if (pictureErrorMessageWrapper !== null) {
     showSettingsAccountForm();
 }

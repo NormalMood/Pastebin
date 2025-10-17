@@ -21,7 +21,7 @@
                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <input type="hidden" name="token" value="<?php echo $token ?>">
                 <div class="credentials__container">
-                    <?php $view->component('input', ['id' => 'reset-password-password-input', 'type' => 'password', 'name' => 'new_password', 'placeholder' => 'Новый пароль*', 'value' => $this->session->getFlush('new_password_error_value')]) ?>
+                    <?php $view->component('input', ['id' => 'reset-password-password-input', 'type' => 'password', 'name' => 'new_password', 'placeholder' => 'Новый пароль*', 'value' => $this->session->getFlush('new_password_value')]) ?>
                     <?php $view->component('validation-message', ['id' => 'reset-password-password-error', 'inputName' => 'new_password']); ?>
                 </div>
                 <button class="button">Сохранить</button>

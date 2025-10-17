@@ -8,5 +8,5 @@ interface ValidatorInterface
 
     public function errors(): array;
 
-    public function errorValues(): array;
+    public function values(): array;
 }

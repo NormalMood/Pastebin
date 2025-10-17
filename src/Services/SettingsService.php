@@ -96,7 +96,12 @@ class SettingsService
             );
             $this->session->set('resetPassword', 'Пароль обновлен');
         } else {
-            $this->session->set('incorrectPassword', 'Неверный пароль');
+            $this->session->set('old_password_value', $password);
+            $this->session->set('new_password_value', $newPassword);
+            $this->session->set('new_password_confirmation_value', $newPassword);
+            $validationMessage = 'Неверный пароль';
+            $this->session->set('incorrectPassword', $validationMessage);
+            $this->session->set('old_password', $validationMessage);
         }
     }
 
@@ -109,7 +114,10 @@ class SettingsService
             $this->database->delete('users', ['user_id' => $userId]);
             return true;
         } else {
-            $this->session->set('incorrectPassword', 'Неверный пароль');
+            $this->session->set('password_value', $password);
+            $validationMessage = 'Неверный пароль';
+            $this->session->set('incorrectPassword', $validationMessage);
+            $this->session->set('password', $validationMessage);
             return false;
         }
     }

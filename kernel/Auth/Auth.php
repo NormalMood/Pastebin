@@ -47,7 +47,17 @@ class Auth implements AuthInterface
             return false;
         }
         if (!hash_equals(known_string: $user[$this->password()], user_string: Hash::get($password))) {
-            $this->session->set('incorrectPassword', 'Неверный пароль');
+            $validationMessage = 'Неверный пароль';
+            $this->session->set('incorrectPassword', $validationMessage);
+            $this->session->set('password', $validationMessage);
+            $this->session->set(
+                'name_value',
+                $username
+            );
+            $this->session->set(
+                'password_value',
+                $password
+            );
             return false;
         }
         $this->createSession($user['user_id']);

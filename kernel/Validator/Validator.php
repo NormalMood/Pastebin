@@ -10,7 +10,7 @@ class Validator implements ValidatorInterface
 
     private array $errors = [];
 
-    private array $errorValues = [];
+    private array $values = [];
 
     public function __construct(
         private DatabaseInterface $database
@@ -21,7 +21,7 @@ class Validator implements ValidatorInterface
     {
         $this->data = $data;
         $this->errors = [];
-        $this->errorValues = [];
+        $this->values = [];
         foreach ($validationRules as $field => $rules) {
             $rules = explode(separator: '|', string: $rules);
             foreach ($rules as $rule) {
@@ -33,11 +33,12 @@ class Validator implements ValidatorInterface
                     $this->errors[$field][] = $error;
                 }
             }
-            if (isset($this->errors[$field])) {
-                $this->errorValues["{$field}_error_value"] = $data[$field];
-            }
         }
-        return empty($this->errors);
+        $noErrors = empty($this->errors);
+        if (!$noErrors) {
+            $this->setValues($data);
+        }
+        return $noErrors;
     }
 
     public function errors(): array
@@ -45,9 +46,16 @@ class Validator implements ValidatorInterface
         return $this->errors;
     }
 
-    public function errorValues(): array
+    public function values(): array
     {
-        return $this->errorValues;
+        return $this->values;
+    }
+
+    private function setValues(array $data): void
+    {
+        foreach ($data as $field => $value) {
+            $this->values["{$field}_value"] = $value;
+        }
     }
 
     private function validateRule(string $field, string $ruleName, ?string $ruleValue = null): string|false

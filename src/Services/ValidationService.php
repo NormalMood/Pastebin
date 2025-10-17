@@ -101,7 +101,7 @@ class ValidationService
         if (!$validation) {
             $this->setErrorFields($this->request->errors());
             $this->setErrorMessages($this->request->errors());
-            $this->setErrorValues($this->request->errorValues());
+            $this->setValues($this->request->values());
             if ($redirect) {
                 $this->redirect->to($redirectUrl);
             }
@@ -130,9 +130,9 @@ class ValidationService
         }
     }
 
-    private function setErrorValues(array $errorValues): void
+    private function setValues(array $values): void
     {
-        foreach ($errorValues as $field => $value) {
+        foreach ($values as $field => $value) {
             $this->session->set(key: $field, value: $value);
         }
     }
