@@ -530,6 +530,7 @@ main {
 .input input:not(:placeholder-shown) + .input__label {
     background-color: #FFF;
     top: -11px;
+    transform: unset;
     z-index: 2;
 }
 
