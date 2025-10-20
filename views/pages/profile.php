@@ -13,6 +13,13 @@ use Pastebin\Mappers\PostVisibilityMapper;
  */
 ?>
 <?php $view->component('start'); ?>
+    <?php if ($session->has('postSaved')) { ?>
+        <div class="message-wrapper">
+            <div class="container">
+                <?php $view->component('message', ['type' => 'success', 'messages' => [$session->getFlush('postSaved')]]) ?>
+            </div>
+        </div>
+    <?php } ?>
     <div class="container container_background-color container_height container_padding-top container_flex">
         <?php if (isset($author)) { ?>
             <div class="author__metadata">

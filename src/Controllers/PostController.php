@@ -71,7 +71,7 @@ class PostController extends Controller
 
                 $this->redirect()->to('/');
             }
-            $postLink = $this->postService()->save(
+            $this->postService()->save(
                 text: $this->request()->input('text'),
                 categoryId: $this->request()->input('category_id'),
                 syntaxId: $this->request()->input('syntax_id'),
@@ -81,6 +81,8 @@ class PostController extends Controller
                 userId: $this->session()->get($this->auth()->sessionField()),
                 redirectUrl: '/'
             );
+            $this->session()->set('postSaved', 'Пост создан');
+            $this->redirect()->to("/profile?u={$this->auth()->user()->name()}");
         } else {
             $validation = $this->validationService()->validate(
                 validationRules: [
