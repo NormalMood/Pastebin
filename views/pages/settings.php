@@ -53,7 +53,7 @@
     <?php } ?>
     <section class="settings">
         <div class="container">
-            <form class="settings__account settings_hidden" action="/picture" method="post" enctype="multipart/form-data">
+            <form class="settings__account settings_hidden" id="settings-save-form" action="/picture" method="post" enctype="multipart/form-data">
                 <div class="settings__title-wrapper">
                     <img class="settings__back-img" src="/img/arrow_back.png">
                     <span class="title">Аккаунт</span>
@@ -62,7 +62,7 @@
                     <img class="settings__picture-img" <?php echo !empty($auth->user()->pictureLink()) ? "src=\"{$auth->user()->pictureLink()}\"" : 'src="/img/default_picture.png"'; ?>>
                     <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                     <input type="hidden" name="u" value="<?php echo $userName; ?>">
-                    <?php $view->component(name: 'upload-button', data: ['name' => 'picture', 'text' => 'Выбрать фото', 'accept' => '.jpeg, .jpg, .png']); ?>
+                    <?php $view->component(name: 'upload-button', data: ['id' => 'settings-upload-picture-button', 'name' => 'picture', 'text' => 'Загрузить фото', 'accept' => '.jpeg, .jpg, .png']); ?>
                 </div>
                 <div>
                     <div class="settings__account-info">
@@ -76,7 +76,6 @@
                         </div>
                     </div>
                 </div>
-                <button class="button" type="submit">Сохранить</button>
                 <button class="button button_delete-account" id="open-delete-account-popup" type="button">Удалить аккаунт</button>
             </form>
             <form class="settings__password settings_hidden" action="/change-password" method="post">

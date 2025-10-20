@@ -1439,6 +1439,12 @@ main {
     }
 }
 
+@media (min-width: 1400px) {
+    .settings__picture {
+        column-gap: 38px;
+    }
+}
+
 .settings__picture-img {
     width: 130px;
     height: 130px;

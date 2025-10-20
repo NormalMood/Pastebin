@@ -27,6 +27,7 @@
     <script src="/scripts/dates.js" defer></script>
     <script src="/scripts/validation.js" defer></script>
     <script src="/scripts/password_input.js" defer></script>
+    <script src="/scripts/upload_picture.js" defer></script>
 
     <!-- CodeMirror 5 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.19/codemirror.min.js"></script>
