@@ -1771,6 +1771,7 @@ main {
 .message-wrapper {
     margin: 0 auto;
     background-color: #FFF;
+    max-width: 1600px;
 }
 
 @media (min-width: 768px) {
