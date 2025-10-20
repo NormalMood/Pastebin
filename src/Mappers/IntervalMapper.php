@@ -19,7 +19,7 @@ class IntervalMapper
     ];
 
     private static array $expirations = [
-        'INFINITY' => 'Никогда',
+        'INFINITY' => 'Вечность',
         '10 MINUTES' => '10 минут',
         '1 HOUR' => '1 час',
         '1 DAY' => '1 день',

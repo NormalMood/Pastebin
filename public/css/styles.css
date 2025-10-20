@@ -1346,6 +1346,10 @@ main {
     cursor: help;
 }
 
+.post__expires-at {
+    cursor: help;
+}
+
 /* Settings page */
 
 .settings {

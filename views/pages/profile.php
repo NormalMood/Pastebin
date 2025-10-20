@@ -41,6 +41,7 @@ use Pastebin\Mappers\PostVisibilityMapper;
                                     <th>Заголовок</th>
                                     <th>Создан</th>
                                     <th>Срок истекает</th>
+                                    <th>Время жизни</th>
                                     <th>Видимость</th>
                                     <th>Синтаксис</th>
                                     <th>Действие</th>
@@ -51,6 +52,7 @@ use Pastebin\Mappers\PostVisibilityMapper;
                                     <tr>
                                         <td><a class="link" href="/post?link=<?php echo $post->postLink(); ?>"><?php echo (($post->title() !== null) && ($post->title() !== '')) ? htmlspecialchars($post->title()) : 'Без названия'; ?></a></td>
                                         <td class="post__created-at"><?php echo $post->createdAt(); ?></td>
+                                        <td class="post__expires-at"><?php echo $post->expiresAt(); ?></td>
                                         <td><?php echo IntervalMapper::getExpiration($post->interval()->name()); ?></td>
                                         <td><?php echo PostVisibilityMapper::getValue($post->postVisibility()->name()); ?></td>
                                         <td><?php echo $post->syntax()->name(); ?></td>
@@ -90,6 +92,7 @@ use Pastebin\Mappers\PostVisibilityMapper;
                                     <th>Заголовок</th>
                                     <th>Создан</th>
                                     <th>Срок истекает</th>
+                                    <th>Время жизни</th>
                                     <th>Синтаксис</th>
                                 </tr>
                             </thead>
@@ -99,6 +102,7 @@ use Pastebin\Mappers\PostVisibilityMapper;
                                         <tr>
                                             <td><a class="link" href="/post?link=<?php echo $post->postLink(); ?>"><?php echo (($post->title() !== null) && ($post->title() !== '')) ? htmlspecialchars($post->title()) : 'Без названия'; ?></a></td>
                                             <td class="post__created-at"><?php echo $post->createdAt(); ?></td>
+                                            <td class="post__expires-at"><?php echo $post->expiresAt(); ?></td>
                                             <td><?php echo IntervalMapper::getExpiration($post->interval()->name()); ?></td>
                                             <td><?php echo $post->syntax()->name(); ?></td>
                                         </tr>
