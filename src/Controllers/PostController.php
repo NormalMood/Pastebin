@@ -180,6 +180,7 @@ class PostController extends Controller
     {
         $this->postService()->deletePost($this->request()->input('link'));
         $userName = $this->request()->input('u');
+        $this->session()->set('postDeleted', 'Пост удален');
         if (isset($userName)) {
             $this->redirect()->to("/profile?u=$userName");
         }

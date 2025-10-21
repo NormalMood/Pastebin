@@ -26,6 +26,13 @@
             </div>
         </div>
     <?php } ?>
+    <?php if ($session->has('postDeleted')) { ?>
+        <div class="message-wrapper">
+            <div class="container">
+                <?php $view->component('message', ['type' => 'success', 'messages' => [$session->getFlush('postDeleted')]]) ?>
+            </div>
+        </div>
+    <?php } ?>
     <?php if ($request->input('account_deleted')) { ?>
         <div class="message-wrapper">
             <div class="container">
