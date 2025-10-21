@@ -173,6 +173,7 @@ class PostController extends Controller
             title: $this->request()->input('title'),
             redirectUrl: "/post/edit?link=$postLink"
         );
+        $this->session()->set('postUpdated', 'Изменения сохранены');
         $this->redirect()->to("/post?link=$postLink");
     }
 

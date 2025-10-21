@@ -16,6 +16,13 @@
             </div>
         </div>
     <?php } else { ?>
+        <?php if ($session->has('postUpdated')) { ?>
+            <div class="message-wrapper">
+                <div class="container">
+                    <?php $view->component('message', ['type' => 'success', 'messages' => [$session->getFlush('postUpdated')]]); ?>
+                </div>
+            </div>
+        <?php } ?>
         <div class="container container_background-color container_height container_padding-top container_flex">
             <?php if (($post->author() !== null) && ($post->author() !== '')) { ?>
                 <a class="author__link" href="/profile?u=<?php echo $post->author(); ?>">
