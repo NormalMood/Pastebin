@@ -70,7 +70,7 @@
                                     <div class="post__copy-button">
                                         <span class="success-copy success-copy_hidden"></span>
                                         <button class="button button_copy" title="Копировать пост">
-                                            <img class="copy__img" src="/img/copy.png">
+                                            <img class="copy__img" src="/img/copy_white.png">
                                             &nbsp;
                                             Пост
                                         </button>
@@ -78,7 +78,7 @@
                                     <div class="post__copy-link-button">
                                         <span class="success-copy success-copy_hidden"></span>
                                         <button class="button button_copy" data-post-link="<?php echo "http://{$_ENV['SERVER']}/post?link={$post->postLink()}"; ?>" title="Копировать ссылку">
-                                            <img class="copy__img" src="/img/copy.png">
+                                            <img class="copy__img" src="/img/copy_white.png">
                                             &nbsp;
                                             Ссылка
                                         </button>
@@ -98,7 +98,7 @@
                                     <div class="post__copy-button">
                                         <span class="success-copy success-copy_hidden"></span>
                                         <button class="button button_copy" title="Копировать пост">
-                                            <img class="copy__img" src="/img/copy.png">
+                                            <img class="copy__img" src="/img/copy_white.png">
                                             &nbsp;
                                             Пост
                                         </button>
@@ -106,7 +106,7 @@
                                     <div class="post__copy-link-button">
                                         <span class="success-copy success-copy_hidden"></span>
                                         <button class="button button_copy" data-post-link="<?php echo "http://{$_ENV['SERVER']}/post?link={$post->postLink()}"; ?>" title="Копировать ссылку">
-                                            <img class="copy__img" src="/img/copy.png">
+                                            <img class="copy__img" src="/img/copy_white.png">
                                             &nbsp;
                                             Ссылка
                                         </button>
