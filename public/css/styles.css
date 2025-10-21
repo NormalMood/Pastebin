@@ -1234,7 +1234,7 @@ main {
     grid-template-rows: auto auto;
     row-gap: 10px;
     align-items: center;
-    max-width: 390px;
+    max-width: 385px;
 }
 
 @media (min-width: 768px) {
@@ -1261,6 +1261,16 @@ main {
     display: flex;
     flex-direction: row;
     column-gap: 15px;
+}
+
+.post__actions-row > a {
+    display: flex;
+    align-items: center;
+}
+
+.post__actions-row > form {
+    display: flex;
+    align-items: center;
 }
 
 .post__copy-button {
