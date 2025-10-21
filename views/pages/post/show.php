@@ -70,10 +70,10 @@
                                 <span class="success-copy success-copy_hidden"></span>
                                 <button class="button">Копировать</button>
                             </div>
-                            <a href="/post/edit?link=<?php echo $post->postLink(); ?>"><img class="post__actions-img" src="/img/edit_post.png"></a>
+                            <a href="/post/edit?link=<?php echo $post->postLink(); ?>" title="Редактировать"><img class="post__actions-img" src="/img/edit_post.png"></a>
                             <form class="deletePostForm" action="/post/delete?link=<?php echo $post->postLink(); ?>" method="post">
                                 <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
-                                <input class="post__actions-img" type="image" src="/img/delete_post.png">
+                                <input class="post__actions-img" type="image" src="/img/delete_post.png" title="Удалить">
                             </form>
                         <?php } else { ?>
                             <div class="post__copy-button post__copy-button_span-3">
