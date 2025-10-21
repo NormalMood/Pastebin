@@ -108,6 +108,7 @@ use Pastebin\Mappers\PostVisibilityMapper;
                                     <th>Срок истекает</th>
                                     <th>Время жизни</th>
                                     <th>Синтаксис</th>
+                                    <th class="table__copy-button-column">Ссылка</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -119,6 +120,12 @@ use Pastebin\Mappers\PostVisibilityMapper;
                                             <td class="post__expires-at"><?php echo $post->expiresAt(); ?></td>
                                             <td><?php echo IntervalMapper::getExpiration($post->interval()->name()); ?></td>
                                             <td><?php echo $post->syntax()->name(); ?></td>
+                                            <td class="table__copy-button-column">
+                                                <div class="table__copy-button">
+                                                    <span class="success-copy success-copy_hidden"></span>
+                                                    <img class="copy__img_profile" src="/img/copy_black.png" title="Копировать ссылку" data-post-link="<?php echo "http://{$_ENV['SERVER']}/post?link={$post->postLink()}"; ?>">
+                                                </div>
+                                            </td>
                                         </tr>
                                     <?php } ?>
                                 <?php } ?>
