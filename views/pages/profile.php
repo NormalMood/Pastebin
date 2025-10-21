@@ -51,6 +51,7 @@ use Pastebin\Mappers\PostVisibilityMapper;
                                     <th>Время жизни</th>
                                     <th>Видимость</th>
                                     <th>Синтаксис</th>
+                                    <th class="table__copy-button-column">Ссылка</th>
                                     <th>Действие</th>
                                 </tr>
                             </thead>
@@ -63,6 +64,12 @@ use Pastebin\Mappers\PostVisibilityMapper;
                                         <td><?php echo IntervalMapper::getExpiration($post->interval()->name()); ?></td>
                                         <td><?php echo PostVisibilityMapper::getValue($post->postVisibility()->name()); ?></td>
                                         <td><?php echo $post->syntax()->name(); ?></td>
+                                        <td class="table__copy-button-column">
+                                            <div class="table__copy-button">
+                                                <span class="success-copy success-copy_hidden"></span>
+                                                <img class="copy__img_profile" src="/img/copy_black.png" title="Копировать ссылку" data-post-link="<?php echo "http://{$_ENV['SERVER']}/post?link={$post->postLink()}"; ?>">
+                                            </div>
+                                        </td>
                                         <td class="table__actions">
                                             <div class="post__actions post__actions-2-columns">
                                                 <a href="/post/edit?link=<?php echo $post->postLink(); ?>"><img class="post__actions-img" src="/img/edit_post.png"></a>

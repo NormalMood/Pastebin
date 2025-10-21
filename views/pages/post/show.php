@@ -67,7 +67,7 @@
                     <div class="post__actions">
                         <?php if (!empty($post->authorId()) && $post->authorId() === $session->get($auth->sessionField())) { ?>     
                             <div class="post__copy-button">
-                                <span class="post__success-copy post__success-copy_hidden"></span>
+                                <span class="success-copy success-copy_hidden"></span>
                                 <button class="button">Копировать</button>
                             </div>
                             <a href="/post/edit?link=<?php echo $post->postLink(); ?>"><img class="post__actions-img" src="/img/edit_post.png"></a>
@@ -77,7 +77,7 @@
                             </form>
                         <?php } else { ?>
                             <div class="post__copy-button post__copy-button_span-3">
-                                <span class="post__success-copy post__success-copy_hidden"></span>
+                                <span class="success-copy success-copy_hidden"></span>
                                 <button class="button">Копировать</button>
                             </div>
                         <?php } ?>

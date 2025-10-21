@@ -1247,20 +1247,24 @@ main {
     align-items: center;
 }
 
+.post__copy-button span {
+    margin-right: 12px;
+    margin-left: 5px;
+}
+
 .post__copy-button_span-3 {
     grid-column: span 3;
 }
 
-.post__success-copy {
+.success-copy {
     width: 12px;
     height: 20px;
     border: solid #518100;
     border-width: 0px 4px 4px 0px;
     transform: rotate(45deg);
-    margin-right: 12px;
 }
 
-.post__success-copy_hidden {
+.success-copy_hidden {
     display: none;
 }
 
@@ -1832,4 +1836,37 @@ main {
 
 .validation__message_margin-top {
     margin-top: -15px;
+}
+
+/* Copy content button */
+
+.copy__img {
+    width: 20px;
+    height: 20px;
+}
+
+.copy__img_profile {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+}
+
+/* Copy link button on Profile page */
+
+.table__copy-button-column {
+    width: 95px;
+    min-width: 95px;
+    text-align: center !important;
+}
+
+.table__copy-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.table__copy-button span {
+    margin-right: 12px;
+    margin-left: 5px;
 }
