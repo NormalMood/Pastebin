@@ -1195,7 +1195,7 @@ main {
     background-color: #F7F7F7;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1000px) {
     .post__metadata-above-post {
         flex-direction: row;
         justify-content: space-between;
@@ -1231,20 +1231,49 @@ main {
 
 .post__actions {
     display: grid;
-    grid-template-columns: auto 35px 35px;
-    column-gap: 15px;
+    grid-template-rows: auto auto;
+    row-gap: 10px;
     align-items: center;
-    max-width: 365px;
+    max-width: 390px;
+}
+
+@media (min-width: 768px) {
+    .post__actions {
+        grid-template-columns: auto auto;
+        column-gap: 15px;
+        row-gap: unset;
+    }
+}
+
+.post__actions_column-gap-unset {
+    column-gap: unset;
+}
+
+.post__actions_row-gap-unset {
+    row-gap: unset;
 }
 
 .post__actions-2-columns {
     grid-template-columns: 35px 35px;
 }
 
+.post__actions-row {
+    display: flex;
+    flex-direction: row;
+    column-gap: 15px;
+}
+
 .post__copy-button {
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .post__copy-button {
+        width: 135px;
+    }
 }
 
 .post__copy-button span {
@@ -1252,8 +1281,22 @@ main {
     margin-left: 5px;
 }
 
-.post__copy-button_span-3 {
-    grid-column: span 3;
+.post__copy-link-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .post__copy-link-button {
+        width: 135px;
+    }
+}
+
+.post__copy-link-button span {
+    margin-right: 12px;
+    margin-left: 5px;
 }
 
 .success-copy {
@@ -1269,8 +1312,8 @@ main {
 }
 
 .post__actions .button {
-    min-width: 120px;
-    max-width: 265px;
+    max-width: 100%;
+    min-width: unset;
 }
 
 .post__actions-img {
@@ -1849,6 +1892,14 @@ main {
     width: 35px;
     height: 35px;
     cursor: pointer;
+}
+
+.button_copy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 /* Copy link button on Profile page */

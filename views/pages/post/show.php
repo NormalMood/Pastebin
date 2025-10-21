@@ -64,24 +64,56 @@
                         </div>
                         <span class="post__metadata-tag"><?php echo $post->category()->name(); ?></span>
                     </div>
-                    <div class="post__actions">
                         <?php if (!empty($post->authorId()) && $post->authorId() === $session->get($auth->sessionField())) { ?>     
-                            <div class="post__copy-button">
-                                <span class="success-copy success-copy_hidden"></span>
-                                <button class="button">Копировать</button>
+                            <div class="post__actions">
+                                <div class="post__actions-row">
+                                    <div class="post__copy-button">
+                                        <span class="success-copy success-copy_hidden"></span>
+                                        <button class="button button_copy" title="Копировать пост">
+                                            <img class="copy__img" src="/img/copy.png">
+                                            &nbsp;
+                                            Пост
+                                        </button>
+                                    </div>
+                                    <div class="post__copy-link-button">
+                                        <span class="success-copy success-copy_hidden"></span>
+                                        <button class="button button_copy" data-post-link="<?php echo "http://{$_ENV['SERVER']}/post?link={$post->postLink()}"; ?>" title="Копировать ссылку">
+                                            <img class="copy__img" src="/img/copy.png">
+                                            &nbsp;
+                                            Ссылка
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="post__actions-row">
+                                    <a href="/post/edit?link=<?php echo $post->postLink(); ?>" title="Редактировать"><img class="post__actions-img" src="/img/edit_post.png"></a>
+                                    <form class="deletePostForm" action="/post/delete?link=<?php echo $post->postLink(); ?>" method="post">
+                                        <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
+                                        <input class="post__actions-img" type="image" src="/img/delete_post.png" title="Удалить">
+                                    </form>
+                                </div>
                             </div>
-                            <a href="/post/edit?link=<?php echo $post->postLink(); ?>" title="Редактировать"><img class="post__actions-img" src="/img/edit_post.png"></a>
-                            <form class="deletePostForm" action="/post/delete?link=<?php echo $post->postLink(); ?>" method="post">
-                                <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
-                                <input class="post__actions-img" type="image" src="/img/delete_post.png" title="Удалить">
-                            </form>
                         <?php } else { ?>
-                            <div class="post__copy-button post__copy-button_span-3">
-                                <span class="success-copy success-copy_hidden"></span>
-                                <button class="button">Копировать</button>
+                            <div class="post__actions post__actions_column-gap-unset post__actions_row-gap-unset">
+                                <div class="post__actions-row">
+                                    <div class="post__copy-button">
+                                        <span class="success-copy success-copy_hidden"></span>
+                                        <button class="button button_copy" title="Копировать пост">
+                                            <img class="copy__img" src="/img/copy.png">
+                                            &nbsp;
+                                            Пост
+                                        </button>
+                                    </div>
+                                    <div class="post__copy-link-button">
+                                        <span class="success-copy success-copy_hidden"></span>
+                                        <button class="button button_copy" data-post-link="<?php echo "http://{$_ENV['SERVER']}/post?link={$post->postLink()}"; ?>" title="Копировать ссылку">
+                                            <img class="copy__img" src="/img/copy.png">
+                                            &nbsp;
+                                            Ссылка
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         <?php } ?>
-                    </div>
                 </div>
                 <div id="post-content"></div>
             </div>

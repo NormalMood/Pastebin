@@ -1,5 +1,4 @@
 const showSuccessCopyElement = (successCopyElement) => {
-    console.log(successCopyElement)
     successCopyElement.classList.remove('success-copy_hidden');
     setTimeout(() => {
         successCopyElement.classList.add('success-copy_hidden');
@@ -45,11 +44,18 @@ const copyContent = (content, successCopyElement) => {
 const postSuccessCopyElement = document.querySelector('.post__copy-button span');
 const postCopyButton = document.querySelector('.post__copy-button button');
 
+const linkSuccessCopyElementPostPage = document.querySelector('.post__copy-link-button span');
+const linkCopyButtonPostPage = document.querySelector('.post__copy-link-button button');
+
 if ((postSuccessCopyElement) !== null && (postCopyButton !== null)) {
 
     const postText = document.getElementById('post-text');
     postCopyButton.addEventListener('click', () => {
         copyContent(postText.textContent, postSuccessCopyElement);
+    });
+
+    linkCopyButtonPostPage.addEventListener('click', () => {
+        copyContent(linkCopyButtonPostPage.getAttribute('data-post-link'), linkSuccessCopyElementPostPage);
     });
 }
 
