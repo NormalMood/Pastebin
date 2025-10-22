@@ -53,8 +53,8 @@ class MailSender implements MailSenderInterface
         $this->mailer->SMTPAuth = true;
         $this->mailer->Username = $_ENV['SMTP_USER'];
         $this->mailer->Password = $_ENV['SMTP_PASS'];
-        $this->mailer->setFrom(address: $_ENV['SMTP_USER'], name: 'Pastebin');
-        $this->mailer->addReplyTo($_ENV['SMTP_USER'], 'Reply-to');
+        $this->mailer->setFrom(address: $_ENV['SMTP_USER'], name: $_ENV['SMTP_USER']);
+        $this->mailer->addReplyTo(address: $_ENV['SMTP_USER'], name: 'Reply-to');
         $this->mailer->CharSet = PHPMailer::CHARSET_UTF8;
         $this->mailer->SMTPDebug = 3;
         $this->mailer->Debugoutput = '/var/log/mailer.log';
