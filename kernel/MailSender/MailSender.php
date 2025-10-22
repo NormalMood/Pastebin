@@ -38,6 +38,7 @@ class MailSender implements MailSenderInterface
             $this->mailer->AltBody = $altBody;
             return $this->mailer->send();
         } catch (\Exception $exception) {
+            echo "Mailer error: " . $this->mailer->ErrorInfo;
             return false;
         }
     }
@@ -55,5 +56,7 @@ class MailSender implements MailSenderInterface
         $this->mailer->setFrom(address: $_ENV['SMTP_USER'], name: 'Pastebin');
         $this->mailer->addReplyTo($_ENV['SMTP_USER'], 'Reply-to');
         $this->mailer->CharSet = PHPMailer::CHARSET_UTF8;
+        $this->mailer->SMTPDebug = 3;
+        $this->mailer->Debugoutput = '/etc/mailer.log';
     }
 }
