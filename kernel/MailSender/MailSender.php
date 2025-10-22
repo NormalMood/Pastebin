@@ -15,20 +15,25 @@ class MailSender implements MailSenderInterface
 
     public function sendText(string $address, string $text, string $subject = ''): bool
     {
+        $result = false;
         try {
             $this->mailer->isHTML(false);
             $this->mailer->clearAddresses();
             $this->mailer->addAddress($address);
             $this->mailer->Subject = $subject;
             $this->mailer->Body = $text;
-            return $this->mailer->send();
+            $result = $this->mailer->send();
         } catch (\Exception $exception) {
-            return false;
+            $msg = "<b>На сайте произошла ошибка. Содержимое письма продублировано ниже</b><br>$text";
+            echo $msg;
+            exit();
         }
+        return $result;
     }
 
     public function sendHtml(string $address, string $html, string $altBody, string $subject = ''): bool
     {
+        $result = false;
         try {
             $this->mailer->isHTML(true);
             $this->mailer->clearAddresses();
@@ -36,11 +41,13 @@ class MailSender implements MailSenderInterface
             $this->mailer->Subject = $subject;
             $this->mailer->Body = $html;
             $this->mailer->AltBody = $altBody;
-            return $this->mailer->send();
+            $result = $this->mailer->send();
         } catch (\Exception $exception) {
-            echo "Mailer error: " . $this->mailer->ErrorInfo;
-            return false;
+            $msg = "<b>На сайте произошла ошибка. Содержимое письма продублировано ниже</b><br>$html";
+            echo $msg;
+            exit();
         }
+        return $result;
     }
 
     private function initMailer(): void
@@ -49,7 +56,6 @@ class MailSender implements MailSenderInterface
         $this->mailer->isSMTP();
         $this->mailer->Host = $_ENV['SMTP_HOST'];
         $this->mailer->Port = $_ENV['SMTP_PORT'];
-        //$this->mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $this->mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $this->mailer->SMTPAuth = true;
         $this->mailer->Username = $_ENV['SMTP_USER'];
