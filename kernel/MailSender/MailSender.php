@@ -34,7 +34,8 @@ class MailSender implements MailSenderInterface
             $this->mailer->clearAddresses();
             $this->mailer->addAddress($address);
             $this->mailer->Subject = $subject;
-            $this->mailer->Body = $html;
+            //$this->mailer->Body = $html;
+            $this->mailer->msgHTML($html);
             $this->mailer->AltBody = $altBody;
             return $this->mailer->send();
         } catch (\Exception $exception) {
