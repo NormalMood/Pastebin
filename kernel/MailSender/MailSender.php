@@ -34,8 +34,7 @@ class MailSender implements MailSenderInterface
             $this->mailer->clearAddresses();
             $this->mailer->addAddress($address);
             $this->mailer->Subject = $subject;
-            //$this->mailer->Body = $html;
-            $this->mailer->msgHTML($html);
+            $this->mailer->Body = $html;
             $this->mailer->AltBody = $altBody;
             return $this->mailer->send();
         } catch (\Exception $exception) {
@@ -50,7 +49,8 @@ class MailSender implements MailSenderInterface
         $this->mailer->isSMTP();
         $this->mailer->Host = $_ENV['SMTP_HOST'];
         $this->mailer->Port = $_ENV['SMTP_PORT'];
-        $this->mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        //$this->mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $this->mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $this->mailer->SMTPAuth = true;
         $this->mailer->Username = $_ENV['SMTP_USER'];
         $this->mailer->Password = $_ENV['SMTP_PASS'];
