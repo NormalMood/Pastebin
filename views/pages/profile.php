@@ -105,40 +105,49 @@ use Pastebin\Mappers\PostVisibilityMapper;
                         <?php $view->component('message', ['type' => 'info', 'messages' => [$firstParagraph . $secondParagraph . $thirdParagraph]]); ?>
                     </div>
                 <?php } else { ?>
-                    <div class="table">
-                        <table>
-                            <caption>Посты</caption>
-                            <thead>
-                                <tr>
-                                    <th>Заголовок</th>
-                                    <th>Создан</th>
-                                    <th>Срок истекает</th>
-                                    <th>Время жизни</th>
-                                    <th>Синтаксис</th>
-                                    <th class="table__copy-button-column">Ссылка</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($posts as $post) { ?>
-                                    <?php if ($post->postVisibility()->id() !== UNLISTED_POST_VISIBILITY_ID) { ?>
-                                        <tr>
-                                            <td><a class="link" href="/post?link=<?php echo $post->postLink(); ?>"><?php echo (($post->title() !== null) && ($post->title() !== '')) ? htmlspecialchars($post->title()) : 'Без названия'; ?></a></td>
-                                            <td class="post__created-at"><?php echo $post->createdAt(); ?></td>
-                                            <td class="post__expires-at"><?php echo $post->expiresAt(); ?></td>
-                                            <td><?php echo IntervalMapper::getExpiration($post->interval()->name()); ?></td>
-                                            <td><?php echo $post->syntax()->name(); ?></td>
-                                            <td class="table__copy-button-column">
-                                                <div class="table__copy-button">
-                                                    <span class="success-copy success-copy_hidden"></span>
-                                                    <img class="copy__img_profile" src="/img/copy_black.png" title="Копировать ссылку" data-post-link="<?php echo "http://{$_ENV['SERVER']}/post?link={$post->postLink()}"; ?>">
-                                                </div>
-                                            </td>
-                                        </tr>
+                    <?php
+                        $publicPost = current(array_filter($posts, fn ($post) => $post->postVisibility()->id() !== UNLISTED_POST_VISIBILITY_ID));
+                    ?>
+                    <?php if (empty($publicPost)) { ?>
+                        <div class="no-posts-message">
+                            <span>Публичных постов нет</span>
+                        </div>
+                    <?php } else { ?>
+                        <div class="table">
+                            <table>
+                                <caption>Посты</caption>
+                                <thead>
+                                    <tr>
+                                        <th>Заголовок</th>
+                                        <th>Создан</th>
+                                        <th>Срок истекает</th>
+                                        <th>Время жизни</th>
+                                        <th>Синтаксис</th>
+                                        <th class="table__copy-button-column">Ссылка</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($posts as $post) { ?>
+                                        <?php if ($post->postVisibility()->id() !== UNLISTED_POST_VISIBILITY_ID) { ?>
+                                            <tr>
+                                                <td><a class="link" href="/post?link=<?php echo $post->postLink(); ?>"><?php echo (($post->title() !== null) && ($post->title() !== '')) ? htmlspecialchars($post->title()) : 'Без названия'; ?></a></td>
+                                                <td class="post__created-at"><?php echo $post->createdAt(); ?></td>
+                                                <td class="post__expires-at"><?php echo $post->expiresAt(); ?></td>
+                                                <td><?php echo IntervalMapper::getExpiration($post->interval()->name()); ?></td>
+                                                <td><?php echo $post->syntax()->name(); ?></td>
+                                                <td class="table__copy-button-column">
+                                                    <div class="table__copy-button">
+                                                        <span class="success-copy success-copy_hidden"></span>
+                                                        <img class="copy__img_profile" src="/img/copy_black.png" title="Копировать ссылку" data-post-link="<?php echo "http://{$_ENV['SERVER']}/post?link={$post->postLink()}"; ?>">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
                                     <?php } ?>
-                                <?php } ?>
-                            </tbody>
-                        </table>
-                    </div>
+                                </tbody>
+                            </table>
+                        </div>
+                    <?php } ?>
                 <?php } ?>
             <?php } ?>
         <?php } else { ?>
