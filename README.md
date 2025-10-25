@@ -86,12 +86,53 @@
 
 
 ### Desktop
-![Создание поста](./images/ui/desktop/1.jpg)
-![Страница поста](./images/ui/desktop/2.jpg)
-![Вход](./images/ui/desktop/3.jpg)
-![Настройки (Загрузка фото)](./images/ui/desktop/4.jpg)
-![Настройки (Смена пароля)](./images/ui/desktop/5.jpg)
-![Профиль](./images/ui/desktop/6.jpg)
+<table>
+    <tr>
+        <td>
+            <img src="./images/ui/desktop/1.jpg" alt="Создание поста" />
+        </td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td>
+            <img src="./images/ui/desktop/2.jpg" alt="Страница поста" />
+        </td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td>
+            <img src="./images/ui/desktop/3.jpg" alt="Вход" />
+        </td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td>
+            <img src="./images/ui/desktop/4.jpg" alt="Настройки (Загрузка фото)" />
+        </td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td>
+            <img src="./images/ui/desktop/5.jpg" alt="Настройки (Смена пароля)" />
+        </td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td>
+            <img src="./images/ui/desktop/6.jpg" alt="Профиль" />
+        </td>
+    </tr>
+</table>
 
 ## Архитектура
 ![Архитектура проекта](./images/design.jpg)
