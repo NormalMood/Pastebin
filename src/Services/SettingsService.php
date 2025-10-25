@@ -109,7 +109,11 @@ class SettingsService
     {
         $user = $this->database->first('users', ['user_id' => $userId]);
         if (hash_equals($user['password'], Hash::get($password))) {
+            $userPosts = $this->database->get('posts', ['user_id' => $userId]);
             $this->database->delete('posts', ['user_id' => $userId]);
+            foreach ($userPosts as $userPost) {
+                $this->storage->deletePost($userPost['post_blob_link']);
+            }
             $this->auth->logout();
             $this->database->delete('users', ['user_id' => $userId]);
             return true;
