@@ -12,15 +12,78 @@
 
 ## Интерфейс
 ### Mobile
-<img src="./images/ui/mobile/1.jpg" width="250" alt="Создание поста" style="border:1px solid black;" />
-<img src="./images/ui/mobile/2.jpg" width="250" alt="Страница поста" style="border:1px solid black;" />
-<img src="./images/ui/mobile/3.jpg" width="250" alt="Регистрация" style="border:1px solid black;" />
-<img src="./images/ui/mobile/4.jpg" width="250" alt="Получение ссылки активации аккаунта" style="border:1px solid black;" />
-<img src="./images/ui/mobile/5.jpg" width="250" alt="Настройки" style="border:1px solid black;" />
-<img src="./images/ui/mobile/6.jpg" width="250" alt="Настройки (Загрузка фото)" style="border:1px solid black;" />
-<img src="./images/ui/mobile/7.jpg" width="250" alt="Настройки (Смена пароля)" style="border:1px solid black;" />
-<img src="./images/ui/mobile/8.jpg" width="250" alt="Меню-бургер" style="border:1px solid black;" />
-<img src="./images/ui/mobile/9.jpg" width="250" alt="Профиль" style="border:1px solid black;" />
+<table>
+    <tr>
+        <td>
+            <img src="./images/ui/mobile/1.jpg" width="250" alt="Создание поста" />
+        </td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td>
+            <img src="./images/ui/mobile/2.jpg" width="250" alt="Страница поста" />
+        </td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td>
+            <img src="./images/ui/mobile/3.jpg" width="250" alt="Регистрация" />
+        </td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td>
+            <img src="./images/ui/mobile/4.jpg" width="250" alt="Получение ссылки активации аккаунта" />
+        </td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td>
+            <img src="./images/ui/mobile/5.jpg" width="250" alt="Настройки" />
+        </td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td>
+            <img src="./images/ui/mobile/6.jpg" width="250" alt="Настройки (Загрузка фото)" />
+        </td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td>
+            <img src="./images/ui/mobile/7.jpg" width="250" alt="Настройки (Смена пароля)" />
+        </td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td>
+            <img src="./images/ui/mobile/8.jpg" width="250" alt="Меню-бургер" />
+        </td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td>
+            <img src="./images/ui/mobile/9.jpg" width="250" alt="Профиль" />
+        </td>
+    </tr>
+</table>
+
 
 ### Desktop
 ![Создание поста](./images/ui/desktop/1.jpg)
