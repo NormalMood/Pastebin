@@ -7,20 +7,21 @@
 * Пользователь может отправить ссылку на блок текста или свой профиль другому человеку
 
 ## Сайт
-[Главная страница](http://188.225.78.31/)
+[Главная страница](http://188.225.78.31/)<br>
 [Мой профиль](http://188.225.78.31/profile?u=Almaz)
 
 ## Интерфейс
 ### Mobile
-![Создание поста](./images/ui/mobile/1.jpg)
-![Страница поста](./images/ui/mobile/2.jpg)
-![Регистрация](./images/ui/mobile/3.jpg)
-![Получение ссылки активации аккаунта](./images/ui/mobile/4.jpg)
-![Настройки](./images/ui/mobile/5.jpg)
-![Настройки (Загрузка фото)](./images/ui/mobile/6.jpg)
-![Настройки (Смена пароля)](./images/ui/mobile/7.jpg)
-![Меню-бургер](./images/ui/mobile/8.jpg)
-![Профиль](./images/ui/mobile/9.jpg)
+<img src="./images/ui/mobile/1.jpg" width="250" alt="Создание поста" />
+<img src="./images/ui/mobile/2.jpg" width="250" alt="Страница поста" />
+<img src="./images/ui/mobile/3.jpg" width="250" alt="Регистрация" />
+<img src="./images/ui/mobile/4.jpg" width="250" alt="Получение ссылки активации аккаунта" />
+<img src="./images/ui/mobile/5.jpg" width="250" alt="Настройки" />
+<img src="./images/ui/mobile/6.jpg" width="250" alt="Настройки (Загрузка фото)" />
+<img src="./images/ui/mobile/7.jpg" width="250" alt="Настройки (Смена пароля)" />
+<img src="./images/ui/mobile/8.jpg" width="250" alt="Меню-бургер" />
+<img src="./images/ui/mobile/9.jpg" width="250" alt="Профиль" />
+
 ### Desktop
 ![Создание поста](./images/ui/desktop/1.jpg)
 ![Страница поста](./images/ui/desktop/2.jpg)
@@ -70,6 +71,6 @@
 * Популярные посты будут кешироваться в Redis
 
 ## Контакты автора
-Email - almaz.mukhamadyev2017@yandex.ru
-Телефон - 89922118918
+Email - almaz.mukhamadyev2017@yandex.ru<br>
+Телефон - 89922118918<br>
 Телеграм - @mukhamadyev
