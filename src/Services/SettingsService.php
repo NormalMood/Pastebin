@@ -115,6 +115,10 @@ class SettingsService
                 $this->storage->deletePost($userPost['post_blob_link']);
             }
             $this->auth->logout();
+            if (!empty($user['picture_blob_link'])) {
+                $pictureName = $this->extractPictureName($user['picture_blob_link']);
+                $this->storage->deletePicture($pictureName);
+            }
             $this->database->delete('users', ['user_id' => $userId]);
             return true;
         } else {
@@ -130,5 +134,11 @@ class SettingsService
     {
         $now = new DateTime('now', new DateTimeZone('UTC'));
         return Token::random() . "_{$now->format('d-m-Y_H-i-s')}" . ".{$picture->getExtension()}";
+    }
+
+    private function extractPictureName(string $pictureBlobLink): string
+    {
+        $parts = explode('/', $pictureBlobLink);
+        return $parts[count($parts) - 1];
     }
 }

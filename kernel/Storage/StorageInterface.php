@@ -8,6 +8,8 @@ interface StorageInterface
 {
     public function uploadPicture(UploadedFileInterface $picture, string $pictureName): string|false;
 
+    public function deletePicture(string $pictureName): bool;
+
     public function uploadPost(string $text, string $postBlobLink): bool;
 
     public function getPost(string $postBlobLink): string;

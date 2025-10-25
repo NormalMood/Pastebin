@@ -42,6 +42,19 @@ class Storage implements StorageInterface
         }
     }
 
+    public function deletePicture(string $pictureName): bool
+    {
+        try {
+            $this->s3->deleteObject([
+                'Bucket' => $this->picturesBucket,
+                'Key' => $pictureName
+            ]);
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
     public function uploadPost(string $text, string $postBlobLink): bool
     {
         try {
