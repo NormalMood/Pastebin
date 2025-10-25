@@ -12,15 +12,15 @@
 
 ## Интерфейс
 ### Mobile
-<img src="./images/ui/mobile/1.jpg" width="250" alt="Создание поста" />
-<img src="./images/ui/mobile/2.jpg" width="250" alt="Страница поста" />
-<img src="./images/ui/mobile/3.jpg" width="250" alt="Регистрация" />
-<img src="./images/ui/mobile/4.jpg" width="250" alt="Получение ссылки активации аккаунта" />
-<img src="./images/ui/mobile/5.jpg" width="250" alt="Настройки" />
-<img src="./images/ui/mobile/6.jpg" width="250" alt="Настройки (Загрузка фото)" />
-<img src="./images/ui/mobile/7.jpg" width="250" alt="Настройки (Смена пароля)" />
-<img src="./images/ui/mobile/8.jpg" width="250" alt="Меню-бургер" />
-<img src="./images/ui/mobile/9.jpg" width="250" alt="Профиль" />
+<img src="./images/ui/mobile/1.jpg" width="250" alt="Создание поста" style="border:1px solid black;" />
+<img src="./images/ui/mobile/2.jpg" width="250" alt="Страница поста" style="border:1px solid black;" />
+<img src="./images/ui/mobile/3.jpg" width="250" alt="Регистрация" style="border:1px solid black;" />
+<img src="./images/ui/mobile/4.jpg" width="250" alt="Получение ссылки активации аккаунта" style="border:1px solid black;" />
+<img src="./images/ui/mobile/5.jpg" width="250" alt="Настройки" style="border:1px solid black;" />
+<img src="./images/ui/mobile/6.jpg" width="250" alt="Настройки (Загрузка фото)" style="border:1px solid black;" />
+<img src="./images/ui/mobile/7.jpg" width="250" alt="Настройки (Смена пароля)" style="border:1px solid black;" />
+<img src="./images/ui/mobile/8.jpg" width="250" alt="Меню-бургер" style="border:1px solid black;" />
+<img src="./images/ui/mobile/9.jpg" width="250" alt="Профиль" style="border:1px solid black;" />
 
 ### Desktop
 ![Создание поста](./images/ui/desktop/1.jpg)
